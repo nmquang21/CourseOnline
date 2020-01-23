@@ -1,0 +1,162 @@
+.wishlist_table .add_to_cart,
+a.add_to_wishlist.button.alt {
+    border-radius: 16px;
+    -moz-border-radius: 16px;
+    -webkit-border-radius: 16px;
+}
+img.wp-smiley,
+img.emoji {
+    display: inline !important;
+    border: none !important;
+    box-shadow: none !important;
+    height: 1em !important;
+    width: 1em !important;
+    margin: 0 .07em !important;
+    vertical-align: -0.1em !important;
+    background: none !important;
+    padding: 0 !important;
+}
+.tp-caption a {
+    color: #ff7302;
+    text-shadow: none;
+    -webkit-transition: all 0.2s ease-out;
+    -moz-transition: all 0.2s ease-out;
+    -o-transition: all 0.2s ease-out;
+    -ms-transition: all 0.2s ease-out;
+    line-height: 20px
+}
+
+.tp-caption a:hover {
+    color: #ffa902
+}
+
+.tp-caption a {
+    color: #ff7302;
+    text-shadow: none;
+    -webkit-transition: all 0.2s ease-out;
+    -moz-transition: all 0.2s ease-out;
+    -o-transition: all 0.2s ease-out;
+    -ms-transition: all 0.2s ease-out
+}
+
+.tp-caption a:hover {
+    color: #ffa902
+}
+
+.tp-caption a {
+    color: #ff7302;
+    text-shadow: none;
+    -webkit-transition: all 0.2s ease-out;
+    -moz-transition: all 0.2s ease-out;
+    -o-transition: all 0.2s ease-out;
+    -ms-transition: all 0.2s ease-out
+}
+
+.tp-caption a:hover {
+    color: #ffa902
+}
+
+.largeredbtn {
+    font-family: "Raleway", sans-serif;
+    font-weight: 900;
+    font-size: 16px;
+    line-height: 60px;
+    color: #fff !important;
+    text-decoration: none;
+    padding-left: 40px;
+    padding-right: 80px;
+    padding-top: 22px;
+    padding-bottom: 22px;
+    background: rgb(234, 91, 31);
+    background: -moz-linear-gradient(top, rgba(234, 91, 31, 1) 0%, rgba(227, 58, 12, 1) 100%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, rgba(234, 91, 31, 1)), color-stop(100%, rgba(227, 58, 12, 1)));
+    background: -webkit-linear-gradient(top, rgba(234, 91, 31, 1) 0%, rgba(227, 58, 12, 1) 100%);
+    background: -o-linear-gradient(top, rgba(234, 91, 31, 1) 0%, rgba(227, 58, 12, 1) 100%);
+    background: -ms-linear-gradient(top, rgba(234, 91, 31, 1) 0%, rgba(227, 58, 12, 1) 100%);
+    background: linear-gradient(to bottom, rgba(234, 91, 31, 1) 0%, rgba(227, 58, 12, 1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ea5b1f', endColorstr='#e33a0c', GradientType=0)
+}
+
+.largeredbtn:hover {
+    background: rgb(227, 58, 12);
+    background: -moz-linear-gradient(top, rgba(227, 58, 12, 1) 0%, rgba(234, 91, 31, 1) 100%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, rgba(227, 58, 12, 1)), color-stop(100%, rgba(234, 91, 31, 1)));
+    background: -webkit-linear-gradient(top, rgba(227, 58, 12, 1) 0%, rgba(234, 91, 31, 1) 100%);
+    background: -o-linear-gradient(top, rgba(227, 58, 12, 1) 0%, rgba(234, 91, 31, 1) 100%);
+    background: -ms-linear-gradient(top, rgba(227, 58, 12, 1) 0%, rgba(234, 91, 31, 1) 100%);
+    background: linear-gradient(to bottom, rgba(227, 58, 12, 1) 0%, rgba(234, 91, 31, 1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e33a0c', endColorstr='#ea5b1f', GradientType=0)
+}
+
+.fullrounded img {
+    -webkit-border-radius: 400px;
+    -moz-border-radius: 400px;
+    border-radius: 400px
+}
+
+.tp-caption a {
+    color: #ff7302;
+    text-shadow: none;
+    -webkit-transition: all 0.2s ease-out;
+    -moz-transition: all 0.2s ease-out;
+    -o-transition: all 0.2s ease-out;
+    -ms-transition: all 0.2s ease-out
+}
+
+.tp-caption a:hover {
+    color: #ffa902
+}
+
+.largeredbtn {
+    font-family: "Raleway", sans-serif;
+    font-weight: 900;
+    font-size: 16px;
+    line-height: 60px;
+    color: #fff !important;
+    text-decoration: none;
+    padding-left: 40px;
+    padding-right: 80px;
+    padding-top: 22px;
+    padding-bottom: 22px;
+    background: rgb(234, 91, 31);
+    background: -moz-linear-gradient(top, rgba(234, 91, 31, 1) 0%, rgba(227, 58, 12, 1) 100%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, rgba(234, 91, 31, 1)), color-stop(100%, rgba(227, 58, 12, 1)));
+    background: -webkit-linear-gradient(top, rgba(234, 91, 31, 1) 0%, rgba(227, 58, 12, 1) 100%);
+    background: -o-linear-gradient(top, rgba(234, 91, 31, 1) 0%, rgba(227, 58, 12, 1) 100%);
+    background: -ms-linear-gradient(top, rgba(234, 91, 31, 1) 0%, rgba(227, 58, 12, 1) 100%);
+    background: linear-gradient(to bottom, rgba(234, 91, 31, 1) 0%, rgba(227, 58, 12, 1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ea5b1f', endColorstr='#e33a0c', GradientType=0)
+}
+
+.largeredbtn:hover {
+    background: rgb(227, 58, 12);
+    background: -moz-linear-gradient(top, rgba(227, 58, 12, 1) 0%, rgba(234, 91, 31, 1) 100%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, rgba(227, 58, 12, 1)), color-stop(100%, rgba(234, 91, 31, 1)));
+    background: -webkit-linear-gradient(top, rgba(227, 58, 12, 1) 0%, rgba(234, 91, 31, 1) 100%);
+    background: -o-linear-gradient(top, rgba(227, 58, 12, 1) 0%, rgba(234, 91, 31, 1) 100%);
+    background: -ms-linear-gradient(top, rgba(227, 58, 12, 1) 0%, rgba(234, 91, 31, 1) 100%);
+    background: linear-gradient(to bottom, rgba(227, 58, 12, 1) 0%, rgba(234, 91, 31, 1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e33a0c', endColorstr='#ea5b1f', GradientType=0)
+}
+
+.fullrounded img {
+    -webkit-border-radius: 400px;
+    -moz-border-radius: 400px;
+    border-radius: 400px
+}
+#logo h2 a {
+    color: #;
+}
+
+.page-id-569 .main-title-section-wrapper {
+    margin: 0px;
+}
+
+.page-id-1521 .main-title-section-wrapper {
+    margin: 0px;
+}
+.recentcomments a {
+                    display: inline !important;
+                    padding: 0 !important;
+                    margin: 0 !important;
+                }
