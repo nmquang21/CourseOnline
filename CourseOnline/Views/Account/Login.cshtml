@@ -1,17 +1,15 @@
 ﻿@using CourseOnline.Models
 @model LoginViewModel
 @{
-    ViewBag.Title = "Log in";
+    ViewBag.Title = "User";
 }
 
-<h2>@ViewBag.Title.</h2>
-<div class="row">
+@*<div class="row">
     <div class="col-md-8">
         <section id="loginForm">
             @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
             {
                 @Html.AntiForgeryToken()
-                <h4>Use a local account to log in.</h4>
                 <hr />
                 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                 <div class="form-group">
@@ -43,20 +41,109 @@
                 </div>
                 <p>
                     @Html.ActionLink("Register as a new user", "Register")
-                </p>
-                @* Enable this once you have account confirmation enabled for password reset functionality
+                </p>*@
+@* Enable this once you have account confirmation enabled for password reset functionality
+    <p>
+        @Html.ActionLink("Forgot your password?", "ForgotPassword")
+    </p>*@
+@*}
+            </section>
+        </div>
+        <div class="col-md-4">
+            <section id="socialLoginForm">
+                @Html.Partial("_ExternalLoginsListPartial", new ExternalLoginListViewModel { ReturnUrl = ViewBag.ReturnUrl })
+            </section>
+        </div>
+    </div>*@
+
+<div class="main">
+    <section class="main-title-section-wrapper">
+        <div class="container">
+            <div class="main-title-section">
+                <h1>Login</h1><div class="breadcrumb">
+                    <a href="https://lmstheme.wpengine.com">Home</a><span class="fa default">  </span><span class="current">Login</span>
+                </div><!-- ** breadcrumb - End -->
+            </div>		<div class="header-search">
+                <form method="get" id="searchform" class="searchform" action="https://lmstheme.wpengine.com/">
+                    <input id="s" name="s" type="text" value="" class="text_input" placeholder="Search">
+                    <input type="hidden" name="search-type" value="default">
+                    <input type="submit" value="">
+                </form>
+            </div>
+        </div>
+    </section>
+    <div class="container">
+
+        <!-- ** Primary Section ** -->
+        <section id="primary" class="content-full-width">
+            <!-- Login Module -->
+            <!-- Login Form -->
+            <div class="column dt-sc-one-half first">
+
+                <div class="dt-sc-border-title"> <h2><span>Login Form</span> </h2></div>
+
+                <p> <strong>Already a Member? Log in here.</strong> </p>
+
+                <form name="loginform" id="loginform" action="https://lmstheme.wpengine.com/wp-login.php?wpe-login=true" method="post">
+
+                    <p class="login-username">
+                        <label for="user_login">Username or Email Address</label>
+                        <input type="text" name="log" id="user_login" class="input" value="" size="20">
+                    </p>
+                    <p class="login-password">
+                        <label for="user_pass">Password</label>
+                        <input type="password" name="pwd" id="user_pass" class="input" value="" size="20">
+                    </p>
+
+                    <p class="login-remember"><label><input name="rememberme" type="checkbox" id="rememberme" value="forever"> Remember Me</label></p>
+                    <p class="login-submit">
+                        <input type="submit" name="wp-submit" id="wp-submit" class="button button-primary" value="Log In">
+                        <input type="hidden" name="redirect_to" value="https://lmstheme.wpengine.com">
+                    </p>
+
+                </form>                    <p class="tpl-forget-pwd"><a href="https://lmstheme.wpengine.com/wp-login.php?action=lostpassword&amp;redirect_to=https%3A%2F%2Flmstheme.wpengine.com">Lost your password ?</a></p>
+
+            </div><!-- Login Form End -->
+            <!-- Registration Form -->
+            <div class="column dt-sc-one-half">
+                <div class="dt-sc-border-title"> <h2><span>Register Form</span> </h2></div>
+
+                <p> <strong>Do not have an account? Register here</strong> </p>
+
+                <form name="loginform" id="loginform" action="https://lmstheme.wpengine.com/wp-login.php?action=register" method="post">
                     <p>
-                        @Html.ActionLink("Forgot your password?", "ForgotPassword")
-                    </p>*@
-            }
-        </section>
-    </div>
-    <div class="col-md-4">
-        <section id="socialLoginForm">
-            @Html.Partial("_ExternalLoginsListPartial", new ExternalLoginListViewModel { ReturnUrl = ViewBag.ReturnUrl })
+                        <label>Username<span class="required"> * </span> </label>
+                        <input type="text" name="user_login" class="input" value="" size="20" required="required">
+                    </p>
+                    <p>
+                        <label>Email Id<span class="required"> * </span> </label>
+                        <input type="email" name="user_email" class="input" value="" size="20" required="required">
+                    </p>
+                    <p>
+                        <label>Role<span class="required"> * </span> </label>
+                        <div class="selection-box">
+                            <select name="role" id="role">
+                                <option value="subscriber">Subscriber</option>
+                                <option value="teacher">Teacher</option>
+                                <option value="s2member_level1">Student</option>
+                            </select>
+                        </div>
+                    </p>
+                    <p class="submit alignleft"><input type="submit" class="button-primary" value="Register"></p>
+                </form>
+            </div><!-- Registration Form End -->
+            <div class="clear"></div>
+
+            <div class="dt-sc-social-logins-container"><div class="dt-sc-hr-invisible"></div><div class="dt-sc-social-logins-divider">Or</div><div class="dt-sc-hr-invisible"></div><a href="https://www.facebook.com/v2.10/dialog/oauth?client_id=1086935181393068&amp;state=df68e5a374b1af800c05dc83eeaa1775&amp;response_type=code&amp;sdk=php-sdk-5.4.0&amp;redirect_uri=https%3A%2F%2Flmstheme.wpengine.com%2Fwp-login.php%3FdtLMSFacebookLogin%3D1&amp;scope=email" class="dt-sc-social-facebook-connect"><i class="fa fa-facebook"></i>Connect With Facebook</a><div class="dt-sc-hr-invisible"></div><a href="https://lmstheme.wpengine.com/wp-login.php?dtLMSGoogleLogin=1" class="dt-sc-social-googleplus-connect"><i class="fa fa-google-plus"></i>Connect With Google +</a><div class="dt-sc-hr-invisible"></div></div>
+            <!-- Login Module End-->
+            <div id="post-4706" class="post-4706 page type-page status-publish hentry">
+                <div class="social-bookmark"></div><div class="social-share"></div>
+            </div>
+
         </section>
     </div>
 </div>
+
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
