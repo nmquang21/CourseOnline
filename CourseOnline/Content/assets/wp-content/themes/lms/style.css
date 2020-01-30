@@ -656,7 +656,7 @@ th {
     font-size: 14px;
     line-height: normal;
     font-weight: 600;
-    text-transform: uppercase;
+    /*text-transform: uppercase;*/
     text-align: center;
 }
 

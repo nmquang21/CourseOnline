@@ -22,9 +22,22 @@ namespace CourseOnline
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
                       "~/Scripts/bootstrap.js"));
 
-            bundles.Add(new StyleBundle("~/Content/css").Include(
-                      "~/Content/bootstrap.css",
-                      "~/Content/site.css"));
+            bundles.Add(new ScriptBundle("~/bundles/js").Include(
+                "~/Content/vendor/jquery/jquery.min.js",
+                "~/Content/vendor/jquery.cookie/jquery.cookie.js",
+                "~/Content/vendor/bootstrap/js/bootstrap.min.js",
+                "~/Content/vendor/popper.js/umd/popper.min.js",
+                "~/Content/vendor/chart.js/Chart.min.js",
+                "~/Content/js/charts-home.js",
+                "~/Content/js/front.js"
+            ));
+
+            bundles.Add(new StyleBundle("~/bundles/css").Include(
+                "~/Content/vendor/bootstrap/css/bootstrap.min.css",
+                "~/Content/css/orionicons.css",
+                "~/Content/css/style.default.css",
+                "~/Content/css/custom.css"
+            ));
         }
     }
 }
