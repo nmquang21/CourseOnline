@@ -1,19 +1,19 @@
 ﻿
 @{
     ViewBag.Title = "Cart";
+    Layout = "~/Views/Shared/_LayoutHome.cshtml";
 }
 
 <div id="main">
-
-    <!-- Slider Section -->
-    <!-- Sub Title Section -->
-    <!-- ** Breadcrumb Section ** --><section class="main-title-section-wrapper">
+    <section class="main-title-section-wrapper">
         <div class="container">
             <div class="main-title-section">
-                <h1>Cart</h1><div class="breadcrumb">
+                <h1>Cart</h1>
+                <div class="breadcrumb">
                     <a href="https://lmstheme.wpengine.com">Home</a><span class="fa default">  </span><span class="current">Cart</span>
-                </div><!-- ** breadcrumb - End -->
-            </div>		<div class="header-search">
+                </div>
+            </div>
+            <div class="header-search">
                 <form method="get" id="searchform" class="searchform" action="https://lmstheme.wpengine.com/">
                     <input id="s" name="s" type="text" value="" class="text_input" placeholder="Search">
                     <input type="hidden" name="search-type" value="default">
@@ -21,17 +21,16 @@
                 </form>
             </div>
         </div>
-    </section><!-- ** Breadcrumb Section End ** -->        <!-- Sub Title Section -->
-    <!-- ** Container ** -->
+    </section>
+
     <div class="container">
-
-        <!-- ** Primary Section ** -->
         <section id="primary" class="content-full-width">
-
             @*Neu ko co item trong cart*@
-            <div id="post-1061" class="post-1061 page type-page status-publish hentry">
+
+            <div id="post-1061" class="post-1061 page type-page status-publish hentry no-item-cart">
                 <div class="woocommerce">
-                    <p class="cart-empty">Your cart is currently empty.</p>	<p class="return-to-shop">
+                    <p class="cart-empty">Your cart is currently empty.</p>
+                    <p class="return-to-shop">
                         <a class="button wc-backward" href="https://lmstheme.wpengine.com/shop/">
                             Return to shop
                         </a>
@@ -40,13 +39,12 @@
                 <div class="social-bookmark"></div><div class="social-share"></div>
             </div>
 
-            <!-- #post-1061 -->
-            <div id="post-1061" class="post-1061 page type-page status-publish hentry">
+            <div id="post-1061" class="post-1061 page type-page status-publish hentry items-cart">
                 <div class="woocommerce">
                     <p class="return-to-shop"><a class="button wc-backward" href="https://lmstheme.wpengine.com/shop/">Return To Shop</a></p>
                     <div class="dt-sc-hr-invisible-small"></div>
-                    <form class="woocommerce-cart-form" action="https://lmstheme.wpengine.com/cart/" method="post">
 
+                    <form class="woocommerce-cart-form" action="https://lmstheme.wpengine.com/cart/" method="post">
                         <table class="shop_table shop_table_responsive cart woocommerce-cart-form__contents" cellspacing="0">
                             <thead>
                                 <tr>
@@ -54,127 +52,37 @@
                                     <th class="product-thumbnail">&nbsp;</th>
                                     <th class="product-name">Product</th>
                                     <th class="product-price">Price</th>
-                                    <th class="product-quantity">Quantity</th>
-                                    <th class="product-subtotal">Total</th>
                                 </tr>
                             </thead>
-                            <tbody>
-
-                                <tr class="woocommerce-cart-form__cart-item cart_item">
-
-                                    <td class="product-remove">
-                                        <a href="https://lmstheme.wpengine.com/cart/?remove_item=0c048b3a434e49e655c1247efb389cec&amp;_wpnonce=fdeb0609d6" class="remove" aria-label="Remove this item" data-product_id="1158" data-product_sku="">×</a>
-                                    </td>
-
-                                    <td class="product-thumbnail"><a href="https://lmstheme.wpengine.com/product/information-architecture/"><img width="150" height="150" src="//lmstheme.wpengine.com/wp-content/uploads/2013/06/dark-book.jpg" class="attachment-woocommerce_thumbnail size-woocommerce_thumbnail wp-post-image" alt="" srcset="//lmstheme.wpengine.com/wp-content/uploads/2013/06/dark-book.jpg 1000w, //lmstheme.wpengine.com/wp-content/uploads/2013/06/dark-book-150x150.jpg 150w, //lmstheme.wpengine.com/wp-content/uploads/2013/06/dark-book-300x300.jpg 300w, //lmstheme.wpengine.com/wp-content/uploads/2013/06/dark-book-100x100.jpg 100w, //lmstheme.wpengine.com/wp-content/uploads/2013/06/dark-book-95x95.jpg 95w, //lmstheme.wpengine.com/wp-content/uploads/2013/06/dark-book-600x600.jpg 600w" sizes="(max-width: 150px) 100vw, 150px"></a></td>
-
-                                    <td class="product-name" data-title="Product"><a href="https://lmstheme.wpengine.com/product/information-architecture/">Information Architecture</a></td>
-
-                                    <td class="product-price" data-title="Price">
-                                        <span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">£</span>9.00</span>
-                                    </td>
-
-                                    <td class="product-quantity" data-title="Quantity">
-                                        <div class="quantity">
-                                            <label class="screen-reader-text" for="quantity_5e29815f45d13">Quantity</label>
-                                            <input type="number" id="quantity_5e29815f45d13" class="input-text qty text" step="1" min="0" max="" name="cart[0c048b3a434e49e655c1247efb389cec][qty]" value="1" title="Qty" size="4" pattern="[0-9]*" inputmode="numeric" aria-labelledby="Information Architecture quantity">
-                                        </div>
-                                    </td>
-
-                                    <td class="product-subtotal" data-title="Total">
-                                        <span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">£</span>9.00</span>
-                                    </td>
-                                </tr>
-                                <tr class="woocommerce-cart-form__cart-item cart_item">
-
-                                    <td class="product-remove">
-                                        <a href="https://lmstheme.wpengine.com/cart/?remove_item=e22312179bf43e61576081a2f250f845&amp;_wpnonce=fdeb0609d6" class="remove" aria-label="Remove this item" data-product_id="1156" data-product_sku="">×</a>
-                                    </td>
-
-                                    <td class="product-thumbnail"><a href="https://lmstheme.wpengine.com/product/business-intelligence/"><img width="150" height="150" src="//lmstheme.wpengine.com/wp-content/uploads/2013/06/cover2.jpg" class="attachment-woocommerce_thumbnail size-woocommerce_thumbnail wp-post-image" alt="" srcset="//lmstheme.wpengine.com/wp-content/uploads/2013/06/cover2.jpg 1000w, //lmstheme.wpengine.com/wp-content/uploads/2013/06/cover2-150x150.jpg 150w, //lmstheme.wpengine.com/wp-content/uploads/2013/06/cover2-300x300.jpg 300w, //lmstheme.wpengine.com/wp-content/uploads/2013/06/cover2-100x100.jpg 100w, //lmstheme.wpengine.com/wp-content/uploads/2013/06/cover2-95x95.jpg 95w, //lmstheme.wpengine.com/wp-content/uploads/2013/06/cover2-600x600.jpg 600w" sizes="(max-width: 150px) 100vw, 150px"></a></td>
-
-                                    <td class="product-name" data-title="Product"><a href="https://lmstheme.wpengine.com/product/business-intelligence/">Business Intelligence</a></td>
-
-                                    <td class="product-price" data-title="Price">
-                                        <span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">£</span>9.00</span>
-                                    </td>
-
-                                    <td class="product-quantity" data-title="Quantity">
-                                        <div class="quantity">
-                                            <label class="screen-reader-text" for="quantity_5e29815f461f7">Quantity</label>
-                                            <input type="number" id="quantity_5e29815f461f7" class="input-text qty text" step="1" min="0" max="" name="cart[e22312179bf43e61576081a2f250f845][qty]" value="1" title="Qty" size="4" pattern="[0-9]*" inputmode="numeric" aria-labelledby="Business Intelligence quantity">
-                                        </div>
-                                    </td>
-
-                                    <td class="product-subtotal" data-title="Total">
-                                        <span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">£</span>9.00</span>
-                                    </td>
-                                </tr>
-
-
-                                <tr>
-                                    <td colspan="6" class="actions">
-
-                                        <div class="coupon">
-                                            <label for="coupon_code">Coupon:</label> <input type="text" name="coupon_code" class="input-text" id="coupon_code" value="" placeholder="Coupon code"> <input type="submit" class="button" name="apply_coupon" value="Apply coupon">
-                                        </div>
-
-                                        <button type="submit" class="button" name="update_cart" value="Update cart" disabled="">Update cart</button>
-
-
-                                        <input type="hidden" id="_wpnonce" name="_wpnonce" value="fdeb0609d6"><input type="hidden" name="_wp_http_referer" value="/cart/">
-                                    </td>
-                                </tr>
-
+                            <tbody class="show-cart-page">
                             </tbody>
                         </table>
                     </form>
 
                     <div class="cart-collaterals">
                         <div class="cart_totals ">
-
-
                             <h2>Cart totals</h2>
-
                             <table cellspacing="0" class="shop_table shop_table_responsive">
-
                                 <tbody>
                                     <tr class="cart-subtotal">
                                         <th>Subtotal</th>
-                                        <td data-title="Subtotal"><span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">£</span>18.00</span></td>
+                                        <td data-title="Subtotal"><span class="woocommerce-Price-amount amount total-cart-page"> $0.00</span></td>
                                     </tr>
-
-
-
-
-
-
                                     <tr class="order-total">
                                         <th>Total</th>
-                                        <td data-title="Total"><strong><span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">£</span>18.00</span></strong> </td>
+                                        <td data-title="Total"><strong><span class="woocommerce-Price-amount amount total-cart-page">$0.00</span></strong> </td>
                                     </tr>
-
-
                                 </tbody>
                             </table>
-
                             <div class="wc-proceed-to-checkout">
-
-                                <a href="https://lmstheme.wpengine.com/checkout/" class="checkout-button button alt wc-forward">
+                                <a href="/Home/Checkout" class="checkout-button button alt wc-forward">
                                     Proceed to checkout
                                 </a>
                             </div>
-
-
                         </div>
-
                         <div class="cross-sells">
-
                             <h2>You may be interested in…</h2>
-
                             <ul class="products columns-3">
-
-
                                 <li class="post-1147 product type-product status-publish has-post-thumbnail product_cat-posters pif-has-gallery first instock sale shipping-taxable purchasable product-type-simple">
                                     <!-- Prodcut Wrapper -->
                                     <div class="product-wrapper  on-sale-product  in-stock-product  product-three-column" style="height: 475px;">
@@ -197,14 +105,11 @@
                                                 <a href="/cart/?add-to-cart=1147" data-quantity="1" class="dt-sc-button button product_type_simple add_to_cart_button ajax_add_to_cart" data-product_id="1147" data-product_sku="" aria-label="Add “Application Developement” to your cart" rel="nofollow">Add to cart</a>
                                                 <div class="yith-wcwl-add-to-wishlist add-to-wishlist-1147">
                                                     <div class="yith-wcwl-add-button show" style="display: block">
-
-
                                                         <a href="/cart/?add_to_wishlist=1147" rel="nofollow" data-product-id="1147" data-product-type="simple" class="add_to_wishlist">
                                                             Add to Wishlist
                                                         </a>
                                                         <img src="https://lmstheme.wpengine.com/wp-content/plugins/yith-woocommerce-wishlist/assets/images/wpspin_light.gif" class="ajax-loading" alt="loading" width="16" height="16" style="visibility: hidden">
                                                     </div>
-
                                                     <div class="yith-wcwl-wishlistaddedbrowse hide" style="display: none;">
                                                         <span class="feedback">Product added!</span>
                                                         <a href="https://lmstheme.wpengine.com/wishlist/" rel="nofollow">
@@ -221,15 +126,12 @@
 
                                                     <div style="clear: both"></div>
                                                     <div class="yith-wcwl-wishlistaddresponse"></div>
-
                                                 </div>
-
                                                 <div class="clear"></div>
-                                            </div><!-- Product Details Hover -->
+                                            </div>
                                         </div>
-                                    </div> <!-- Product Wrapper End-->
+                                    </div>
                                 </li>
-
 
                                 <li class="post-1142 product type-product status-publish has-post-thumbnail product_cat-clothing product_cat-hoodies pif-has-gallery  instock shipping-taxable purchasable product-type-simple">
                                     <!-- Prodcut Wrapper -->
@@ -253,8 +155,6 @@
                                                 <a href="/cart/?add-to-cart=1142" data-quantity="1" class="dt-sc-button button product_type_simple add_to_cart_button ajax_add_to_cart" data-product_id="1142" data-product_sku="" aria-label="Add “Application Maintenance” to your cart" rel="nofollow">Add to cart</a>
                                                 <div class="yith-wcwl-add-to-wishlist add-to-wishlist-1142">
                                                     <div class="yith-wcwl-add-button show" style="display: block">
-
-
                                                         <a href="/cart/?add_to_wishlist=1142" rel="nofollow" data-product-id="1142" data-product-type="simple" class="add_to_wishlist">
                                                             Add to Wishlist
                                                         </a>
@@ -277,28 +177,21 @@
 
                                                     <div style="clear: both"></div>
                                                     <div class="yith-wcwl-wishlistaddresponse"></div>
-
                                                 </div>
-
                                                 <div class="clear"></div>
-                                            </div><!-- Product Details Hover -->
+                                            </div>
                                         </div>
-                                    </div> <!-- Product Wrapper End-->
+                                    </div>
                                 </li>
-
-
                             </ul>
-
                         </div>
-
                     </div>
-
                 </div>
                 <div class="social-bookmark"></div>
                 <div class="social-share"></div>
-            </div><!-- #post-1061 -->
-
-        </section><!-- ** Primary Section End ** -->
-    </div><!-- **Container - End** -->
+            </div>
+        </section>
+    </div>
 </div>
+
 

@@ -1,19 +1,20 @@
-﻿
+﻿@model CourseOnline.Models.Course
 @{
+    var course = Model;
     ViewBag.Title = "ProductDetail";
+    Layout = "~/Views/Shared/_LayoutHome.cshtml";
 }
 
 <!-- **Main** -->
 <div id="main">
-    <!-- Slider Section -->
-    <!-- Sub Title Section -->
-    <!-- ** Breadcrumb Section ** --><section class="main-title-section-wrapper">
+    <section class="main-title-section-wrapper">
         <div class="container">
             <div class="main-title-section">
                 <h1>Processing Digital Signal</h1><div class="breadcrumb">
                     <a href="https://lmstheme.wpengine.com">Home</a><span class='fa default'>  </span><span class='current'>Processing Digital Signal</span>
-                </div><!-- ** breadcrumb - End -->
-            </div>		<div class="header-search">
+                </div>
+            </div>		
+            <div class="header-search">
                 <form method="get" id="searchform" class="searchform" action="https://lmstheme.wpengine.com/">
                     <input id="s" name="s" type="text" value="" class="text_input" placeholder="Search" />
                     <input type="hidden" name="search-type" value="default" />
@@ -21,8 +22,8 @@
                 </form>
             </div>
         </div>
-    </section><!-- ** Breadcrumb Section End ** -->        <!-- Sub Title Section -->
-    <!-- ** Container ** -->
+    </section>
+
     <div class="container">
         <section id="primary" class="page-with-sidebar with-right-sidebar">
             <article id="post-4716" class="dt-sc-course-single post-4716 dt_courses type-dt_courses status-publish has-post-thumbnail hentry course_category-education">
@@ -31,7 +32,7 @@
                         <img src="https://lmstheme.wpengine.com/wp-content/uploads/2014/05/course9.jpg" alt="Processing Digital Signal" />
                     </div>
                     <div class="dt-sc-course-details-inner">
-                        <h3>Processing Digital Signal</h3>
+                        <h3>@(course.CourseName)</h3>
                         <div class="entry-metadata">
                             <div class="dt-sc-meta-container">
                                 <p><i class="fa fa-location-arrow"> </i> <a href="https://lmstheme.wpengine.com/coursecategory/education/" rel="tag">Education</a></p>
@@ -42,7 +43,14 @@
                                 <p><i class="fa fa-clock-o"> </i> 3 hours 30 mins</p>
                             </div>
                             <div class="dt-sc-status-container">
-                                <span class="dt-sc-purchased"><a href="https://lmstheme.wpengine.com/login/" target="_self">Free</a></span>
+                                <button href="" target="_self" class="dt-sc-button small filled">
+                                    <i class="fa fa-user"></i>
+                                    Become a member
+                                </button>
+                                <button href="" target="_self" class="dt-sc-button small filled add-to-cart" data-id="@(course.CourseId)" data-name="@(course.CourseName)" data-price="@(course.Price)" data-author="@(course.Author.AuthorName)" data-image="@(course.Image)">
+                                    <i class="fa fa-shopping-cart"></i>
+                                    Add to cart
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -284,7 +292,7 @@
                         </li>
                     </ul>
                 </div>
-            </aside>			
+            </aside>
             <aside id="woocommerce_product_search-2" class="widget woocommerce widget_product_search">
                 <h3 class="widgettitle">Search Products<span></span></h3><form role="search" method="get" class="woocommerce-product-search" action="https://lmstheme.wpengine.com/">
                     <label class="screen-reader-text" for="woocommerce-product-search-field-0">Search for:</label>
@@ -296,7 +304,8 @@
             <aside id="woocommerce_widget_cart-2" class="widget woocommerce widget_shopping_cart">
                 <h3 class="widgettitle">Cart<span></span></h3>
                 <div class="hide_cart_widget_if_empty">
-                    <div class="widget_shopping_cart_content"></div></div>
+                    <div class="widget_shopping_cart_content"></div>
+                </div>
             </aside>
             <aside id="woocommerce_top_rated_products-2" class="widget woocommerce widget_top_rated_products">
                 <h3 class="widgettitle">Top Rated Products<span></span></h3><ul class="product_list_widget">

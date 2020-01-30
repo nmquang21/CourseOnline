@@ -1,0 +1,202 @@
+﻿.checkbox-online{
+    padding: 20px 10px 20px 0px;
+    margin: 0;
+}
+.checkbox-cod {
+    padding: 20px 0px 20px 10px;
+    margin: 0;
+}
+.choice-payment .label {
+    border: solid 3px #df322f;
+    height: 80px;
+    padding: 20px 0 20px 60px;
+    border-radius: 7px;
+    border: solid 3px #dbdbdb;
+    background-color: #fff;
+    display: flex;
+    flex-direction: column;
+    cursor: pointer;
+    position: relative;
+}
+
+.choice-payment .checkbox-online .label:before {
+    font-family: FontAwesome;
+    content: "\f09d";
+    color: #464646;
+    font-size: 36px;
+    font-weight: 900;
+
+    width: 40px;
+    height: 40px;
+    position: absolute;
+    left: 10px;
+}
+.choice-payment .checkbox-cod .label:before {
+    font-family: FontAwesome;
+    content: "\f0d1";
+    color: #464646;
+    font-size: 36px;
+    font-weight: 900;
+
+    width: 40px;
+    height: 40px;
+    position: absolute;
+    left: 10px;
+}
+.label .title {
+    font-size: 14px;
+    font-weight: 600;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 1.29;
+    letter-spacing: normal;
+    text-align: left;
+    color: #464646;
+    display: inline-block;
+    margin-bottom: 4px;
+}
+.label .description {
+    font-size: 12px;
+    font-weight: 400;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 1.5;
+    letter-spacing: normal;
+    text-align: left;
+    color: #464646;
+}
+.payment-method-content {
+    width: calc(100% - 30px);
+    margin-left: 15px;
+    margin-right: 15px;
+    border-radius: 7px;
+    border: solid 1px #e7eaec;
+    background-color: #fff;
+    height: 225px;
+}
+.payment-method-content a:hover {
+    text-decoration: none;
+}
+.hoa-don, .payment {
+    border-radius: 7px;
+    border: solid 1px #e7eaec;
+}
+.item-details .mark {
+    width: 200px;
+    font-size: 14px;
+    font-weight: 400;
+    font-style: normal;
+    font-stretch: normal;
+    letter-spacing: normal;
+    text-align: left;
+    color: #464646;
+    margin-bottom: 0 !important;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    display: -webkit-box;
+}
+.item-details .amount, .sub .amount {
+    font-size: 14px;
+    font-weight: 600;
+    font-style: normal;
+    font-stretch: normal;
+    letter-spacing: normal;
+    text-align: right;
+    color: #006fba;
+}
+    .sub .amount {
+        line-height: 3.33;
+    }
+    .table-totals tr.totals.sub th.mark {
+        font-stretch: normal;
+        letter-spacing: normal;
+        font-size: 14px;
+        font-weight: 600;
+        line-height: 3.33;
+        font-style: normal;
+        text-align: left;
+        color: #df322f;
+    }
+.table-totals .shipping .mark {
+    font-size: 14px;
+    font-weight: 400;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 1;
+    letter-spacing: normal;
+    text-align: left;
+    color: #9b9b9b;
+}
+.shipping .amount {
+    font-size: 14px;
+    font-weight: 600;
+    font-style: normal;
+    font-stretch: normal;
+    letter-spacing: normal;
+    text-align: right;
+    color: #464646;
+    line-height: 1;
+}
+.table-totals .grand .mark {
+    font-size: 16px;
+    font-weight: 600;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 2.86;
+    letter-spacing: normal;
+    text-align: left;
+    color: #df322f;
+}
+.table-totals .grand .amount {
+    font-size: 16px;
+    font-weight: 600;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 2.86;
+    letter-spacing: normal;
+    text-align: right;
+    color: #df322f;
+}
+.table-totals, .table-totals th, .table-totals td {
+    border-top: none !important;
+}
+.table-totals tbody th, .table-totals tbody td {
+    background-color: #fff !important;
+    border-bottom: none !important;
+}
+.table-totals th {
+    padding: 10px 0px 10px 5px !important;
+    text-align: left !important;
+    text-transform: none !important;
+}
+.table-totals td {
+    padding: 10px 5px 10px 0px !important;
+}
+.bor-top {
+    border-top: solid 1px #e7eaec;
+}
+.payment-method-content input, .payment-method-content select {
+    height: 46px;
+    border-radius: 7px;
+    background-color: #f4f7f8;
+    outline: none !important;
+    box-shadow: none !important;
+    font-size: 14px;
+    font-weight: 400;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 1.29;
+    letter-spacing: normal;
+    text-align: left;
+    color: #464646 !important;
+    margin: 5px 0px;
+}
+.selection-box:after {
+    height: 44px !important;
+}
+.pay-active {
+    border: solid 3px #81c77f !important;
+}
+.pay-active span, .pay-active:before {
+    color: #81c77f !important;
+}

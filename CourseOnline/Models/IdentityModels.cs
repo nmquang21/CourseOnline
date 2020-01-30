@@ -21,10 +21,13 @@ namespace CourseOnline.Models
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public ApplicationDbContext()
-            : base("DefaultConnection", throwIfV1Schema: false)
+            : base("MyDbContext", throwIfV1Schema: false)
         {
         }
-
+        public DbSet<Category> Categories { set; get; }
+        public DbSet<CategoryCourse> CategoryCourses { set; get; }
+        public DbSet<Course> Courses { set; get; }
+        public DbSet<Author> Authors { set; get; }
         public static ApplicationDbContext Create()
         {
             return new ApplicationDbContext();
