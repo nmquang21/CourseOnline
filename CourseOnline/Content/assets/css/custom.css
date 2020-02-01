@@ -156,7 +156,87 @@ img.emoji {
     margin: 0px;
 }
 .recentcomments a {
-                    display: inline !important;
-                    padding: 0 !important;
-                    margin: 0 !important;
-                }
+    display: inline !important;
+    padding: 0 !important;
+    margin: 0 !important;
+}
+form p .fa {
+    color: #fff !important;
+}
+.dt-sc-social-facebook-connect:hover i {
+    color: #3b5998 !important;
+}
+
+.dt-sc-social-googleplus-connect:hover i {
+    color: #dd4b39 !important;
+}
+/*#loginForm .checkbox label { padding-left: 0px; }*/
+#loginForm .checkbox input[type=checkbox]{
+    margin-left: 0px;
+}
+.header-register ul li i {
+    margin: 0px 10px 0px 0px;
+    border: 2px solid #201c1d;
+    padding: 15px 13px 14px 13px;
+    border-radius: 3px;
+}
+.register-role input {
+    height: 50px !important;
+}
+.header-animate {
+    background-color: rgba(255, 255, 255, 0.8);
+    box-shadow: 0 3px 6px -2px rgba(0, 0, 0, 0.15);
+}
+.pay-online .dt-sc-callout-box.membership-box.type5::after {
+    width: 0px !important;
+}
+body {
+    font-family: Open Sans,sans-serif !important;
+}
+.teacher-na:hover a {
+    color: #fff !important;
+}
+.border-title {
+    margin-bottom: 10px !important;
+    margin-top: 20px !important;
+}
+.course-total {
+    width: 20%;
+    display: inline-block;
+    position: relative;
+    padding-left: 30px;
+}
+.lesson-name {
+    cursor: pointer;
+    position: relative;
+    z-index: 1;
+    height: 40px;
+    border-radius: 7px;
+    border: 1px solid #dedfe0;
+    background-color: #fff;
+    padding: 0px 10px 0px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+.lessons-list {
+    margin: 5px 20px;
+}
+.lesson-name p {
+    line-height: 25px;
+    margin-bottom: 0px;
+}
+.current_page_item > a:before{
+    color: #ffffff !important;
+}
+.list-video-course ul.side-nav li a:before {
+    color: #81c77f;
+}
+
+.list-video-course ul.side-nav li a:hover:before {
+    color: #ffffff !important;
+}
+.list-video-course ul li {
+    width: 90%;
+}

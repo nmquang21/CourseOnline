@@ -17,8 +17,7 @@ namespace CourseOnline.Controllers
         // GET: Courses
         public ActionResult Index()
         {
-            var courses = db.Courses.Include(c => c.Author);
-            return View(courses.ToList());
+            return View(db.Courses.ToList());
         }
 
         // GET: Courses/Details/5
@@ -39,7 +38,6 @@ namespace CourseOnline.Controllers
         // GET: Courses/Create
         public ActionResult Create()
         {
-            ViewBag.AuthorId = new SelectList(db.Authors, "AuthorId", "AuthorName");
             return View();
         }
 
@@ -48,7 +46,7 @@ namespace CourseOnline.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "CourseId,CourseName,Price,Description,AuthorId,CreatedAt,UpdatedAt,DeletedAt")] Course course)
+        public ActionResult Create([Bind(Include = "CourseId,CourseName,Price,Description,Image,TeacherId,CreatedAt,UpdatedAt,DeletedAt")] Course course)
         {
             if (ModelState.IsValid)
             {
@@ -57,7 +55,6 @@ namespace CourseOnline.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.AuthorId = new SelectList(db.Authors, "AuthorId", "AuthorName", course.AuthorId);
             return View(course);
         }
 
@@ -73,7 +70,6 @@ namespace CourseOnline.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.AuthorId = new SelectList(db.Authors, "AuthorId", "AuthorName", course.AuthorId);
             return View(course);
         }
 
@@ -82,7 +78,7 @@ namespace CourseOnline.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "CourseId,CourseName,Price,Description,AuthorId,CreatedAt,UpdatedAt,DeletedAt")] Course course)
+        public ActionResult Edit([Bind(Include = "CourseId,CourseName,Price,Description,Image,TeacherId,CreatedAt,UpdatedAt,DeletedAt")] Course course)
         {
             if (ModelState.IsValid)
             {
@@ -90,7 +86,6 @@ namespace CourseOnline.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.AuthorId = new SelectList(db.Authors, "AuthorId", "AuthorName", course.AuthorId);
             return View(course);
         }
 

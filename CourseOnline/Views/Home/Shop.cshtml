@@ -1,7 +1,9 @@
 ﻿@model PagedList.IPagedList<CourseOnline.Models.Course>
+@using Microsoft.AspNet.Identity
 @using PagedList.Mvc;
 @{
     ViewBag.Title = "Shop";
+    var listMyPaidCourseId = ViewBag.MyPaidCourse as List<int>;
     Layout = "~/Views/Shared/_LayoutHome.cshtml";
 }
 
@@ -101,9 +103,23 @@
                             <div class="dt-sc-course-details">
                                 <span class="dt-sc-course-price"><span class="amount">$@(Model[i].Price)</span></span>
                                 <h5><a href="https://lmstheme.wpengine.com/courses/advanced-programming/" title="Advanced Programming">@(Model[i].CourseName)</a></h5>
-                                <div class="dt-sc-certificate-badge"><span class="certificate"></span><span class="badge"></span></div>
-                                <div class="dt-sc-course-meta">
-                                    <p>  <a href="https://lmstheme.wpengine.com/coursecategory/education/" rel="tag">Education</a>  </p>
+                                <div class="dt-sc-certificate-badge">
+                                    @if (Request.IsAuthenticated && User.IsInRole("teacher") && (Model[i].ApplicationUser.Id == User.Identity.GetUserId()))
+                                    {
+                                        <span class="certificate" title="Khóa học của bạn"></span>
+                                    }
+                                    @if (Request.IsAuthenticated && listMyPaidCourseId.Contains(Model[i].CourseId))
+                                    {
+                                        <span class="badge" title="Khóa học bạn đã sở hữu"></span>
+                                    }
+
+                                </div>
+                                <div class="dt-sc-course-meta" style="position: relative; padding-left: 40px;">
+                                    <div style="display: inline-block; position: absolute; left: 0px;">
+                                        <img src="https://znews-photo.zadn.vn/w660/Uploaded/mdf_drkydd/2019_10_09/03.jpg" alt="Alternate Text" style="border-radius: 100%; width: 30px; height: 30px;"/>
+                                    </div>
+                                    <p class="teacher-name">@(Model[i].ApplicationUser.firstName)</p>
+                                    <p> <a href="https://lmstheme.wpengine.com/coursecategory/education/" rel="tag">Education</a> </p>
                                     <p> 5&nbsp;Lessons </p>
                                 </div>
                                 <div class="dt-sc-course-data">

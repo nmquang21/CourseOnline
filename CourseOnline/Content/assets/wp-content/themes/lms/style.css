@@ -79,8 +79,8 @@ h6,
 .dt-sc-course .dt-sc-course-price,
 .widget.widget_sensei_category_courses ul li a,
 .dt-menu-toggle,
-.megamenu-child-container>ul.sub-menu>li>a,
-.megamenu-child-container>ul.sub-menu>li>.nolink-menu,
+.megamenu-child-container > ul.sub-menu > li > a,
+.megamenu-child-container > ul.sub-menu > li > .nolink-menu,
 .special-offers li p,
 .header-register ul li a,
 .dt-sc-counter .dt-sc-counter-number,
@@ -93,7 +93,7 @@ h6,
 .dt-sc-event-meta p,
 .breadcrumb,
 .courses-sorting .courses-popular-type label,
-ol.dt-sc-lessons-list>li:before,
+ol.dt-sc-lessons-list > li:before,
 .dt-sc-purchased,
 .dt-sc-course-completed,
 .dt-sc-user-dashboard-details .dt-sc-course-name a,
@@ -102,7 +102,7 @@ ol.dt-sc-lessons-list>li:before,
 .dt-quiz-timer .dt-secs,
 .dt-sc-assignment-file-types ul.assignment-file-types li,
 .dt-sc-assignment-submission li .first {
-    font-family: 'Raleway', sans-serif;
+    font-family: Open Sans,sans-serif !important;
 }
 
 body,
@@ -2072,8 +2072,7 @@ sup,
     left: 0px;
     width: 100%;
     height: 0px;
-    background-color: rgba(253, 246, 234, 0.8);
-    box-shadow: 0 3px 6px -2px rgba(0, 0, 0, 0.15);
+    
     -webkit-transition: height 0.3s;
     -moz-transition: height 0.3s;
     transition: height 0.3s;
@@ -2176,7 +2175,7 @@ sup,
 #main-menu>ul.menu>li>a,
 #main-menu>ul.menu>li>span {
     display: block;
-    padding: 13px 20px 11px;
+    padding: 13px 10px 11px 10px;
     margin: 0px;
     font-size: 14px;
     font-weight: 600;
@@ -5255,21 +5254,22 @@ ul.side-nav li a {
     position: relative;
 }
 
-ul.side-nav li a:before {
-    content: "\f0da";
-    font-family: FontAwesome;
-    font-style: normal;
-    font-weight: normal;
-    color: #444446;
-    position: absolute;
-    left: 0;
-    top: 0;
-    margin: auto;
-    width: 45px;
-    height: 100%;
-    text-align: center;
-    line-height: 49px;
-}
+    ul.side-nav li a:before {
+        content: "\f144";
+        font-family: FontAwesome;
+        font-size: 30px;
+        font-style: normal;
+        font-weight: normal;
+        color: #81c77f;
+        position: absolute;
+        left: 0;
+        top: 0;
+        margin: auto;
+        width: 45px;
+        height: 100%;
+        text-align: center;
+        line-height: 1.5;
+    }
 
 ul.side-nav>li.current_page_item>a:after,
 ul.side-nav>li>ul>li.current_page_item>a:after {
@@ -5286,7 +5286,7 @@ ul.side-nav>li>a:hover,
 ul.side-nav>li>ul>li>a:hover,
 ul.side-nav>li.current_page_item>a,
 ul.side-nav li>ul>li.current_page_item>a {
-    color: #4bbcd7;
+    color: #4bbcd7 !important;
 }
 
 ul.side-nav li a:hover:before,

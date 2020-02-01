@@ -1,0 +1,95 @@
+﻿@model CourseOnline.Models.Course
+
+@{
+    var course = Model;
+    ViewBag.Title = "LearnCourse";
+    Layout = "~/Views/Shared/_LayoutHome.cshtml";
+}
+<link href="~/Content/assets/css/learncode.css" rel="stylesheet" />
+<div id="main">
+    <div class="container" style="width: 1445px;">
+        <section id="primary" class="content-full-width">
+
+            <div class="side-navigation list-video-course" style="width: 22%;">
+                <div class="side-nav-container">
+                    <ul class="side-nav" style="border: 1px solid; border-radius: 7px; height: 850px; overflow: scroll;">
+                        <li style="text-align: center;">
+                            <div style="display: inline;">
+                                <h5 style="display: inline; margin-bottom: 0px; line-height: 3;">Giáo trình:</h5>
+                            </div>
+                        </li>
+                        @*<li class="current_page_item">
+                            <a href="#" title="Supports Sensei plugin">Supports Sensei plugin </a>
+                        </li>*@
+                        @for (int i = 0; i < course.ResourceCourses.Count; i++)
+                        {
+                            <li class="">
+                                <a href="#" class="btn-lesson" style="font-size: 13px;" data-title="@(course.ResourceCourses.ElementAt(i).Title)" data-index="@(course.ResourceCourses.ElementAt(i).Index)" data-video="@(course.ResourceCourses.ElementAt(i).LinkVideo)">@(course.ResourceCourses.ElementAt(i).Title)</a>
+                            </li>
+                        }
+
+                    </ul>
+                </div>
+            </div>
+
+            <div class="side-navigation-content" style="width: 67%;">
+                <h4 style="margin-bottom: 10px;">Dựng web chuyên nghiệp với Drupal</h4>
+                <div class="course-video">
+                    <iframe title="Descendants" class="iframe-lesson" width="1170" height="658" src="https://www.youtube.com/embed/TAvHaSbt5MA" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </div>
+                <div style="padding: 5px 15px; border-bottom: 1px solid #e2d6c1;"><i class="fa fa-flag"></i>&nbsp;&nbsp;<span class="lesson-name-video"></span></div>
+                <div>
+
+                    <div class="tab">
+                        <button class="tablinks active" onclick="openCity(event, 'London')">Giảng viên</button>
+                        <button class="tablinks" onclick="openCity(event, 'Paris')">Thông tin chung</button>
+                        <button class="tablinks" onclick="openCity(event, 'Tokyo')">Đánh giá</button>
+                    </div>
+
+                    <div id="London" class="tabcontent" style="display: block; padding-top: 10px;">
+                        <div style="position: relative; padding-left: 85px; padding-top: 20px; font-size: 20px;">
+                            <img src="https://znews-photo.zadn.vn/w660/Uploaded/mdf_drkydd/2019_10_09/03.jpg" alt="Alternate Text" style="border-radius: 100%; width: 70px; height: 70px; position: absolute; top: 0px; left: 0px;" />
+                            @(course.ApplicationUser.lastName + " " + course.ApplicationUser.firstName)
+                        </div>
+                    </div>
+
+                    <div id="Paris" class="tabcontent">
+                        <h3>Mô tả tổng quát:</h3>
+                        <p>@(course.Description)</p>
+                    </div>
+
+                    <div id="Tokyo" class="tabcontent">
+                        <h3>...</h3>
+                    </div>
+
+                    <script>
+                        function openCity(evt, cityName) {
+                            var i, tabcontent, tablinks;
+                            tabcontent = document.getElementsByClassName("tabcontent");
+                            for (i = 0; i < tabcontent.length; i++) {
+                                tabcontent[i].style.display = "none";
+                            }
+                            tablinks = document.getElementsByClassName("tablinks");
+                            for (i = 0; i < tablinks.length; i++) {
+                                tablinks[i].className = tablinks[i].className.replace(" active", "");
+                            }
+                            document.getElementById(cityName).style.display = "block";
+                            evt.currentTarget.className += " active";
+                        }
+                    </script>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+@section Scripts{
+    <script>
+        jQuery(document).ready(function ($) {
+            
+            $('.btn-lesson').click(function() {
+                $('.iframe-lesson')[0].src = $(this).data('video');
+                $('.lesson-name-video').html($(this).data('title'));
+            })
+        })
+    </script>
+}

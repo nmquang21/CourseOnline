@@ -1,0 +1,38 @@
+﻿
+@{
+    ViewBag.Title = "NotFound";
+    Layout = "~/Views/Shared/_LayoutHome.cshtml";
+}
+
+<div id="main">
+    <section class="main-title-section-wrapper">	
+        <div class="container">		
+            <div class="main-title-section">				
+                <h1>Lost </h1>
+                <div class="breadcrumb">				
+                    <a href="/Home">Home</a>
+                    <span class="fa default">  </span>
+                    <span class="current">LOST</span>
+                </div>		
+            </div>		
+            <div class="header-search"> 
+                <form method="get" id="searchform" class="searchform" action="">
+                    <input id="s" name="s" type="text" value="" class="text_input" placeholder="Search">
+                    <input type="hidden" name="search-type" value="default">
+                    <input type="submit" value="">
+                </form>		
+            </div>		
+        </div>
+    </section> 
+
+    <div class="container">
+        <section id="primary" class="content-full-width">
+            <div class="error-info">
+                <h2> 404! </h2>
+                <h3> The page you are looking for is Not Found! </h3>
+                <a href="/Home" title="" class="dt-sc-button small">Back to Home</a> 
+            </div>
+        </section>            
+    </div>
+</div>
+

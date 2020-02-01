@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNet.Identity
+<!DOCTYPE html>
 <html lang="en-US">
 <head>
     <meta charset="utf-8">
@@ -16,7 +17,7 @@
         var mytheme_urls = {
             theme_base_url: '/Content/assets/wp-content/themes/lms/',
             framework_base_url: '/Content/assets/wp-content/themes/lms/framework/',
-            ajaxurl: 'Content/assets/wp-admin/admin-ajax.php',
+            ajaxurl: '/Content/assets/wp-admin/admin-ajax.php',
             url: 'https://lmstheme.wpengine.com',
             scroll: 'disable',
             loadisotope: '1',
@@ -24,7 +25,7 @@
             landingpage: '',
             landingpagestickynav: 'enable',
             is_admin: '',
-            skin: 'orange',
+            skin: '',
             layout: '',
             isLandingPage: '',
             isRTL: '',
@@ -86,7 +87,7 @@
             })), g = c.source || {}, g.concatemoji ? f(g.concatemoji) : g.wpemoji && g.twemoji && (f(g.twemoji), f(g.wpemoji)))
         }(window, document, window._wpemojiSettings);
     </script>
-   
+    <link href="~/Content/assets/wp-content/themes/lms/css/font-awesome.min.css" rel="stylesheet" />
     <link rel='stylesheet' id='widget-calendar-pro-style-css' href='~/Content/assets/wp-content/plugins/events-calendar-pro/src/resources/css/widget-calendar-full.css?ver=4.4.23' type='text/css' media='all' />
     <link rel='stylesheet' id='tribe_events-widget-calendar-pro-style-css' href='~/Content/assets/wp-content/plugins/events-calendar-pro/src/resources/css/widget-calendar-theme.css?ver=4.4.23' type='text/css' media='all' />
     <link rel='stylesheet' id='tribe_events--widget-calendar-pro-override-style-css' href='~/Content/assets/wp-content/plugins/events-calendar-pro/src/resources/css/widget-calendar-theme.css?ver=4.4.23' type='text/css' media='all' />
@@ -131,12 +132,12 @@
     <link rel='stylesheet' id='custom-font-awesome-css' href='/Content/assets/wp-content/themes/lms/css/font-awesome.min.css?ver=5.2.4' type='text/css' media='all' />
     <link rel='stylesheet' id='stoke-gap-icons-css' href='/Content/assets/wp-content/themes/lms/css/stroke-gap-icons.min.css?ver=5.2.4' type='text/css' media='all' />
     <link rel='stylesheet' id='skin-css' href='/Content/assets/wp-content/themes/lms/skins/orange/style.css' type='text/css' media='all' />
+    <link rel='stylesheet' id='skin-css' href='/Content/assets/wp-content/themes/lms/skins/white-graasgreen/style.css' type='text/css' media='all' />
     <link rel='stylesheet' id='font-raleway-css' href='//fonts.googleapis.com/css?family=Raleway%3A400%2C100%2C200%2C300%2C500%2C600%2C800%2C700%2C900&#038;ver=5.2.4' type='text/css' media='all' />
     <link rel='stylesheet' id='font-opensans-css' href='//fonts.googleapis.com/css?family=Open+Sans%3A300italic%2C400italic%2C600italic%2C700italic%2C800italic%2C400%2C300%2C600%2C700%2C800&#038;ver=5.2.4' type='text/css' media='all' />
     <link rel='stylesheet' id='font-dancingscript-css' href='//fonts.googleapis.com/css?family=Dancing+Script&#038;ver=5.2.4' type='text/css' media='all' />
     <link rel='stylesheet' id='jquery-ui-css' href='/Content/assets/wp-content/themes/lms/css/jquery-ui.css?ver=5.2.4' type='text/css' media='all' />
     <link rel='stylesheet' id='responsive-css' href='/Content/assets/wp-content/themes/lms/responsive.css?ver=5.2.4' type='text/css' media='all' />
-    <link rel='stylesheet' id='ws-plugin--s2member-css' href='/Content/assets/wp-content/plugins/s2member/s2member-o.php?ws_plugin__s2member_css=1&#038;qcABC=1&#038;ver=170722-170722-990094742' type='text/css' media='all' />
     <link rel='stylesheet' href='/Content/assets/wp-content/plugins/the-events-calendar/src/resources/css/tribe-events-full.min.css' type='text/css' />
     <link rel='stylesheet' href='/Content/assets/wp-content/plugins/the-events-calendar/src/resources/css/tribe-events-theme.min.css' type='text/css' />
 
@@ -230,23 +231,56 @@
             <div id="header-wrapper">
                 <!-- **Header** -->
                 <header id="header" class="header1">
-                    <div class="container">
+                    <div class="container" style="width: 1275px;">
                         <!-- **Logo - Start** -->
                         <div id="logo">
-                            <a href="https://lmstheme.wpengine.com" title="LMS">
+                            <a href="/Home" title="LMS">
                                 <img class="normal_logo" src="/Content/assets/wp-content/themes/lms/images/logo.png" alt="LMS" title="LMS" />
                                 <img class="retina_logo" src="/Content/assets/wp-content/themes/lms/images/logo@2x.png" alt="LMS" title="LMS" style="width:98px; height:99px;" />
                             </a>
                         </div>
                         <!-- **Logo - End** -->
+
                         <div class="header-register">
-                            <ul class="dt-sc-default-login">
-                                <li><a href="/Account/Login" title="Login / Register Now"><i class="fa fa-user"></i>Login<span> | </span>Register</a></li>
-                                <li class="dt-sc-cart">
-                                    <a href="/Home/Cart"><i class="fa fa-shopping-cart"></i><span class="cart-count total-count">0</span></a>
-                                </li>
-                            </ul>
+                            @if (Request.IsAuthenticated)
+                            {
+                                using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+                                {
+                                    @Html.AntiForgeryToken()
+
+                                    <ul class="">
+                                        <li class="dt-sc-cart" style="margin-right: 20px;">
+                                            <a href="/Home/Cart"><i class="fa fa-shopping-cart"></i><span class="cart-count total-count">0</span></a>
+                                        </li>
+                                        <li style="float: none; margin-right: 30px;">
+                                            @Html.ActionLink("Hello " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
+                                        </li>
+                                        <li style="float: none;">
+                                            <a href="javascript:document.getElementById('logoutForm').submit()">Log off<i class="fa fa-sign-out" style="border: none !important; padding-left: 5px !important;"></i></a>
+                                        </li>
+                                    </ul>
+                                }
+                            }
+                            else
+                            {
+                                <ul class="dt-sc-default-login">
+                                    <li>
+                                        <span><i class="fa fa-user"></i></span>
+                                        <span>
+                                            <a href="/Account/Login">Login</a>
+                                        </span>
+                                        <span> | </span>
+                                        <span>
+                                            <a href="/Account/Register">Register</a>
+                                        </span>
+                                    </li>
+                                    <li class="dt-sc-cart">
+                                        <a href="/Home/Cart"><i class="fa fa-shopping-cart"></i><span class="cart-count total-count">0</span></a>
+                                    </li>
+                                </ul>
+                            }
                         </div>
+
                         <!-- **Navigation** -->
                         <nav id="main-menu">
                             <div class="dt-menu-toggle" id="dt-menu-toggle">
@@ -262,9 +296,18 @@
                                 <li id="menu-item-teacher" class="menu-item menu-item-type-post_type menu-item-object-page">
                                     <a href="/Teacher"><i class='fa fa-book'></i>Teacher</a>
                                 </li>
-                                <li id="menu-item-yourcourses" class="menu-item menu-item-type-post_type menu-item-object-page">
-                                    <a href="/Home/YourCourses"><i class='fa fa-location-arrow'></i>Your courses</a>
-                                </li>
+                                @if (Request.IsAuthenticated)
+                                {
+                                    <li id="menu-item-yourcourses" class="menu-item menu-item-type-post_type menu-item-object-page">
+                                        <a href="/Home/YourCourses"><i class='fa fa-location-arrow'></i>Your courses</a>
+                                    </li>
+                                }
+                                @if (Request.IsAuthenticated && User.IsInRole("teacher"))
+                                {
+                                    <li id="menu-item-cart" class="menu-item menu-item-type-post_type menu-item-object-page">
+                                        <a href="#"><i class='fa fa-location-arrow'></i>Add course</a>
+                                    </li>
+                                }
                                 <li id="menu-item-cart" class="menu-item menu-item-type-post_type menu-item-object-page">
                                     <a href="/Home/Cart"><i class='fa fa-location-arrow'></i>Cart</a>
                                 </li>
@@ -303,7 +346,7 @@
                                 <div class="textwidget">
                                     <p> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut et lobortis diam. </p>
                                     <p> Duis tellus enim, vestibulum eget varius id, vulputate et mi. Nullam feugiat, diam quis interdum varius </p>
-                                    <p> <a href="http://lmstheme.wpengine.com/dtcourses/" title="" class="dt-sc-button small"> Start Learning Now </a></p>
+                                    <p> <a href="#" title="" class="dt-sc-button small"> Start Learning Now </a></p>
                                 </div>
                             </aside>
                         </div>
@@ -313,17 +356,17 @@
                                 <div class='recent-course-widget'>
                                     <ul>
                                         <li>
-                                            <h6><a href='courses/advanced-programming/'>Advanced Programming</a></h6><span class="dt-sc-course-price">
+                                            <h6><a href='#/'>Advanced Programming</a></h6><span class="dt-sc-course-price">
                                                 <span class="amount">$40</span>
                                             </span>
                                         </li>
                                         <li>
-                                            <h6><a href='courses/processing-digital-signal/'>Processing Digi...</a></h6><span class="dt-sc-course-price">
+                                            <h6><a href='#'>Processing Digi...</a></h6><span class="dt-sc-course-price">
                                                 <span class="amount">Free</span>
                                             </span>
                                         </li>
                                         <li>
-                                            <h6><a href='courses/analysis-of-algorithms/'>Analysis of Alg...</a></h6><span class="dt-sc-course-price">
+                                            <h6><a href='#'>Analysis of Alg...</a></h6><span class="dt-sc-course-price">
                                                 <span class="amount">Free</span>
                                             </span>
                                         </li>
@@ -377,7 +420,7 @@
 
                 <div class="copyright">
                     <div class="container">
-                        <div class="copyright-info">Copyright &copy; 2018 LMS Theme All Rights Reserved | <a href="http://themeforest.net/user/designthemes" title=""> Design Themes </a></div>
+                        <div class="copyright-info">Copyright &copy; 2018 LMS Theme All Rights Reserved | <a href="#" title=""> Design Themes </a></div>
                         <ul class='social-icons'>
                             <li><a href="#" target="_blank"><span class="fa fa-twitter"></span></a></li>
                             <li><a href="#" target="_blank"><span class="fa fa-youtube"></span></a></li>
@@ -579,8 +622,9 @@
             case '/Home/Contact': jQuery('#menu-item-contact').addClass("current-menu-item current_page_item"); break;
         }
     </script>
+
     <script type='text/javascript' src='~/Content/js/cart.js'></script>
-    @RenderSection("scripts", required: false)
+    @RenderSection("Scripts", required: false)
 </body>
 
 </html>

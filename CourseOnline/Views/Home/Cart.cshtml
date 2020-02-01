@@ -10,11 +10,11 @@
             <div class="main-title-section">
                 <h1>Cart</h1>
                 <div class="breadcrumb">
-                    <a href="https://lmstheme.wpengine.com">Home</a><span class="fa default">  </span><span class="current">Cart</span>
+                    <a href="#">Home</a><span class="fa default">  </span><span class="current">Cart</span>
                 </div>
             </div>
             <div class="header-search">
-                <form method="get" id="searchform" class="searchform" action="https://lmstheme.wpengine.com/">
+                <form method="get" id="searchform" class="searchform" action="">
                     <input id="s" name="s" type="text" value="" class="text_input" placeholder="Search">
                     <input type="hidden" name="search-type" value="default">
                     <input type="submit" value="">
@@ -26,12 +26,23 @@
     <div class="container">
         <section id="primary" class="content-full-width">
             @*Neu ko co item trong cart*@
-
+            @if (TempData["msg"] == "Order success!")
+            {
+                <div style="text-align: center" class="order-success" data-check="done">
+                    <h4>Order success!</h4>
+                </div>
+            }
+            @if (ViewBag.ThanhToan == "Success!")
+            {
+                <div style="text-align: center" class="order-paid-success" data-check="done">
+                    <h4>Success!</h4>
+                </div>
+            }
             <div id="post-1061" class="post-1061 page type-page status-publish hentry no-item-cart">
                 <div class="woocommerce">
                     <p class="cart-empty">Your cart is currently empty.</p>
                     <p class="return-to-shop">
-                        <a class="button wc-backward" href="https://lmstheme.wpengine.com/shop/">
+                        <a class="button wc-backward" href="/Home/Shop">
                             Return to shop
                         </a>
                     </p>
@@ -41,10 +52,10 @@
 
             <div id="post-1061" class="post-1061 page type-page status-publish hentry items-cart">
                 <div class="woocommerce">
-                    <p class="return-to-shop"><a class="button wc-backward" href="https://lmstheme.wpengine.com/shop/">Return To Shop</a></p>
+                    <p class="return-to-shop"><a class="button wc-backward" href="/Home/Shop">Return To Shop</a></p>
                     <div class="dt-sc-hr-invisible-small"></div>
 
-                    <form class="woocommerce-cart-form" action="https://lmstheme.wpengine.com/cart/" method="post">
+                    <form class="woocommerce-cart-form" action="" method="post">
                         <table class="shop_table shop_table_responsive cart woocommerce-cart-form__contents" cellspacing="0">
                             <thead>
                                 <tr>
@@ -75,7 +86,7 @@
                                 </tbody>
                             </table>
                             <div class="wc-proceed-to-checkout">
-                                <a href="/Home/Checkout" class="checkout-button button alt wc-forward">
+                                <a href="/Home/Checkout" class="checkout-button button alt wc-forward" click="console.log('Click')">
                                     Proceed to checkout
                                 </a>
                             </div>
@@ -193,5 +204,16 @@
         </section>
     </div>
 </div>
-
+@section Scripts{
+    <script>
+        jQuery(document).ready(function($) {
+            if ($('.order-success').data("check") == "done" || $('.order-paid-success').data("check") == "done") {
+                sessionStorage.removeItem("shoppingCart");
+                $('.no-item-cart').css({ "display": "block" });
+                $('.items-cart').css({ "display": "none" });
+                $('.total-count').html("0");
+            }
+        })
+    </script>
+}
 

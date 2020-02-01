@@ -8,6 +8,8 @@ namespace CourseOnline.Models
         [Required]
         [Display(Name = "Email")]
         public string Email { get; set; }
+        public string firstName { get; set; }
+        public string lastName { get; set; }
     }
 
     public class ExternalLoginListViewModel
@@ -79,6 +81,12 @@ namespace CourseOnline.Models
         [Display(Name = "Confirm password")]
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
+        [Required]
+        [Display(Name = "First Name")]
+        public string firstName { get; set; }
+        [Required]
+        [Display(Name = "Last Name")]
+        public string lastName { get; set; }
     }
 
     public class ResetPasswordViewModel

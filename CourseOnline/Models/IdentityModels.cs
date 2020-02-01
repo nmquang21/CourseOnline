@@ -9,6 +9,8 @@ namespace CourseOnline.Models
     // You can add profile data for the user by adding more properties to your ApplicationUser class, please visit https://go.microsoft.com/fwlink/?LinkID=317594 to learn more.
     public class ApplicationUser : IdentityUser
     {
+        public string firstName { get; set; }
+        public string lastName { get; set; }
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {
             // Note the authenticationType must match the one defined in CookieAuthenticationOptions.AuthenticationType
@@ -27,7 +29,11 @@ namespace CourseOnline.Models
         public DbSet<Category> Categories { set; get; }
         public DbSet<CategoryCourse> CategoryCourses { set; get; }
         public DbSet<Course> Courses { set; get; }
-        public DbSet<Author> Authors { set; get; }
+        public DbSet<OrderInfo> OrderInfos { set; get; }
+        public DbSet<OrderDetail> OrderDetails { set; get; }
+        public DbSet<StudentCourse> StudentCourses { set; get; }
+        public DbSet<Benefit> Benefits { set; get; }
+
         public static ApplicationDbContext Create()
         {
             return new ApplicationDbContext();

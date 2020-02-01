@@ -54,15 +54,15 @@ namespace CourseOnline
             //   consumerKey: "",
             //   consumerSecret: "");
 
-            //app.UseFacebookAuthentication(
-            //   appId: "",
-            //   appSecret: "");
+            app.UseFacebookAuthentication(
+               appId: "179750553274091",
+               appSecret: "b4bae6324aba16ad5b28d3c65351efe2");
 
-            //app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
-            //{
-            //    ClientId = "",
-            //    ClientSecret = ""
-            //});
+            app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
+            {
+                ClientId = "801616126800-odsuuv4stc2h0mt4ee8fepe509nt410f.apps.googleusercontent.com",
+                ClientSecret = "pvslL_ixGa-pXQR-NOKqO3Qs"
+            });
         }
     }
 }

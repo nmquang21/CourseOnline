@@ -13,7 +13,7 @@ namespace CourseOnline.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "202001300231359_InIt"; }
+            get { return "202002011723456_InIt"; }
         }
         
         string IMigrationMetadata.Source
