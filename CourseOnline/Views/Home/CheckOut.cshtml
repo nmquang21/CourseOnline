@@ -1,10 +1,9 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "CheckOut";
     Layout = "~/Views/Shared/_LayoutHome.cshtml";
+    var currentUser = ViewBag.currentUser;
 }
 <link href="~/Content/bootstrap.css" rel="stylesheet" />
-<link href="~/Content/assets/wp-content/themes/lms/css/font-awesome.min.css" rel="stylesheet" />
 <link href="~/Content/css/checkout.css" rel="stylesheet" />
 
 <div id="main">
@@ -13,10 +12,11 @@
             <div class="main-title-section">
                 <h1>Checkout</h1>
                 <div class="breadcrumb" style="background-color: transparent;">
-                    <a href="https://lmstheme.wpengine.com">Home</a><span class="fa default">  </span><span class="current">Checkout</span>
-                </div><!-- ** breadcrumb - End -->
-            </div>		<div class="header-search">
-                <form method="get" id="searchform" class="searchform" action="https://lmstheme.wpengine.com/">
+                    <a href="/Home">Home</a><span class="fa default">  </span><span class="current">Checkout</span>
+                </div>
+            </div>		
+            <div class="header-search">
+                <form method="get" id="searchform" class="searchform" action="">
                     <input id="s" name="s" type="text" value="" class="text_input" placeholder="Search">
                     <input type="hidden" name="search-type" value="default">
                     <input type="submit" value="">
@@ -27,105 +27,128 @@
 
     <div class="container">
         <div class="row">
-            <div class="col-md-8 order-md-1 payment" style="padding-bottom: 5px;">
-                <h4 class="col-md-12">Thanh toán khóa học</h4>
-                <div class="col-md-12 choice-payment">
-                    <div class="col-md-6 checkbox-online">
-                        <input type="radio" name="payment" class="radio ip-payment-method" id="payment_online" value="payment_online" style="display: none;" checked="checked">
-                        <label class="label label-online pay-active" for="payment_online">
-                            <span class="title">Thanh toán Online</span>
-                            <span class="description">Giảm ngay 10%, nhận mã kích hoạt ngay lập tức!</span>
-                        </label>
+            <form action="@Url.Action("CODPay","ShoppingCart")" method="post">
+                <div class="col-md-8 order-md-1 payment" style="padding-bottom: 5px;">
+                    <h4 class="col-md-12">Thanh toán khóa học</h4>
+                    <div class="col-md-12 choice-payment">
+                        @if (Request.IsAuthenticated)
+                        {
+                            <div class="col-md-6 checkbox-online">
+                                <input type="radio" name="paymentType" class="radio ip-payment-method" id="payment_online" value="3" style="display: none;" >
+                                <label class="label label-online" for="payment_online">
+                                    <span class="title">Thanh toán Online</span>
+                                    <span class="description">Giảm ngay 10%, kích hoạt ngay lập tức!</span>
+                                </label>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="col-md-6 checkbox-online">
+                                <input type="radio" name="paymentType" class="radio ip-payment-method" id="payment_online" value="3" style="display: none;" disabled="disabled" >
+                                <label class="label label-online" for="payment_online" title="Đăng nhập để thanh toán online" style="cursor: no-drop">
+                                    <span class="title">Thanh toán Online</span>
+                                    <span class="description">Giảm ngay 10%, kích hoạt ngay lập tức!</span>
+                                </label>
+                            </div>
+                        }
+
+                        <div class="col-md-6 checkbox-cod">
+                            <input type="radio" name="paymentType" class="radio ip-payment-method" id="payment_cod" value="1" style="display: none;" checked="checked">
+                            <label class="label label-cod pay-active" for="payment_cod">
+                                <span class="title">Thanh toán khi nhận hàng</span>
+                                <span class="description">Gửi mã kích hoạt tận nơi, miễn phí giao hàng</span>
+                            </label>
+                        </div>
+
                     </div>
-                    <div class="col-md-6 checkbox-cod">
-                        <input type="radio" name="payment" class="radio ip-payment-method" id="payment_cod" value="payment_cod" style="display: none;">
-                        <label class="label label-cod" for="payment_cod">
-                            <span class="title">Thanh toán khi nhận hàng</span>
-                            <span class="description">Gửi mã kích hoạt tận nơi, miễn phí giao hàng</span>
-                        </label>
+
+                    <div class="col-md-12 payment-method-content pay-online" style="display: none;">
+                        <div class="dt-sc-callout-box membership-box type5" style="width: 45%; background: none;">
+                            <div class="col-md-6 column" style="margin: 0px;">
+                                <a href="#" class="dt-sc-button small">
+                                    <i class="fa fa-cc-paypal"></i> Thanh toán Paypal
+                                </a>
+                                <a href="javascript:document.getElementById('vnPayForm').submit()" class="dt-sc-button small">
+                                    <img src="https://vnpayment.vnpay.vn/Resources/website/images/logo.png" alt="VnPay" style="width: 25px;" />
+                                    Thanh toán VnPay
+                                </a>
+                            </div>
+                        </div>
+                        <div class="dt-sc-callout-box membership-box type5" style="width: 55%; background: none; padding-top: 10px;padding-left: 50px;">
+                            <label for="description">Ghi chú</label>
+                            <textarea class="form-control input-des" id="description" name="description" style="height: 100px;"></textarea>
+                        </div>
                     </div>
-                     
+
+                    <div class="col-md-12 payment-method-content pay-cod" style="height: 290px;">
+                        <form action="/" method="post">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <input type="text" class="form-control" id="firstName" name="firstName" placeholder="Họ" value="@currentUser.firstName" required="">
+                                </div>
+                                <div class="col-md-6">
+                                    <select class="form-control" id="state" name="tinh" required="">
+                                        <option value="">Tỉnh/Thành phố</option>
+                                        <option>California</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <input type="text" class="form-control" id="lastName" name="lastName" placeholder="Tên" value="@currentUser.lastName" required="">
+                                </div>
+                                <div class="col-md-6">
+                                    <select class="form-control" id="state" name="quan" required="">
+                                        <option value="">Quận/Huyện</option>
+                                        <option>California</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <input type="email" class="form-control" id="email" name="email" placeholder="Email" value="@currentUser.Email" required="">
+                                </div>
+                                <div class="col-md-6">
+                                    <select class="form-control" id="state" name="xa" required="">
+                                        <option value="">Xã/Phường</option>
+                                        <option>California</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <input type="text" class="form-control" id="phone" name="phone" placeholder="Số điện thoại" value="@currentUser.PhoneNumber" required="">
+                                </div>
+                                <div class="col-md-6">
+                                    <input type="text" class="form-control" id="address" name="address" placeholder="Địa chỉ" value="" required="">
+                                </div>
+                            </div>
+                            <div class="hidden-input-courseId">
+
+                            </div>
+                            <input type="hidden" name="amount" class="input-amount" value="" />
+                            <div class="col-md-12 float-right" style="padding-top: 8px;">
+                                <button class="dt-sc-button small filled checkout payment-cod-btn" type="submit" title="Đặt mua" style="margin-top: 0px;"><span>Đặt mua</span></button>
+                            </div>
+
+                        </form>
+                    </div>
                 </div>
 
-                <div class="col-md-12 payment-method-content pay-online">
-                    <div class="dt-sc-callout-box membership-box type5" style="width: 36%; background: none;">
-                        <div class="column" style="margin: 0px;">
-                            <a href="#" class="dt-sc-button small"><i class="fa fa-cc-paypal"></i> Thanh toán Paypal</a>
-                            &nbsp;&nbsp;
-                            <a href="#" class="dt-sc-button small"><i class="fa fa-cc-stripe"></i> Thanh toán VnPay</a>
-                            &nbsp;&nbsp;
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="col-md-12 payment-method-content pay-cod" style="height: 290px; display: none;">
-                    <form action="/" method="post">
-                        <div class="row">
-                            <div class="col-md-6">
-                                <input type="text" class="form-control" id="firstName" placeholder="Họ" value="" required="">
-                            </div>
-                            <div class="col-md-6">
-                                <select class="form-control" id="state" required="">
-                                    <option value="">Tỉnh/Thành phố</option>
-                                    <option>California</option>
-                                </select>
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-md-6">
-                                <input type="text" class="form-control" id="lastName" placeholder="Tên" value="" required="">
-                            </div>
-                            <div class="col-md-6">
-                                <select class="form-control" id="state" required="">
-                                    <option value="">Quận/Huyện</option>
-                                    <option>California</option>
-                                </select>
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-md-6">
-                                <input type="email" class="form-control" id="email" placeholder="Email" value="" required="">
-                            </div>
-                            <div class="col-md-6">
-                                <select class="form-control" id="state" required="">
-                                    <option value="">Xã/Phường</option>
-                                    <option>California</option>
-                                </select>
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-md-6">
-                                <input type="text" class="form-control" id="phone" placeholder="Số điện thoại" value="" required="">
-                            </div>
-                            <div class="col-md-6">
-                                <input type="text" class="form-control" id="address" placeholder="Địa chỉ" value="" required="">
-                            </div>
-                        </div>
-                        <div class="col-md-12 float-right" style="padding-top: 8px;">
-                            <button class="dt-sc-button small filled checkout payment-cod-btn" type="submit" title="Đặt mua" style="margin-top: 0px;"><span>Đặt mua</span></button>
-                        </div>
-
-                    </form>
-                </div>
-            </div>
-
-            <div class="col-md-4 order-md-2 mb-4">
-                <div class="col-md-12 hoa-don">
-                    <h4 class="col-md-12" style="margin-bottom: 15px; padding-left: 20px;">Hóa đơn</h4>
-                    <div class="col-md-12">
-                        <table class="data table table-totals">
-                            <tbody>
-
-                                <tr class="totals item-details">
-                                    <th class="mark" scope="row">NodeJs</th>
-                                    <td class="amount"><span class="price">$209</span></td>
-                                </tr>
+                <div class="col-md-4 order-md-2 mb-4">
+                    <div class="col-md-12 hoa-don">
+                        <h4 class="col-md-12" style="margin-bottom: 15px; padding-left: 20px;">Hóa đơn</h4>
+                        <div class="col-md-12">
+                            <table class="data table table-totals">
+                                <tbody class="content-checkout">
+                                </tbody>
+                                <tbody>
                                 <tr class="totals bor-top sub">
                                     <th class="mark" scope="row">Tồng tiền tạm tính</th>
-                                    <td class="amount"><span class="price">$209</span></td>
+                                    <td class="amount total-checkout"><span class="price">$0.00</span></td>
                                 </tr>
                                 <tr class="totals shipping">
                                     <th class="mark" scope="row"><span class="title">Phí vận chuyển</span></th>
@@ -133,14 +156,23 @@
                                 </tr>
                                 <tr class="totals bor-top grand">
                                     <th class="mark" scope="row"><strong>Tổng tiền</strong></th>
-                                    <td class="amount"><strong><span class="price">$209</span></strong></td>
+                                    <td class="amount total-checkout"><strong><span class="price">$0.00</span></strong></td>
+                                        
                                 </tr>
-                            </tbody>
-                        </table>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
+
                 </div>
-                
-            </div>
+            </form>
+            <form action="@Url.Action("VnPay","ShoppingCart")" method="post" id="vnPayForm">
+                <input type="hidden" name="amount" class="input-amount" value=""/>
+                <input type="hidden" name="description" class="input-des-online" value=""/>
+                <div class="hidden-input-courseId">
+
+                </div>
+            </form>
         </div>
     </div>
 </div>
@@ -164,6 +196,11 @@
                     checkbox_cod.addClass('pay-active');
                 }
             });
+            $('.input-des').keyup(function() {
+                $('.input-des-online').val($(this).val());
+            })
+
+
         });
     </script>
 }

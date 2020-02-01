@@ -10,107 +10,108 @@ using CourseOnline.Models;
 
 namespace CourseOnline.Controllers
 {
-    public class AuthorsController : Controller
+    public class LessonsController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
-        // GET: Authors
+        // GET: Lessons
         public ActionResult Index()
         {
-            return View(db.Authors.ToList());
+            return View(db.Lessons.ToList());
         }
 
-        // GET: Authors/Details/5
+        // GET: Lessons/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Author author = db.Authors.Find(id);
-            if (author == null)
+            Lesson lesson = db.Lessons.Find(id);
+            if (lesson == null)
             {
                 return HttpNotFound();
             }
-            return View(author);
+            return View(lesson);
         }
 
-        // GET: Authors/Create
+        // GET: Lessons/Create
         public ActionResult Create()
         {
+            ViewBag.CourseName = new SelectList(db.Courses, "CourseName", "CourseName");
             return View();
         }
 
-        // POST: Authors/Create
+        // POST: Lessons/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "AuthorId,AuthorName,Avatar,Email,Phone,CreatedAt,UpdatedAt,DeletedAt")] Author author)
+        public ActionResult Create([Bind(Include = "id,stt,name")] Lesson lesson)
         {
             if (ModelState.IsValid)
             {
-                db.Authors.Add(author);
+                db.Lessons.Add(lesson);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(author);
+            return View(lesson);
         }
 
-        // GET: Authors/Edit/5
+        // GET: Lessons/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Author author = db.Authors.Find(id);
-            if (author == null)
+            Lesson lesson = db.Lessons.Find(id);
+            if (lesson == null)
             {
                 return HttpNotFound();
             }
-            return View(author);
+            return View(lesson);
         }
 
-        // POST: Authors/Edit/5
+        // POST: Lessons/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "AuthorId,AuthorName,Avatar,Email,Phone,CreatedAt,UpdatedAt,DeletedAt")] Author author)
+        public ActionResult Edit([Bind(Include = "id,stt,name")] Lesson lesson)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(author).State = EntityState.Modified;
+                db.Entry(lesson).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(author);
+            return View(lesson);
         }
 
-        // GET: Authors/Delete/5
+        // GET: Lessons/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Author author = db.Authors.Find(id);
-            if (author == null)
+            Lesson lesson = db.Lessons.Find(id);
+            if (lesson == null)
             {
                 return HttpNotFound();
             }
-            return View(author);
+            return View(lesson);
         }
 
-        // POST: Authors/Delete/5
+        // POST: Lessons/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Author author = db.Authors.Find(id);
-            db.Authors.Remove(author);
+            Lesson lesson = db.Lessons.Find(id);
+            db.Lessons.Remove(lesson);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

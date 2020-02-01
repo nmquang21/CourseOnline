@@ -147,14 +147,28 @@ namespace CourseOnline.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Register(RegisterViewModel model)
+        public async Task<ActionResult> Register(RegisterViewModel model, string role)
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                var user = new ApplicationUser
+                {
+                    UserName = model.Email, 
+                    Email = model.Email,
+                    firstName = model.firstName,
+                    lastName = model.lastName
+                };
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
+                    if (role == "member" || role == "teacher")
+                    {
+                        UserManager.AddToRole(user.Id, role);
+                    }
+                    else
+                    {
+                        UserManager.AddToRole(user.Id, "member");
+                    }
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
                     
                     // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
@@ -367,7 +381,13 @@ namespace CourseOnline.Controllers
                 {
                     return View("ExternalLoginFailure");
                 }
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                var user = new ApplicationUser
+                {
+                    UserName = model.Email, 
+                    Email = model.Email,
+                    firstName = model.firstName,
+                    lastName = model.lastName
+                };
                 var result = await UserManager.CreateAsync(user);
                 if (result.Succeeded)
                 {

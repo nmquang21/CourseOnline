@@ -177,6 +177,30 @@
         $('.show-cart-page').html(contentCart);
         $('.total-cart-page').html("$ "+shoppingCart.totalCart());
     }
+    function displayOrderCheckout() {
+        var cartArray = shoppingCart.listCart();
+        var contentCart = "";
+        for (var i in cartArray) {
+            contentCart +=
+                                `<tr class="totals item-details">
+                                    <input type="hidden" name="listCourseId[]" class="" value="${cartArray[i].id}"/>
+                                    <th class="mark" scope="row">${cartArray[i].name}</th>
+                                    <td class="amount"><span class="price">$${cartArray[i].price}</span></td>
+                                </tr>`;
+        }
+        $('.content-checkout').html(contentCart);
+        $('.total-checkout').html("$" + shoppingCart.totalCart());
+        $('.input-amount').val(shoppingCart.totalCart());
+    }
+    function displayListHiddenInputCourseId() {
+        var cartArray = shoppingCart.listCart();
+        var contentCart = "";
+        for (var i in cartArray) {
+            contentCart +=
+                `<input type="hidden" name="listCourseId[]" class="" value="${cartArray[i].id}"/>`;
+        }
+        $('.hidden-input-courseId').html(contentCart);
+    }
     $('.show-cart-page').on('click', '.delete-item-cart', function () {
         var id = $(this).data('id');
         shoppingCart.removeAllItemFromCart(id);
@@ -217,10 +241,10 @@
         shoppingCart.clearCart();
         displayCartPage();
     });
-    
-    
 
     displayCart();
+    displayOrderCheckout();
+    displayListHiddenInputCourseId();
 });
 
     
