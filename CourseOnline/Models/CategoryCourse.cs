@@ -10,7 +10,6 @@ namespace CourseOnline.Models
     {
         [Key]
         public int CategoryCourseId { get; set; }
-
         [Required(AllowEmptyStrings = false, ErrorMessage = "Please enter phone Category")]
         public int CategoryId { get; set; }
         public virtual Category Category { get; set; }

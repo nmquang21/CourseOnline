@@ -202,6 +202,22 @@
     <Compile Include="Migrations\202002011723456_InIt.Designer.cs">
       <DependentUpon>202002011723456_InIt.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202002020722281_courseStatus.cs" />
+    <Compile Include="Migrations\202002020722281_courseStatus.Designer.cs">
+      <DependentUpon>202002020722281_courseStatus.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202002020739222_courseStatusVideo.cs" />
+    <Compile Include="Migrations\202002020739222_courseStatusVideo.Designer.cs">
+      <DependentUpon>202002020739222_courseStatusVideo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202002021352139_fixCourse.cs" />
+    <Compile Include="Migrations\202002021352139_fixCourse.Designer.cs">
+      <DependentUpon>202002021352139_fixCourse.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202002021433026_fixCourse2.cs" />
+    <Compile Include="Migrations\202002021433026_fixCourse2.Designer.cs">
+      <DependentUpon>202002021433026_fixCourse2.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountRole.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -212,6 +228,7 @@
     <Compile Include="Models\Course.cs" />
     <Compile Include="Models\Favorite.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\LessonInfomation.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\OrderDetail.cs" />
     <Compile Include="Models\OrderInfo.cs" />
@@ -225,8 +242,12 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\assets\css\addcourse.css" />
+    <Content Include="Content\assets\css\bootstrap-4.css" />
     <Content Include="Content\assets\css\custom.css" />
     <Content Include="Content\assets\css\learncode.css" />
+    <Content Include="Content\assets\js\bootstrap-select.js" />
+    <Content Include="Content\assets\js\jQueryValidate.js" />
     <Content Include="Content\assets\js\main.js" />
     <Content Include="Content\assets\wp-admin\js\password-strength-meter.min.js" />
     <Content Include="Content\assets\wp-content\plugins\buddypress\bp-core\js\confirm.min.js" />
@@ -885,6 +906,7 @@
     <Content Include="Views\Categories\Index.cshtml" />
     <Content Include="Views\Home\LearnCourse.cshtml" />
     <Content Include="Views\Home\NotFound.cshtml" />
+    <Content Include="Views\Teacher\AddCourse.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -906,6 +928,18 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\202002011723456_InIt.resx">
       <DependentUpon>202002011723456_InIt.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202002020722281_courseStatus.resx">
+      <DependentUpon>202002020722281_courseStatus.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202002020739222_courseStatusVideo.resx">
+      <DependentUpon>202002020739222_courseStatusVideo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202002021352139_fixCourse.resx">
+      <DependentUpon>202002021352139_fixCourse.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202002021433026_fixCourse2.resx">
+      <DependentUpon>202002021433026_fixCourse2.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

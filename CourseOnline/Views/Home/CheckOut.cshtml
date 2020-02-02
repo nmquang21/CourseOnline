@@ -1,13 +1,19 @@
-﻿@{
+﻿@using CourseOnline.Models
+@{
     ViewBag.Title = "CheckOut";
     Layout = "~/Views/Shared/_LayoutHome.cshtml";
-    var currentUser = ViewBag.currentUser;
+    var currentUser = new ApplicationUser();
+    if (ViewBag.currentUser != null)
+    {
+        currentUser = ViewData["currentUser"] as ApplicationUser;
+    }
+
 }
 <link href="~/Content/bootstrap.css" rel="stylesheet" />
 <link href="~/Content/css/checkout.css" rel="stylesheet" />
 
 <div id="main">
-    <section class="main-title-section-wrapper">
+    <section class="main-title-section-wrapper" style="padding: 0;">
         <div class="container">
             <div class="main-title-section">
                 <h1>Checkout</h1>
@@ -15,13 +21,7 @@
                     <a href="/Home">Home</a><span class="fa default">  </span><span class="current">Checkout</span>
                 </div>
             </div>		
-            <div class="header-search">
-                <form method="get" id="searchform" class="searchform" action="">
-                    <input id="s" name="s" type="text" value="" class="text_input" placeholder="Search">
-                    <input type="hidden" name="search-type" value="default">
-                    <input type="submit" value="">
-                </form>
-            </div>
+           
         </div>
     </section>
 
@@ -31,7 +31,7 @@
                 <div class="col-md-8 order-md-1 payment" style="padding-bottom: 5px;">
                     <h4 class="col-md-12">Thanh toán khóa học</h4>
                     <div class="col-md-12 choice-payment">
-                        @if (Request.IsAuthenticated)
+                        @if (Request.IsAuthenticated == true)
                         {
                             <div class="col-md-6 checkbox-online">
                                 <input type="radio" name="paymentType" class="radio ip-payment-method" id="payment_online" value="3" style="display: none;" >
@@ -41,7 +41,7 @@
                                 </label>
                             </div>
                         }
-                        else
+                        else if(Request.IsAuthenticated == false)
                         {
                             <div class="col-md-6 checkbox-online">
                                 <input type="radio" name="paymentType" class="radio ip-payment-method" id="payment_online" value="3" style="display: none;" disabled="disabled" >

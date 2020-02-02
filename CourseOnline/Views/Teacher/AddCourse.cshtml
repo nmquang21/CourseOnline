@@ -1,0 +1,225 @@
+﻿
+@{
+    ViewBag.Title = "AddCourse";
+    Layout = "~/Views/Shared/_LayoutHome.cshtml";
+}
+@*<link href="~/Content/bootstrap.css" rel="stylesheet" />*@
+<link rel="stylesheet" href="~/Content/assets/css/bootstrap-4.css">
+<link href="~/Content/assets/css/addcourse.css" rel="stylesheet" />
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.bundle.min.js"></script>
+<script src="~/Content/assets/js/bootstrap-select.js"></script>
+
+
+<div id="main">
+    <section class="main-title-section-wrapper">
+        <div class="container">
+            <div class="main-title-section">
+                <h1>Tạo khóa học mới:</h1>
+                <div class="breadcrumb">
+                    <a href="/Home">Home</a><span class="fa default">  </span><span class="current">AddCourse</span>
+                </div><!-- ** breadcrumb - End -->
+            </div>		<div class="header-search">
+                <form method="get" id="searchform" class="searchform" action="">
+                    <input id="s" name="s" type="text" value="" class="text_input" placeholder="Search">
+                    <input type="hidden" name="search-type" value="default">
+                    <input type="submit" value="">
+                </form>
+            </div>
+        </div>
+    </section>
+    <section id="primary" class="content-full-width">
+        <div class="container add-course" style="width: 1000px;">
+            <h3 class="border-title" style="text-transform: none">Thông tin chung:</h3>
+            <div role="form" class="wpcf7" id="wpcf7-f4245-p4243-o1" lang="en-US" dir="ltr">
+                <form action="@Url.Action("StoreAddCourse","Teacher")" method="post" class="wpcf7-form" id="add-course-form">
+                    <div id="contact-form">
+                        <div style="width: 100%; height: 135px; position: relative;">
+                            <p style="width: 65%; margin-right: 20px;">
+                                <span class="fa fa-book"></span>
+                                <span class="wpcf7-form-control-wrap">
+                                    <input type="text" name="courseName" value="" size="40" class="wpcf7-form-control" placeholder="Tên khóa học">
+                                </span>
+                            </p>
+
+                            <p class="min-p" style="overflow: visible; position: absolute;">
+                                <span class="fa fa-folder"></span>
+                                <span class="wpcf7-form-control-wrap">
+                                    <select class="selectpicker wpcf7-form-control" multiple data-live-search="true" id="category" name="listCategory[]" style="" required>
+                                        @foreach (var item in ViewBag.ListCategories)
+                                        {
+                                            <option value="@item.CategoryId">@item.CategoryName</option>
+                                        }
+                                    </select>
+                                </span>
+                            </p>
+                        </div>
+                        
+                        <p style="width: 65%; margin-right: 20px;">
+                            <span class="fa fa-link"> </span>
+                            <span class="wpcf7-form-control-wrap">
+                                <input type="text" name="introduceVideo" value="" size="40" class="wpcf7-form-control" placeholder="Link video giới thiệu">
+                            </span>
+                        </p>
+                        <p class="min-p">
+                            <i class="fa fa-money"></i>
+                            <span class="wpcf7-form-control-wrap">
+                                <input type="text" name="price" id="price" value="" size="40" class="wpcf7-form-control" placeholder="Giá">
+                            </span>
+                        </p>
+                        <p class="full-p">
+                            <span class="fa fa-image"> </span>
+                            <span class="wpcf7-form-control-wrap">
+                                <input type="text" name="image" value="" size="40" class="wpcf7-form-control" placeholder="Ảnh khóa học">
+                            </span>
+                        </p>
+                        <p class="textarea-field full-p">
+                            <span class="fa fa-file-text-o"> </span>
+                            <span class="wpcf7-form-control-wrap">
+                                <textarea name="description" cols="40" rows="10" class="wpcf7-form-control" placeholder="Mô tả khóa học"></textarea>
+                            </span>
+                        </p>
+
+                        <h3 class="border-title" style="text-transform: none">Lợi ích của khóa học:</h3>
+                        <h3 class="border-title" style="margin-bottom: 5px !important; margin-top: 0px !important;">
+                            <button type="button" class="dt-sc-button small filled add-benefit-btn"><i class="fa fa-plus"></i>Thêm lợi ích</button>
+                        </h3>
+                        <div class="list-benefit">
+                            <div class="benefit">
+                                <p style="width: 6%;">
+                                    <span class="wpcf7-form-control-wrap">
+                                        <input type="number" name="" value="1" class="wpcf7-form-control" style="text-align: center">
+                                    </span>
+                                </p>
+                                <p style="width: 85%;">
+                                    <span class="wpcf7-form-control-wrap">
+                                        <input type="text" name="listBenefit[]" value="" class="wpcf7-form-control" placeholder="Lợi ích">
+                                    </span>
+                                </p>
+                                <button type="button" class="dt-sc-button small filled delete-benefit-btn"><i class="fa fa-trash"></i></button>
+                            </div>
+                        </div>
+
+                        <h3 class="border-title" style="text-transform: none">Giáo trình:</h3>
+                        <h3 class="border-title" style="margin-bottom: 5px !important; margin-top: 0px !important;">
+                            <button type="button" class="dt-sc-button small filled add-lesson-btn"><i class="fa fa-plus"></i>Thêm bài học</button>
+                        </h3>
+                        <div class="list-lesson">
+                            <div class="lesson">
+                                <p style="width: 6%;">
+                                    <span class="wpcf7-form-control-wrap">
+                                        <input type="number" name="listLesson[0].Index" value="1" class="wpcf7-form-control" style="text-align: center">
+                                    </span>
+                                </p>
+                                <p style="width: 46%;">
+                                    <span class="wpcf7-form-control-wrap">
+                                        <input type="text" name="listLesson[0].Title" value="" class="wpcf7-form-control" placeholder="Tên bài">
+                                    </span>
+                                </p>
+                                <p style="width: 46%;">
+                                    <span class="wpcf7-form-control-wrap">
+                                        <input type="text" name="listLesson[0].LinkVideo" value="" class="wpcf7-form-control" placeholder="Link video">
+                                    </span>
+                                </p>
+                            </div>
+                        </div>
+                        <p class="submit">
+                            <input type="submit" value="Lưu khóa học" class="wpcf7-form-control wpcf7-submit">
+                        </p>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+</div>
+
+@section Scripts{
+    <script>
+        jQuery(document).ready(function ($) {
+            var index = 1;
+            $('.add-lesson-btn').click(function () {
+                index++;
+                var contentLesson = `<div class="lesson">
+                                                <p style="width: 6%;">
+                                                    <span class="wpcf7-form-control-wrap">
+                                                        <input type="number" name="listLesson[${index - 1}].Index" value="${index
+                    }" class="wpcf7-form-control" style="text-align: center">
+                                                    </span>
+                                                </p>
+                                                <p style="width: 46%;">
+                                                    <span class="wpcf7-form-control-wrap">
+                                                        <input type="text" name="listLesson[${index - 1
+                    }].Title" value="" class="wpcf7-form-control" placeholder="Tên bài">
+                                                    </span>
+                                                </p>
+                                                <p style="width: 46%;">
+                                                    <span class="wpcf7-form-control-wrap">
+                                                        <input type="text" name="listLesson[${index - 1
+                    }].LinkVideo" value="" class="wpcf7-form-control" placeholder="Link video">
+                                                    </span>
+                                                </p>
+                                            </div>`;
+                $('.list-lesson').prepend(contentLesson);
+            });
+            var stt = 1;
+            $('.add-benefit-btn').click(function () {
+                if ($('.benefit').length == 0) {
+                    stt = 0;
+                }
+                console.log($('.benefit').length);
+                stt++;
+                var contentBenefit = `<div class="benefit">
+                                                    <p style="width: 6%;">
+                                                        <span class="wpcf7-form-control-wrap">
+                                                            <input type="number" name="" value="${stt}" class="wpcf7-form-control" style="text-align: center">
+                                                        </span>
+                                                    </p>
+                                                    <p style="width: 85%;">
+                                                        <span class="wpcf7-form-control-wrap">
+                                                            <input type="text" name="listBenefit[]" value="" class="wpcf7-form-control" placeholder="Lợi ích">
+                                                        </span>
+                                                    </p>
+                                                    <button type="button" class="dt-sc-button small filled delete-benefit-btn"><i class="fa fa-trash"></i></button>
+                                                </div>`;
+                $('.list-benefit').prepend(contentBenefit);
+            });
+            $(document).on('click', '.delete-benefit-btn', function () {
+                $(this).closest('.benefit').remove();
+            });
+            $('.filter-option-inner-inner').html('Chọn danh mục');
+            console.log("Test");
+            console.log($('.filter-option-inner-inner'));
+
+            $("#add-course-form").validate({
+                onfocusout: false,
+                onkeyup: false,
+                onclick: false,
+                rules: {
+                    "courseName": {
+                        required: true,
+                        maxlength: 255
+                    },
+                    "listCategory[]": {
+                        required: true
+                    },
+                    "introduceVideo": {
+                        required: true
+                    },
+                    "price": {
+                        required: true,
+                        number: true
+                    },
+                    "image": {
+                        required: true
+                    },
+                    "description": {
+                        required: true
+                    }
+                }
+            });
+
+
+
+            $('.selectpicker').selectpicker();
+        })
+    </script>
+}
