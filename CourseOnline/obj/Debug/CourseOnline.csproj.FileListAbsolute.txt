@@ -326,3 +326,8 @@ C:\Users\tvngi\OneDrive\Desktop\CourseOnline\CourseOnline\obj\Debug\CourseOnline
 C:\Users\tvngi\OneDrive\Desktop\CourseOnline\CourseOnline\obj\Debug\CourseOnline.pdb
 C:\Users\tvngi\OneDrive\Desktop\CourseOnline\CourseOnline\obj\Debug\CourseOnline.Migrations.InIt.resources
 C:\Users\tvngi\OneDrive\Desktop\CourseOnline\CourseOnline\obj\Debug\CourseOnline.csproj.GenerateResource.cache
+C:\Users\tvngi\OneDrive\Desktop\CourseOnline\CourseOnline\obj\Debug\CourseOnline.csprojAssemblyReference.cache
+C:\Users\tvngi\OneDrive\Desktop\CourseOnline\CourseOnline\obj\Debug\CourseOnline.Migrations.courseStatus.resources
+C:\Users\tvngi\OneDrive\Desktop\CourseOnline\CourseOnline\obj\Debug\CourseOnline.Migrations.courseStatusVideo.resources
+C:\Users\tvngi\OneDrive\Desktop\CourseOnline\CourseOnline\obj\Debug\CourseOnline.Migrations.fixCourse.resources
+C:\Users\tvngi\OneDrive\Desktop\CourseOnline\CourseOnline\obj\Debug\CourseOnline.Migrations.fixCourse2.resources

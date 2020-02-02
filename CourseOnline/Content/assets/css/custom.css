@@ -1,3 +1,7 @@
+#header-wrapper-sticky-wrapper {
+    height: 100px !important;
+}
+
 .wishlist_table .add_to_cart,
 a.add_to_wishlist.button.alt {
     border-radius: 16px;
@@ -239,4 +243,74 @@ body {
 }
 .list-video-course ul li {
     width: 90%;
+}
+.add-course form p .fa {
+    color: #808080 !important;
+}
+.add-course .border-title {
+    margin-bottom: 15px !important;
+}
+.add-course #contact-form p {
+    display: inline-block !important;
+}
+.add-course #contact-form p .fa{
+    width: 8%;
+}
+.add-course #contact-form .full-p .fa {
+    width: 5%;
+}
+.add-course #contact-form .min-p .fa {
+    width: 16%;
+}
+.add-course #contact-form .min-p input {
+    width: 80%;
+}
+.add-course #contact-form .min-p {
+    width: 32%;
+}
+.add-course #contact-form p input {
+    width: 90%;
+}
+.lesson p input {
+    width: 100% !important;
+}
+.add-course .lesson p{
+    margin-bottom: 20px;
+}
+.add-lesson-btn, .add-benefit-btn {
+    float: left;
+    margin-top: 0px;
+    height: 36px;
+    line-height: 1.4;
+    padding: 8px 15px !important;
+}
+.add-course #contact-form p .fa{
+    line-height: 40px;
+}
+.delete-benefit-btn {
+    padding: 6px 23px !important;
+    margin: 0px !important;
+}
+.delete-benefit-btn .fa {
+    margin-right: 0px !important;
+}
+.benefit p {
+    margin-bottom: 0px;
+}
+.main-title-section-wrapper {
+    margin-bottom: 15px;
+}
+.add-course p {
+    overflow: visible !important;
+    margin-bottom: 25px;
+}
+label.error {
+    position: absolute;
+    top: 29px;
+    left: 12px;
+    color: red;
+    font-size: 13px;
+}
+#category-error {
+    top: 40px;
 }

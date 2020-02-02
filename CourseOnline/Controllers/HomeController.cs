@@ -22,11 +22,12 @@ namespace CourseOnline.Controllers
     public class HomeController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
-
+        [AllowAnonymous]
         public ActionResult Index()
         {
             return View();
         }
+        [AllowAnonymous]
         public ActionResult Shop(string search, int? page)
         {
             var predicate = PredicateBuilder.New<Course>(true);
@@ -43,15 +44,17 @@ namespace CourseOnline.Controllers
                 predicate = predicate.Or(c => c.ApplicationUser.firstName.Contains(search));
                 predicate = predicate.Or(c => c.ApplicationUser.lastName.Contains(search));
             }
+            predicate = predicate.And(c => c.Status == (int)Course.CourseStatus.Actived);
             predicate = predicate.And(c => c.DeletedAt == null);
             listCourse = listCourse.Where(predicate).OrderBy(c => c.CourseName);
-            int pageSize = 5;
+            int pageSize = 10;
             int pageNumber = (page ?? 1);
 
             //Danh sach id khoa hoc member da mua:
             ViewBag.MyPaidCourse = myPaidCourses();
             return View(listCourse.ToPagedList(pageNumber, pageSize));
         }
+        [AllowAnonymous]
         public ActionResult ProductDetail(int? id)
         {
             if (id == null)
@@ -68,15 +71,17 @@ namespace CourseOnline.Controllers
             ViewBag.MyPaidCourse = myPaidCourses();
             return View(course);
         }
-
+        [Authorize]
         public ActionResult YourCourses()
         {
             return View();
         }
+        [Authorize]
         public ActionResult MemberShip()
         {
             return View();
         }
+        [Authorize]
         public ActionResult LearnCourse(int? id)
         {
             string currentUserId = User.Identity.GetUserId();
@@ -100,6 +105,7 @@ namespace CourseOnline.Controllers
             ViewBag.MyPaidCourse = myPaidCourses();
             return View(course);
         }
+        [AllowAnonymous]
         public ActionResult Cart()
         {
             Uri myUri = new Uri(Request.Url.ToString());
@@ -129,30 +135,35 @@ namespace CourseOnline.Controllers
                 }
                 db.OrderInfos.AddOrUpdate(order);
                 db.SaveChanges();
-                
-                
             }
             return View();
         }
+        [AllowAnonymous]
         public ActionResult CheckOut()
         {
+            Debug.WriteLine("is authorize");
+            Debug.WriteLine(Request.IsAuthenticated);
             var id = User.Identity.GetUserId();
             ApplicationUser appUser = new ApplicationUser();
             appUser = db.Users.Find(id);
-
-            ViewBag.currentUser = appUser;
+            if (appUser != null)
+            {
+                ViewData["currentUser"] = appUser;
+            }
             return View();
         }
         public ActionResult OrderReceived()
         {
             return View();
         }
+        [AllowAnonymous]
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";
 
             return View();
         }
+        [AllowAnonymous]
         public ActionResult Contact()
         {
             ViewBag.Message = "Your contact page.";

@@ -305,7 +305,7 @@
                                 @if (Request.IsAuthenticated && User.IsInRole("teacher"))
                                 {
                                     <li id="menu-item-cart" class="menu-item menu-item-type-post_type menu-item-object-page">
-                                        <a href="#"><i class='fa fa-location-arrow'></i>Add course</a>
+                                        <a href="/Teacher/AddCourse"><i class='fa fa-location-arrow'></i>Add course</a>
                                     </li>
                                 }
                                 <li id="menu-item-cart" class="menu-item menu-item-type-post_type menu-item-object-page">
@@ -483,7 +483,7 @@
         };
     </script>
     <script type='text/javascript' src='~/Scripts/jquery-3.3.1.js'></script>
-    <script type='text/javascript' src='~/Content/assets/wp-includes/js/jquery/ui/core.min.js?ver=1.11.4'></script>
+<script type='text/javascript' src='~/Content/assets/wp-includes/js/jquery/ui/core.min.js?ver=1.11.4'></script>
     <script type='text/javascript' src='~/Content/assets/wp-includes/js/jquery/ui/datepicker.min.js?ver=1.11.4'></script>
     <script type='text/javascript'>
         jQuery(document).ready(function (jQuery) {
@@ -622,6 +622,8 @@
             case '/Home/Contact': jQuery('#menu-item-contact').addClass("current-menu-item current_page_item"); break;
         }
     </script>
+    <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.js" type="text/javascript"></script>
 
     <script type='text/javascript' src='~/Content/js/cart.js'></script>
     @RenderSection("Scripts", required: false)

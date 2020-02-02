@@ -18,6 +18,7 @@ namespace CourseOnline.Controllers
 
         private static readonly ILog log =
             LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+        [Authorize]
         public ActionResult VnPay(string amount, string description, List<int> listCourseId)
         {
             //Get Config Info
@@ -91,7 +92,7 @@ namespace CourseOnline.Controllers
             Console.WriteLine(paymentUrl);
             return Redirect(paymentUrl);
         }
-
+        [AllowAnonymous]
         public ActionResult CODPay(List<int> listCourseId, string paymentType, string amount, string firstName, string lastName, string email, string phone, string tinh, string quan, string xa, string address)
         {
             var memberId = User.Identity.GetUserId();

@@ -27,9 +27,7 @@ namespace CourseOnline.Service
             order.quan = quan;
             order.xa = xa;
             order.address = address;
-
             order.Amount = Convert.ToDecimal(amount);
-
             var orderDetails = new List<OrderDetail>();
             bool existError = false;
             foreach (var item in listCourseId)

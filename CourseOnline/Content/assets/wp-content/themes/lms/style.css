@@ -2950,8 +2950,8 @@ sup,
 .main-title-section-wrapper {
     float: left;
     width: 100%;
-    margin: 0px 0px 65px;
-    padding: 30px 0px;
+    /*margin: 0px 0px 65px;*/
+    padding: 15px 0px;
     clear: both;
 }
 
@@ -2966,7 +2966,7 @@ sup,
 .main-title-section h1 {
     font-weight: 600;
     color: #fffaf0;
-    text-transform: uppercase;
+    /*text-transform: uppercase;*/
     margin-bottom: 0;
 }
 
@@ -5012,7 +5012,7 @@ div.pp_default .pp_content_container .pp_details {
 .mailchimp-form p input,
 .mailchimp-form p textarea {
     border: none;
-    padding: 13px 0 12px 2%;
+    padding: 5px 0 8px 2%;
     width: 89.4%;
     margin: 0px;
     display: inline;
