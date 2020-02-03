@@ -54,27 +54,42 @@ namespace CourseOnline.Controllers
                 categoryCourse.CourseId = newCourse.CourseId;
                 listCategoryCourse.Add(categoryCourse);
             }
-          
+
             List<Benefit> listBenefits = new List<Benefit>();
             foreach (var item in listBenefit)
             {
-                var benefit = new Benefit();
-                benefit.name = item;
-                listBenefits.Add(benefit);
+
+                if (!String.IsNullOrEmpty(item))
+                {
+                    var benefit = new Benefit();
+                    benefit.name = item;
+                    listBenefits.Add(benefit);
+                }
+                
             }
+            if (listBenefits.Count > 0)
+            {
+                newCourse.Benefits = listBenefits;
+            }
+
             List<ResourceCourse> listResourceCourses = new List<ResourceCourse>();
             foreach (var item in listLesson)
             {
-                var resourceCourse = new ResourceCourse();
-                resourceCourse.Index = item.Index;
-                resourceCourse.Title = item.Title;
-                resourceCourse.LinkVideo = item.LinkVideo;
-                listResourceCourses.Add(resourceCourse);
+                if (item.Title != null && item.LinkVideo != null)
+                {
+                    var resourceCourse = new ResourceCourse();
+                    resourceCourse.Index = item.Index;
+                    resourceCourse.Title = item.Title;
+                    resourceCourse.LinkVideo = item.LinkVideo;
+                    listResourceCourses.Add(resourceCourse);
+                }
             }
 
+            if (listResourceCourses.Count > 0)
+            {
+                newCourse.ResourceCourses = listResourceCourses;
+            }
             newCourse.CategoryCourses = listCategoryCourse;
-            newCourse.Benefits = listBenefits;
-            newCourse.ResourceCourses = listResourceCourses;
             db.Courses.Add(newCourse);
             try
             {

@@ -67,6 +67,7 @@ namespace CourseOnline.Controllers
                 return RedirectToAction("NotFound");
             }
             ViewBag.Benefits = db.Benefits.Where(b => b.Course.CourseId == id).ToList();
+
             //Danh sach id khoa hoc member da mua:
             ViewBag.MyPaidCourse = myPaidCourses();
             return View(course);
@@ -92,7 +93,7 @@ namespace CourseOnline.Controllers
             Course course = db.Courses.Find(id);
             //Kiem tra khoa hoc da duoc mua boi user da dang nhap:
             StudentCourse studentCourse = db.StudentCourses.Find(id, currentUserId);
-            Debug.WriteLine("Check da mua: "+ studentCourse);
+            
             if (studentCourse == null)
             {
                 return RedirectToAction("NotFound");
@@ -126,7 +127,7 @@ namespace CourseOnline.Controllers
                 order.BankCode = BankCode;
                 foreach (var item in listCourse)
                 {
-                    Debug.WriteLine("courseID= "+item.CourseId);
+                    //Debug.WriteLine("courseID= "+item.CourseId);
                     var studentCourse = new StudentCourse();
                     studentCourse.MemberId = order.MemberId;
                     studentCourse.CourseId = item.CourseId;
