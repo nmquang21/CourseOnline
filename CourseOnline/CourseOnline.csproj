@@ -218,6 +218,34 @@
     <Compile Include="Migrations\202002021433026_fixCourse2.Designer.cs">
       <DependentUpon>202002021433026_fixCourse2.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202002031527176_userRoleInfo.cs" />
+    <Compile Include="Migrations\202002031527176_userRoleInfo.Designer.cs">
+      <DependentUpon>202002031527176_userRoleInfo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202002031616102_membership.cs" />
+    <Compile Include="Migrations\202002031616102_membership.Designer.cs">
+      <DependentUpon>202002031616102_membership.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202002031626100_OrderType.cs" />
+    <Compile Include="Migrations\202002031626100_OrderType.Designer.cs">
+      <DependentUpon>202002031626100_OrderType.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202002051411257_member.cs" />
+    <Compile Include="Migrations\202002051411257_member.Designer.cs">
+      <DependentUpon>202002051411257_member.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202002051442561_memberAddExpired.cs" />
+    <Compile Include="Migrations\202002051442561_memberAddExpired.Designer.cs">
+      <DependentUpon>202002051442561_memberAddExpired.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202002051444321_memberFix.cs" />
+    <Compile Include="Migrations\202002051444321_memberFix.Designer.cs">
+      <DependentUpon>202002051444321_memberFix.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202002051445006_memberFixAddExpired.cs" />
+    <Compile Include="Migrations\202002051445006_memberFixAddExpired.Designer.cs">
+      <DependentUpon>202002051445006_memberFixAddExpired.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountRole.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -230,6 +258,8 @@
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\LessonInfomation.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\Member.cs" />
+    <Compile Include="Models\Membership.cs" />
     <Compile Include="Models\OrderDetail.cs" />
     <Compile Include="Models\OrderInfo.cs" />
     <Compile Include="Models\ResourceCourse.cs" />
@@ -940,6 +970,27 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202002021433026_fixCourse2.resx">
       <DependentUpon>202002021433026_fixCourse2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202002031527176_userRoleInfo.resx">
+      <DependentUpon>202002031527176_userRoleInfo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202002031616102_membership.resx">
+      <DependentUpon>202002031616102_membership.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202002031626100_OrderType.resx">
+      <DependentUpon>202002031626100_OrderType.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202002051411257_member.resx">
+      <DependentUpon>202002051411257_member.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202002051442561_memberAddExpired.resx">
+      <DependentUpon>202002051442561_memberAddExpired.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202002051444321_memberFix.resx">
+      <DependentUpon>202002051444321_memberFix.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202002051445006_memberFixAddExpired.resx">
+      <DependentUpon>202002051445006_memberFixAddExpired.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

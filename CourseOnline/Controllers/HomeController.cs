@@ -25,6 +25,40 @@ namespace CourseOnline.Controllers
         [AllowAnonymous]
         public ActionResult Index()
         {
+            Uri myUri = new Uri(Request.Url.ToString());
+            string code = HttpUtility.ParseQueryString(myUri.Query).Get("vnp_ResponseCode");
+            string BankCode = HttpUtility.ParseQueryString(myUri.Query).Get("vnp_BankCode");
+            Debug.WriteLine("OrderId = " + TempData["OrderId"]);
+            if (code == "00")
+            {
+                ViewBag.ThanhToan = "Success!";
+                string orderID = (string)TempData["OrderId"];
+                var order = db.OrderInfos.Find(orderID);
+                if (order == null)
+                {
+                    return RedirectToAction("NotFound");
+                }
+                order.Status = (int)OrderInfo.OrderStatus.Paid;
+                order.BankCode = BankCode;
+                db.OrderInfos.AddOrUpdate(order);
+
+                var listMemberType = db.Members.ToList();
+                var memberShip = new Membership();
+                foreach (var memberType in listMemberType)
+                {
+                    if (order.Amount == memberType.Price && order.OrderDescription == memberType.MemberType)
+                    {
+                        memberShip.Member = memberType;
+                    }
+                }
+                var id = User.Identity.GetUserId();
+                ApplicationUser appUser = new ApplicationUser();
+                appUser = db.Users.Find(id);
+                memberShip.ApplicationUser = appUser;
+                memberShip.CreatedAt = DateTime.Now;
+                db.Memberships.Add(memberShip);
+                db.SaveChanges();
+            }
             return View();
         }
         [AllowAnonymous]
@@ -80,6 +114,7 @@ namespace CourseOnline.Controllers
         [Authorize]
         public ActionResult MemberShip()
         {
+            ViewBag.ListMemberType = db.Members.ToList();
             return View();
         }
         [Authorize]
@@ -142,8 +177,6 @@ namespace CourseOnline.Controllers
         [AllowAnonymous]
         public ActionResult CheckOut()
         {
-            Debug.WriteLine("is authorize");
-            Debug.WriteLine(Request.IsAuthenticated);
             var id = User.Identity.GetUserId();
             ApplicationUser appUser = new ApplicationUser();
             appUser = db.Users.Find(id);

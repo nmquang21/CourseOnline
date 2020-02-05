@@ -31,6 +31,7 @@ namespace CourseOnline.Models
         public string quan { get; set; }
         public string xa { get; set; }
         public string address { get; set; }
+        public int orderType { get; set; }
         public enum PaymentType
         {
             Cod = 1,
@@ -46,6 +47,11 @@ namespace CourseOnline.Models
             Done = 1,
             Cancel = 0,
             Deleted = -1
+        }
+        public enum OrderType
+        {
+            BuyCourse = 1,
+            MemberShip = 2
         }
         public virtual ICollection<OrderDetail> OrderDetails { get; set; }
     }

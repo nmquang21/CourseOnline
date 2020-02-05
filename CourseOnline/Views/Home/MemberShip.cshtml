@@ -28,61 +28,113 @@
 
             <!-- ** Primary Section ** -->
             <section id="primary" class="content-full-width">
-                <!-- #post-6536 -->
+
                 <div id="post-6536" class="post-6536 page type-page status-publish hentry">
-                    <div class="social-bookmark"></div><div class="social-share"></div>
-                </div><!-- #post-6536 -->
+                    <div class="social-bookmark"></div>
+                    <div class="social-share"></div>
+                </div>
+            
+                
+                @foreach (var item in ViewBag.ListMemberType)
+                {
+                    <div class="dt-sc-callout-box membership-box type5">
+                        <div class="column dt-sc-one-column">
+                            <h4><strong>@(item.MemberType)</strong></h4>
+                            <h5>
+                                Purchase this level to have access to all courses and classes for
+                                @if (item.ExpiredMonths != 0)
+                                {
+                                    <span>@(item.ExpiredMonths) tháng</span>
+                                }
+                                else if (item.ExpiredYears != 0)
+                                {
+                                    <span>@(item.ExpiredYears) năm</span>
+                                }
+                                <span> - @(item.Price)</span>
+                                <span>&#8363;</span>
+                            </h5>
+                        </div>
+                        <div class="dt-sc-hr-invisible-small"></div>
+                        <div class="column">
+                            <button style="margin-left: 10px;" class="dt-sc-button small">
+                                <i class="fa fa-cc-paypal"></i> Thanh toán Paypal
+                            </button>
+                            <form action="@Url.Action("VnPayMembership","ShoppingCart")" method="post">
+                                @*<input type="hidden" id="amountSilver" name="amount" value=""/>
+                                <input type="hidden" id="desSilver" name="description" value=""/>*@
+                                <input type="hidden" name="amount" value="@(item.Price)" />
+                                <input type="hidden" name="description" value="@(item.MemberType)" />
+                                <button type="submit" style="margin-left: 10px;" class="dt-sc-button small">
+                                    <img src="https://vnpayment.vnpay.vn/Resources/website/images/logo.png" alt="VnPay" style="width: 25px;" />
+                                    Thanh toán VnPay
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                }
+                
+                
+                
+
+                @*<div class="dt-sc-callout-box membership-box type5">
+                    <div class="column dt-sc-one-column">
+                        <h4><strong>Gold Member</strong> (Vàng đoàn)</h4>
+                        <h5>Purchase this level to have access to all courses and classes for <span>6 tháng - 10.000.000<span>&#8363;</span></span></h5>
+                    </div>
+                    <div class="dt-sc-hr-invisible-small"></div>
+                    <div class="column">
+                        <button style="margin-left: 10px;" class="dt-sc-button small">
+                            <i class="fa fa-cc-paypal"></i> Thanh toán Paypal
+                        </button>
+                        <form action="@Url.Action("VnPayMembership","ShoppingCart")" method="post">
+                            <input type="hidden" id="amountGold" name="amount" value=""/>
+                            <input type="hidden" id="desGold" name="description" value=""/>
+                            <button type="submit" style="margin-left: 10px;" class="dt-sc-button small">
+                                <img src="https://vnpayment.vnpay.vn/Resources/website/images/logo.png" alt="VnPay" style="width: 25px;"/>
+                                Thanh toán VnPay
+                            </button>
+                        </form>
+                    </div>
+                </div>
+                
 
                 <div class="dt-sc-callout-box membership-box type5">
                     <div class="column dt-sc-one-column">
-                        <h4><strong>Silver Member</strong> (s2Member Level 2)</h4>
-                        <h5>Purchase this level to have access to all courses and classes for <span>1 Month(s) - $120</span></h5>
+                        <h4><strong>Platinum Member</strong> (Bạch kim)</h4>
+                        <h5>Purchase this level to have access to all courses and classes for <span>1 năm - 15.000.000<span>&#8363;</span></span></h5>
                     </div>
                     <div class="dt-sc-hr-invisible-small"></div>
                     <div class="column">
-                        <a href="#" style="margin-left: 10px;" class="dt-sc-button small">
+                        <button style="margin-left: 10px;" class="dt-sc-button small">
                             <i class="fa fa-cc-paypal"></i> Thanh toán Paypal
-                        </a>
-                        
-                        <a href="#" style="margin-left: 10px;" class="dt-sc-button small">
-                            <img src="https://vnpayment.vnpay.vn/Resources/website/images/logo.png" alt="VnPay" style="width: 25px;" /> 
-                            Thanh toán VnPay
-                        </a>
+                        </button>
+                        <form action="@Url.Action("VnPayMembership","ShoppingCart")" method="post">
+                            <input type="hidden" id="amountPlatinum" name="amount" value="" />
+                            <input type="hidden" id="desPlatinum" name="description" value="" />
+                            <button type="submit" style="margin-left: 10px;" class="dt-sc-button small">
+                                <img src="https://vnpayment.vnpay.vn/Resources/website/images/logo.png" alt="VnPay" style="width: 25px;" />
+                                Thanh toán VnPay
+                            </button>
+                        </form>
                     </div>
-                </div><div class="dt-sc-callout-box membership-box type5">
-                    <div class="column dt-sc-one-column">
-                        <h4><strong>Gold Member</strong> (s2Member Level 3)</h4>
-                        <h5>Purchase this level to have access to all courses and classes for <span>1 Year(s) - $400</span></h5>
-                    </div>
-                    <div class="dt-sc-hr-invisible-small"></div>
-                    <div class="column">
-                        <a href="#" style="margin-left: 10px;" class="dt-sc-button small">
-                            <i class="fa fa-cc-paypal"></i> Thanh toán Paypal
-                        </a>
-                        
-                        <a href="#" style="margin-left: 10px;" class="dt-sc-button small">
-                            <img src="https://vnpayment.vnpay.vn/Resources/website/images/logo.png" alt="VnPay" style="width: 25px;" />
-                            Thanh toán VnPay
-                        </a>
-                    </div>
-                </div><div class="dt-sc-callout-box membership-box type5">
-                    <div class="column dt-sc-one-column">
-                        <h4><strong>Platinum Member</strong> (s2Member Level 4)</h4>
-                        <h5>Purchase this level to have access to all courses and classes for <span>Lifetime - $1200</span></h5>
-                    </div>
-                    <div class="dt-sc-hr-invisible-small"></div>
-                    <div class="column">
-                        <a href="#" style="margin-left: 10px;" class="dt-sc-button small">
-                            <i class="fa fa-cc-paypal"></i> Thanh toán Paypal
-                        </a>
-                        
-                        <a href="#" style="margin-left: 10px;" class="dt-sc-button small">
-                            <img src="https://vnpayment.vnpay.vn/Resources/website/images/logo.png" alt="VnPay" style="width: 25px;"/>
-                            Thanh toán VnPay
-                        </a>
-                    </div>
-                </div><div class="dt-sc-hr-invisible"></div>
-            </section><!-- ** Primary Section End ** -->
-        </div><!-- **Container - End** -->
-    </div>
+                </div>*@
+                
+                
 
+                <div class="dt-sc-hr-invisible"></div>
+            </section>
+        </div>
+    </div>
+@*@section Scripts
+{
+    <script>
+        jQuery(document).ready(function($) {
+            $('#amountSilver').val('2000000');
+            $('#desSilver').val("Silver");
+            $('#amountGold').val('10000000');
+            $('#desGold').val("Gold");
+            $('#amountPlatinum').val('15000000');
+            $('#desPlatinum').val("Platinum");
+        })
+    </script>
+}*@

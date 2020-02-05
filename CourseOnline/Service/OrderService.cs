@@ -22,6 +22,7 @@ namespace CourseOnline.Service
             order.firstName = firstName;
             order.lastName = lastName;
             order.email = email;
+            order.orderType = (int)OrderInfo.OrderType.BuyCourse;
             order.phone = phone;
             order.tinh = tinh;
             order.quan = quan;

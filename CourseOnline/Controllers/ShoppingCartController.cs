@@ -47,6 +47,7 @@ namespace CourseOnline.Controllers
                 orderDetail.Price = course.Price;
                 orderDetails.Add(orderDetail);
             }
+            order.orderType = (int)OrderInfo.OrderType.BuyCourse;
             order.OrderDetails = orderDetails;
             order.Status = Convert.ToInt16(OrderInfo.OrderStatus.Pending);
             order.MemberId = User.Identity.GetUserId();
@@ -104,6 +105,85 @@ namespace CourseOnline.Controllers
                 Session["shoppingCart"] = null;
             }
             return Redirect("/Home/Cart");
+        }
+        public ActionResult VnPayMembership(string amount, string description)
+        {
+            var getAmount = Convert.ToDecimal(amount);
+            var listMemberType = db.Members.ToList();
+            foreach (var memberType in listMemberType)
+            {
+                Debug.WriteLine(description == memberType.MemberType && getAmount != memberType.Price);
+                if (description != memberType.MemberType || (description == memberType.MemberType && getAmount != memberType.Price))
+                {
+                    return RedirectToAction("Shop", "Home");
+                }
+            }
+
+
+            //if (description != "Platinum" && description != "Gold" && description != "Silver")
+            //{
+            //    return RedirectToAction("Shop", "Home");
+            //}
+            //else
+            //{
+            //    switch (description)
+            //    {
+            //        case "Silver": if (amount != "2000000") { return RedirectToAction("Shop", "Home"); } break;
+            //        case "Gold": if (amount != "10000000") { return RedirectToAction("Shop", "Home"); } break;
+            //        case "Platinum": if (amount != "15000000") { return RedirectToAction("Shop", "Home"); } break;
+            //    }
+            //}
+            //Get Config Info
+            string vnp_Returnurl = "https://localhost:44374/Home"; //URL nhan ket qua tra ve 
+            string vnp_Url = "http://sandbox.vnpayment.vn/paymentv2/vpcpay.html"; //URL thanh toan cua VNPAY 
+            string vnp_TmnCode = "P1V8JH37"; //Ma website
+            string vnp_HashSecret = "XAUJIMFNKYUUWWNWOLLNIHJCUGLOIGEF"; //Chuoi bi mat
+
+
+            //Get payment input
+            OrderInfo order = new OrderInfo();
+            //Save order to db
+            order.OrderId = "DH" + DateTime.Now.Ticks.ToString();
+            TempData["OrderId"] = order.OrderId;
+            order.orderType = (int)OrderInfo.OrderType.MemberShip;
+            order.Status = Convert.ToInt16(OrderInfo.OrderStatus.Pending);
+            order.MemberId = User.Identity.GetUserId();
+            order.PaymentTypeId = Convert.ToInt16(OrderInfo.PaymentType.DirectTransfer);
+            order.Amount = getAmount;
+            order.OrderDescription = description;
+            order.CreatedAt = DateTime.Now.ToString();
+
+
+            db.OrderInfos.Add(order);
+            try
+            {
+                db.SaveChanges();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+            //Build URL for VNPAY
+            VnPayLibrary vnpay = new VnPayLibrary();
+
+            vnpay.AddRequestData("vnp_Version", "2.0.0");
+            vnpay.AddRequestData("vnp_Command", "pay");
+            vnpay.AddRequestData("vnp_TmnCode", vnp_TmnCode);
+            vnpay.AddRequestData("vnp_Amount", (order.Amount * 100).ToString());
+            vnpay.AddRequestData("vnp_BankCode", "NCB");
+            vnpay.AddRequestData("vnp_CreateDate", DateTime.Now.ToString("yyyyMMddHHmmss"));
+            vnpay.AddRequestData("vnp_CurrCode", "VND");
+            vnpay.AddRequestData("vnp_IpAddr", Utils.GetIpAddress());
+            vnpay.AddRequestData("vnp_Locale", "vn");
+            vnpay.AddRequestData("vnp_OrderInfo", order.OrderDescription);
+            vnpay.AddRequestData("vnp_OrderType", "190002"); //default value: other
+            vnpay.AddRequestData("vnp_ReturnUrl", vnp_Returnurl);
+            vnpay.AddRequestData("vnp_TxnRef", order.OrderId.ToString());
+
+            string paymentUrl = vnpay.CreateRequestUrl(vnp_Url, vnp_HashSecret);
+            log.InfoFormat("VNPAY URL: {0}", paymentUrl);
+            return Redirect(paymentUrl);
         }
     }
 }
