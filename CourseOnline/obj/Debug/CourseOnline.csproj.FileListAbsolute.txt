@@ -331,3 +331,10 @@ C:\Users\tvngi\OneDrive\Desktop\CourseOnline\CourseOnline\obj\Debug\CourseOnline
 C:\Users\tvngi\OneDrive\Desktop\CourseOnline\CourseOnline\obj\Debug\CourseOnline.Migrations.courseStatusVideo.resources
 C:\Users\tvngi\OneDrive\Desktop\CourseOnline\CourseOnline\obj\Debug\CourseOnline.Migrations.fixCourse.resources
 C:\Users\tvngi\OneDrive\Desktop\CourseOnline\CourseOnline\obj\Debug\CourseOnline.Migrations.fixCourse2.resources
+C:\Users\tvngi\OneDrive\Desktop\CourseOnline\CourseOnline\obj\Debug\CourseOnline.Migrations.userRoleInfo.resources
+C:\Users\tvngi\OneDrive\Desktop\CourseOnline\CourseOnline\obj\Debug\CourseOnline.Migrations.membership.resources
+C:\Users\tvngi\OneDrive\Desktop\CourseOnline\CourseOnline\obj\Debug\CourseOnline.Migrations.OrderType.resources
+C:\Users\tvngi\OneDrive\Desktop\CourseOnline\CourseOnline\obj\Debug\CourseOnline.Migrations.member.resources
+C:\Users\tvngi\OneDrive\Desktop\CourseOnline\CourseOnline\obj\Debug\CourseOnline.Migrations.memberAddExpired.resources
+C:\Users\tvngi\OneDrive\Desktop\CourseOnline\CourseOnline\obj\Debug\CourseOnline.Migrations.memberFix.resources
+C:\Users\tvngi\OneDrive\Desktop\CourseOnline\CourseOnline\obj\Debug\CourseOnline.Migrations.memberFixAddExpired.resources

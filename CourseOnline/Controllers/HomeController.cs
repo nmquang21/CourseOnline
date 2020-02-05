@@ -25,6 +25,40 @@ namespace CourseOnline.Controllers
         [AllowAnonymous]
         public ActionResult Index()
         {
+            Uri myUri = new Uri(Request.Url.ToString());
+            string code = HttpUtility.ParseQueryString(myUri.Query).Get("vnp_ResponseCode");
+            string BankCode = HttpUtility.ParseQueryString(myUri.Query).Get("vnp_BankCode");
+            Debug.WriteLine("OrderId = " + TempData["OrderId"]);
+            if (code == "00")
+            {
+                ViewBag.ThanhToan = "Success!";
+                string orderID = (string)TempData["OrderId"];
+                var order = db.OrderInfos.Find(orderID);
+                if (order == null)
+                {
+                    return RedirectToAction("NotFound");
+                }
+                order.Status = (int)OrderInfo.OrderStatus.Paid;
+                order.BankCode = BankCode;
+                db.OrderInfos.AddOrUpdate(order);
+
+                var listMemberType = db.Members.ToList();
+                var memberShip = new Membership();
+                foreach (var memberType in listMemberType)
+                {
+                    if (order.Amount == memberType.Price && order.OrderDescription == memberType.MemberType)
+                    {
+                        memberShip.Member = memberType;
+                    }
+                }
+                var id = User.Identity.GetUserId();
+                ApplicationUser appUser = new ApplicationUser();
+                appUser = db.Users.Find(id);
+                memberShip.ApplicationUser = appUser;
+                memberShip.CreatedAt = DateTime.Now;
+                db.Memberships.Add(memberShip);
+                db.SaveChanges();
+            }
             return View();
         }
         [AllowAnonymous]
@@ -67,6 +101,7 @@ namespace CourseOnline.Controllers
                 return RedirectToAction("NotFound");
             }
             ViewBag.Benefits = db.Benefits.Where(b => b.Course.CourseId == id).ToList();
+
             //Danh sach id khoa hoc member da mua:
             ViewBag.MyPaidCourse = myPaidCourses();
             return View(course);
@@ -79,6 +114,7 @@ namespace CourseOnline.Controllers
         [Authorize]
         public ActionResult MemberShip()
         {
+            ViewBag.ListMemberType = db.Members.ToList();
             return View();
         }
         [Authorize]
@@ -92,7 +128,7 @@ namespace CourseOnline.Controllers
             Course course = db.Courses.Find(id);
             //Kiem tra khoa hoc da duoc mua boi user da dang nhap:
             StudentCourse studentCourse = db.StudentCourses.Find(id, currentUserId);
-            Debug.WriteLine("Check da mua: "+ studentCourse);
+            
             if (studentCourse == null)
             {
                 return RedirectToAction("NotFound");
@@ -126,7 +162,7 @@ namespace CourseOnline.Controllers
                 order.BankCode = BankCode;
                 foreach (var item in listCourse)
                 {
-                    Debug.WriteLine("courseID= "+item.CourseId);
+                    //Debug.WriteLine("courseID= "+item.CourseId);
                     var studentCourse = new StudentCourse();
                     studentCourse.MemberId = order.MemberId;
                     studentCourse.CourseId = item.CourseId;
@@ -141,8 +177,6 @@ namespace CourseOnline.Controllers
         [AllowAnonymous]
         public ActionResult CheckOut()
         {
-            Debug.WriteLine("is authorize");
-            Debug.WriteLine(Request.IsAuthenticated);
             var id = User.Identity.GetUserId();
             ApplicationUser appUser = new ApplicationUser();
             appUser = db.Users.Find(id);

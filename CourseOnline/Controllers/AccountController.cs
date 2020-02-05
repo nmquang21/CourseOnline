@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
 using System.Security.Claims;
@@ -9,6 +10,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using CourseOnline.Models;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace CourseOnline.Controllers
 {
@@ -17,7 +19,7 @@ namespace CourseOnline.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
-
+        private ApplicationDbContext db = new ApplicationDbContext();
         public AccountController()
         {
         }
@@ -79,6 +81,14 @@ namespace CourseOnline.Controllers
             switch (result)
             {
                 case SignInStatus.Success:
+
+                    var UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(db));
+                    var userID = UserManager.FindByEmail(model.Email).Id;
+                    var listRole = UserManager.GetRoles(userID);
+
+
+
+
                     return RedirectToLocal(returnUrl);
                 case SignInStatus.LockedOut:
                     return View("Lockout");
@@ -169,6 +179,7 @@ namespace CourseOnline.Controllers
                     {
                         UserManager.AddToRole(user.Id, "member");
                     }
+
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
                     
                     // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
