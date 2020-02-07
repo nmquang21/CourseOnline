@@ -12,9 +12,8 @@ namespace CourseOnline.Models
         [Key]
         public int ID { get; set; }
         //public int MembershipRole { get; set; }
-        public DateTime? CreatedAt { get; set; }
-        public DateTime? UpdatedAt { get; set; }
-        public DateTime? DeletedAt { get; set; }
+        public DateTime CreatedAt { get; set; }
+        public int MemberId { get; set; }
         public virtual Member Member { get; set; }
         public virtual ApplicationUser ApplicationUser { get; set; }
         //public enum MembershipRoleEnum

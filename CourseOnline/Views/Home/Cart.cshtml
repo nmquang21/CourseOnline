@@ -26,16 +26,16 @@
     <div class="container">
         <section id="primary" class="content-full-width">
             @*Neu ko co item trong cart*@
-            @if (TempData["msg"] == "Order success!")
+            @if (TempData["msgCOD"] == "Order success!")
             {
                 <div style="text-align: center" class="order-success" data-check="done">
-                    <h4>Order success!</h4>
+                    <h4>Thành công! Mã kích hoạt sẽ được gửi đến tận nơi, miễn phí giao hàng.</h4>
                 </div>
             }
             @if (ViewBag.ThanhToan == "Success!")
             {
                 <div style="text-align: center" class="order-paid-success" data-check="done">
-                    <h4>Success!</h4>
+                    <h4>Thanh toán thành công! Bạn có thể tham gia khóa học.</h4>
                 </div>
             }
             <div id="post-1061" class="post-1061 page type-page status-publish hentry no-item-cart">
@@ -43,7 +43,7 @@
                     <p class="cart-empty">Your cart is currently empty.</p>
                     <p class="return-to-shop">
                         <a class="button wc-backward" href="/Home/Shop">
-                            Return to shop
+                            Return to courses
                         </a>
                     </p>
                 </div>

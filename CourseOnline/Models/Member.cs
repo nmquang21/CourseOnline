@@ -9,8 +9,8 @@ namespace CourseOnline.Models
     {
         public  int Id { get; set; }
         public  string MemberType { get; set; }
+        public  string RoleName { get; set; }
         public  decimal Price { get; set; }
         public int ExpiredMonths { get; set; }
-        public int ExpiredYears { get; set; }
     }
 }

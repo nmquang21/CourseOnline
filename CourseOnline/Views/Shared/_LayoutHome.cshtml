@@ -304,7 +304,7 @@
                                 }
                                 @if (Request.IsAuthenticated && User.IsInRole("teacher"))
                                 {
-                                    <li id="menu-item-cart" class="menu-item menu-item-type-post_type menu-item-object-page">
+                                    <li id="menu-item-add-cart" class="menu-item menu-item-type-post_type menu-item-object-page">
                                         <a href="/Teacher/AddCourse"><i class='fa fa-location-arrow'></i>Add course</a>
                                     </li>
                                 }
@@ -620,6 +620,7 @@
             case '/Home/Cart': jQuery('#menu-item-cart').addClass("current-menu-item current_page_item"); break;
             case '/Home/About': jQuery('#menu-item-about').addClass("current-menu-item current_page_item"); break;
             case '/Home/Contact': jQuery('#menu-item-contact').addClass("current-menu-item current_page_item"); break;
+            case '/Teacher/AddCourse': jQuery('#menu-item-add-cart').addClass("current-menu-item current_page_item"); break;
         }
     </script>
     <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.1.min.js"></script>

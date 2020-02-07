@@ -99,7 +99,7 @@ namespace CourseOnline.Controllers
             var memberId = User.Identity.GetUserId();
             if (orderService.createOrder(listCourseId, paymentType,amount, firstName, lastName, email, phone, tinh, quan, xa, address, memberId))
             {
-                TempData["msg"] = "Order success!";
+                TempData["msgCOD"] = "Order success!";
                 //Xoa session:
                 Debug.WriteLine("Da xoa session");
                 Session["shoppingCart"] = null;
@@ -110,29 +110,21 @@ namespace CourseOnline.Controllers
         {
             var getAmount = Convert.ToDecimal(amount);
             var listMemberType = db.Members.ToList();
+            var validate = false;
             foreach (var memberType in listMemberType)
             {
-                Debug.WriteLine(description == memberType.MemberType && getAmount != memberType.Price);
-                if (description != memberType.MemberType || (description == memberType.MemberType && getAmount != memberType.Price))
+                if (description == memberType.MemberType && getAmount == memberType.Price)
                 {
-                    return RedirectToAction("Shop", "Home");
+                    validate = true;
+                    break;
                 }
             }
 
+            if (validate == false)
+            {
+                return RedirectToAction("Shop","Home");
+            }
 
-            //if (description != "Platinum" && description != "Gold" && description != "Silver")
-            //{
-            //    return RedirectToAction("Shop", "Home");
-            //}
-            //else
-            //{
-            //    switch (description)
-            //    {
-            //        case "Silver": if (amount != "2000000") { return RedirectToAction("Shop", "Home"); } break;
-            //        case "Gold": if (amount != "10000000") { return RedirectToAction("Shop", "Home"); } break;
-            //        case "Platinum": if (amount != "15000000") { return RedirectToAction("Shop", "Home"); } break;
-            //    }
-            //}
             //Get Config Info
             string vnp_Returnurl = "https://localhost:44374/Home"; //URL nhan ket qua tra ve 
             string vnp_Url = "http://sandbox.vnpayment.vn/paymentv2/vpcpay.html"; //URL thanh toan cua VNPAY 
@@ -149,7 +141,7 @@ namespace CourseOnline.Controllers
             order.Status = Convert.ToInt16(OrderInfo.OrderStatus.Pending);
             order.MemberId = User.Identity.GetUserId();
             order.PaymentTypeId = Convert.ToInt16(OrderInfo.PaymentType.DirectTransfer);
-            order.Amount = getAmount;
+            order.Amount = Math.Round(getAmount);
             order.OrderDescription = description;
             order.CreatedAt = DateTime.Now.ToString();
 

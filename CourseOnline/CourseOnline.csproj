@@ -246,6 +246,26 @@
     <Compile Include="Migrations\202002051445006_memberFixAddExpired.Designer.cs">
       <DependentUpon>202002051445006_memberFixAddExpired.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202002051545280_memberRole.cs" />
+    <Compile Include="Migrations\202002051545280_memberRole.Designer.cs">
+      <DependentUpon>202002051545280_memberRole.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202002051630350_dateTime.cs" />
+    <Compile Include="Migrations\202002051630350_dateTime.Designer.cs">
+      <DependentUpon>202002051630350_dateTime.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202002051641085_mem.cs" />
+    <Compile Include="Migrations\202002051641085_mem.Designer.cs">
+      <DependentUpon>202002051641085_mem.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202002051711378_memFix.cs" />
+    <Compile Include="Migrations\202002051711378_memFix.Designer.cs">
+      <DependentUpon>202002051711378_memFix.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202002051718386_memFix1.cs" />
+    <Compile Include="Migrations\202002051718386_memFix1.Designer.cs">
+      <DependentUpon>202002051718386_memFix1.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountRole.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -268,6 +288,7 @@
     <Compile Include="Models\SubjectCourse.cs" />
     <Compile Include="Models\VnPayLibrary.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Service\MemberService.cs" />
     <Compile Include="Service\OrderService.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -991,6 +1012,21 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202002051445006_memberFixAddExpired.resx">
       <DependentUpon>202002051445006_memberFixAddExpired.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202002051545280_memberRole.resx">
+      <DependentUpon>202002051545280_memberRole.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202002051630350_dateTime.resx">
+      <DependentUpon>202002051630350_dateTime.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202002051641085_mem.resx">
+      <DependentUpon>202002051641085_mem.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202002051711378_memFix.resx">
+      <DependentUpon>202002051711378_memFix.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202002051718386_memFix1.resx">
+      <DependentUpon>202002051718386_memFix1.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

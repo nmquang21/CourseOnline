@@ -29,8 +29,6 @@
         obj.addItemToCart = function(id, name, price, author, image, count) {
             for (var i in cart) {
                 if (cart[i].id === id) {
-                    cart[i].count ++;
-                    saveCart();
                     return;
                 }
             }
@@ -42,8 +40,6 @@
         obj.addItemFromDetail = function (id, name, price, author, image, count) {
             for (var i in cart) {
                 if (cart[i].id === id) {
-                    cart[i].count += count;
-                    saveCart();
                     return;
                 }
             }
