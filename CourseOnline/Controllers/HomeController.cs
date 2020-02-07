@@ -10,6 +10,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using CourseOnline.Service;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
@@ -22,9 +23,24 @@ namespace CourseOnline.Controllers
     public class HomeController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
+        private MemberService memberService = new MemberService();
+
         [AllowAnonymous]
         public ActionResult Index()
         {
+            var UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(db));
+            //Check expired member ship:
+            if (User.Identity.IsAuthenticated)
+            {
+                var id = User.Identity.GetUserId();
+                var user = UserManager.FindById(id);
+                if (memberService.CheckExpiredMember(user) == true)
+                {
+                    TempData["Expired"] = "Expired!";
+                }
+            }
+
+            //Vn pay:
             Uri myUri = new Uri(Request.Url.ToString());
             string code = HttpUtility.ParseQueryString(myUri.Query).Get("vnp_ResponseCode");
             string BankCode = HttpUtility.ParseQueryString(myUri.Query).Get("vnp_BankCode");
@@ -42,21 +58,27 @@ namespace CourseOnline.Controllers
                 order.BankCode = BankCode;
                 db.OrderInfos.AddOrUpdate(order);
 
-                var listMemberType = db.Members.ToList();
-                var memberShip = new Membership();
-                foreach (var memberType in listMemberType)
+                if (User.Identity.IsAuthenticated)
                 {
-                    if (order.Amount == memberType.Price && order.OrderDescription == memberType.MemberType)
+                    //Luu membership
+                    var listMemberType = db.Members.ToList();
+                    var memberShip = new Membership();
+                    foreach (var memberType in listMemberType)
                     {
-                        memberShip.Member = memberType;
+                        if (order.Amount == memberType.Price && order.OrderDescription == memberType.MemberType)
+                        {
+                            memberShip.Member = memberType;
+                        }
                     }
+                    var id = User.Identity.GetUserId();
+                    memberShip.ApplicationUser = UserManager.FindById(id);
+                    memberShip.CreatedAt = DateTime.Now;
+                    db.Memberships.Add(memberShip);
+                    string roleMember = memberShip.Member.MemberType.ToString();
+                    //Add role member:
+                    UserManager.AddToRole(id, roleMember);
                 }
-                var id = User.Identity.GetUserId();
-                ApplicationUser appUser = new ApplicationUser();
-                appUser = db.Users.Find(id);
-                memberShip.ApplicationUser = appUser;
-                memberShip.CreatedAt = DateTime.Now;
-                db.Memberships.Add(memberShip);
+
                 db.SaveChanges();
             }
             return View();
@@ -86,11 +108,44 @@ namespace CourseOnline.Controllers
 
             //Danh sach id khoa hoc member da mua:
             ViewBag.MyPaidCourse = myPaidCourses();
+            var UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(db));
+            //Check expired member ship:
+            if (User.Identity.IsAuthenticated)
+            {
+                var userId = User.Identity.GetUserId();
+                var user = UserManager.FindById(userId);
+                if (memberService.CheckExpiredMember(user) == true)
+                {
+                    TempData["Expired"] = "Expired!";
+                }
+                if (UserManager.IsInRole(userId, "Silver") || UserManager.IsInRole(userId, "Gold") || UserManager.IsInRole(userId, "Platium"))
+                {
+                    ViewBag.StillMember = true;
+                }
+            }
             return View(listCourse.ToPagedList(pageNumber, pageSize));
         }
         [AllowAnonymous]
         public ActionResult ProductDetail(int? id)
         {
+            var UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(db));
+            //Check expired member ship:
+            if (User.Identity.IsAuthenticated)
+            {
+                var userId = User.Identity.GetUserId();
+                var user = UserManager.FindById(userId);
+                if (memberService.CheckExpiredMember(user) == true)
+                {
+                    TempData["Expired"] = "Expired!";
+                }
+
+                if (UserManager.IsInRole(userId, "Silver") || UserManager.IsInRole(userId, "Gold") || UserManager.IsInRole(userId, "Platium"))
+                {
+                    ViewBag.StillMember = true;
+                }
+
+            }
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -111,7 +166,7 @@ namespace CourseOnline.Controllers
         {
             return View();
         }
-        [Authorize]
+        [Authorize(Roles = "member,teacher,admin")]
         public ActionResult MemberShip()
         {
             ViewBag.ListMemberType = db.Members.ToList();
@@ -120,16 +175,19 @@ namespace CourseOnline.Controllers
         [Authorize]
         public ActionResult LearnCourse(int? id)
         {
+            var UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(db));
             string currentUserId = User.Identity.GetUserId();
+            var user = UserManager.FindById(currentUserId);
             if (id == null)
             {
                 return RedirectToAction("NotFound");
             }
             Course course = db.Courses.Find(id);
-            //Kiem tra khoa hoc da duoc mua boi user da dang nhap:
+
+            //Kiem tra khoa hoc da duoc mua boi user da dang nhap hoac user da mua member:
             StudentCourse studentCourse = db.StudentCourses.Find(id, currentUserId);
             
-            if (studentCourse == null)
+            if (studentCourse == null && memberService.CheckExpiredMember(user) == true)
             {
                 return RedirectToAction("NotFound");
             }

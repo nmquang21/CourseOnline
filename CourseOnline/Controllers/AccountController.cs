@@ -11,6 +11,7 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using CourseOnline.Models;
 using Microsoft.AspNet.Identity.EntityFramework;
+using CourseOnline.Service;
 
 namespace CourseOnline.Controllers
 {
@@ -81,14 +82,14 @@ namespace CourseOnline.Controllers
             switch (result)
             {
                 case SignInStatus.Success:
-
+                    var memberService = new MemberService();
                     var UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(db));
-                    var userID = UserManager.FindByEmail(model.Email).Id;
-                    var listRole = UserManager.GetRoles(userID);
-
-
-
-
+                    var user = UserManager.FindByEmail(model.Email);
+                    if (memberService.CheckExpiredMember(user) == true)
+                    {
+                        Debug.WriteLine("Da xoa role member");
+                        TempData["Expired"] = "Expired!";
+                    }
                     return RedirectToLocal(returnUrl);
                 case SignInStatus.LockedOut:
                     return View("Lockout");

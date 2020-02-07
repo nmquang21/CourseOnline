@@ -1,4 +1,5 @@
 ﻿@model PagedList.IPagedList<CourseOnline.Models.Course>
+@using System.Globalization
 @using Microsoft.AspNet.Identity
 @using PagedList.Mvc;
 @{
@@ -97,18 +98,18 @@
                                     <img src="@(Model[i].Image)" style="width: 420px; height: 245px;">
                                 </a>
                                 <div class="dt-sc-course-overlay">
-                                    <a title="Advanced Programming" href="@Url.Action("ProductDetail","Home",new { id = Model[i].CourseId})" class="dt-sc-button small white"> View Course </a>
+                                    <a title="Advanced Programming" href="@Url.Action("ProductDetail","Home",new { id = Model[i].CourseId})" class="dt-sc-button small white"> Xem chi tiết </a>
                                 </div>
                             </div>
                             <div class="dt-sc-course-details">
-                                <span class="dt-sc-course-price"><span class="amount">$@(Model[i].Price)</span></span>
+                                <span class="dt-sc-course-price"><span class="amount">@(Math.Round(Model[i].Price).ToString("#,###", CultureInfo.GetCultureInfo("vi-VN").NumberFormat))<span>&#8363;</span></span></span>
                                 <h5><a href="https://lmstheme.wpengine.com/courses/advanced-programming/" title="Advanced Programming">@(Model[i].CourseName)</a></h5>
                                 <div class="dt-sc-certificate-badge">
                                     @if (Request.IsAuthenticated && User.IsInRole("teacher") && (Model[i].ApplicationUser.Id == User.Identity.GetUserId()))
                                     {
                                         <span class="certificate" title="Khóa học của bạn"></span>
                                     }
-                                    @if (Request.IsAuthenticated && listMyPaidCourseId.Contains(Model[i].CourseId))
+                                    @if (Request.IsAuthenticated && (listMyPaidCourseId.Contains(Model[i].CourseId) || ViewBag.StillMember == true))
                                     {
                                         <span class="badge" title="Khóa học bạn đã sở hữu"></span>
                                     }
@@ -119,8 +120,7 @@
                                         <img src="https://znews-photo.zadn.vn/w660/Uploaded/mdf_drkydd/2019_10_09/03.jpg" alt="Alternate Text" style="border-radius: 100%; width: 30px; height: 30px;"/>
                                     </div>
                                     <p class="teacher-name">@(Model[i].ApplicationUser.firstName)</p>
-                                    <p> <a href="https://lmstheme.wpengine.com/coursecategory/education/" rel="tag">Education</a> </p>
-                                    <p> 5&nbsp;Lessons </p>
+                                    <p> @(Model[i].ResourceCourses.Count)&nbsp;Bài học </p>
                                 </div>
                                 <div class="dt-sc-course-data">
                                     <div class="dt-sc-course-duration">
@@ -147,12 +147,13 @@
                 </div>
 
             </div>
-
-
-
         </section>
-        <!-- ** Primary Section End ** -->
     </div>
-    <!-- **Container - End** -->
 </div>
-<!-- **Main - End** -->
+@section Scripts
+{
+    <script>
+        jQuery(document).ready(function($) {
+        })
+    </script>
+}

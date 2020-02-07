@@ -338,3 +338,8 @@ C:\Users\tvngi\OneDrive\Desktop\CourseOnline\CourseOnline\obj\Debug\CourseOnline
 C:\Users\tvngi\OneDrive\Desktop\CourseOnline\CourseOnline\obj\Debug\CourseOnline.Migrations.memberAddExpired.resources
 C:\Users\tvngi\OneDrive\Desktop\CourseOnline\CourseOnline\obj\Debug\CourseOnline.Migrations.memberFix.resources
 C:\Users\tvngi\OneDrive\Desktop\CourseOnline\CourseOnline\obj\Debug\CourseOnline.Migrations.memberFixAddExpired.resources
+C:\Users\tvngi\OneDrive\Desktop\CourseOnline\CourseOnline\obj\Debug\CourseOnline.Migrations.memberRole.resources
+C:\Users\tvngi\OneDrive\Desktop\CourseOnline\CourseOnline\obj\Debug\CourseOnline.Migrations.dateTime.resources
+C:\Users\tvngi\OneDrive\Desktop\CourseOnline\CourseOnline\obj\Debug\CourseOnline.Migrations.mem.resources
+C:\Users\tvngi\OneDrive\Desktop\CourseOnline\CourseOnline\obj\Debug\CourseOnline.Migrations.memFix.resources
+C:\Users\tvngi\OneDrive\Desktop\CourseOnline\CourseOnline\obj\Debug\CourseOnline.Migrations.memFix1.resources
