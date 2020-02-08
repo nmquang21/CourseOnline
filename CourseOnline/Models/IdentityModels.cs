@@ -19,6 +19,7 @@ namespace CourseOnline.Models
     {
         public string firstName { get; set; }
         public string lastName { get; set; }
+        public string avatar { get; set; }
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {
             // Note the authenticationType must match the one defined in CookieAuthenticationOptions.AuthenticationType
@@ -44,6 +45,7 @@ namespace CourseOnline.Models
         public DbSet<Benefit> Benefits { set; get; }
         public DbSet<Membership> Memberships { set; get; }
         public DbSet<Member> Members { set; get; }
+        public DbSet<ResourceCourse> ResourceCourses { set; get; }
 
         public static ApplicationDbContext Create()
         {

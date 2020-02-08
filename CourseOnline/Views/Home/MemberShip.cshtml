@@ -1,36 +1,66 @@
 ﻿@using System.Globalization
+@using System.Security.Cryptography
+@using CourseOnline.Migrations
 
 @{
     ViewBag.Title = "MemberShip";
     Layout = "~/Views/Shared/_LayoutHome.cshtml";
 }
-
-    <div id="main">
-        <section class="main-title-section-wrapper">
-            <div class="container">
-                <div class="main-title-section">
-                    <h1>Membership</h1><div class="breadcrumb">
-                        <a href="https://lmstheme.wpengine.com">Home</a><span class="fa default">  </span><span class="current">Membership</span>
-                    </div>
-                </div>		
-                <div class="header-search">
-                    <form method="get" id="searchform" class="searchform" action="https://lmstheme.wpengine.com/">
-                        <input id="s" name="s" type="text" value="" class="text_input" placeholder="Search">
-                        <input type="hidden" name="search-type" value="default">
-                        <input type="submit" value="">
-                    </form>
+<div id="main">
+    <section class="main-title-section-wrapper">
+        <div class="container">
+            <div class="main-title-section">
+                <h1>Membership</h1><div class="breadcrumb">
+                    <a href="https://lmstheme.wpengine.com">Home</a><span class="fa default">  </span><span class="current">Membership</span>
                 </div>
             </div>
-        </section>
-        <div class="container">
-            <section id="primary" class="content-full-width">
+            <div class="header-search">
+                <form method="get" id="searchform" class="searchform" action="https://lmstheme.wpengine.com/">
+                    <input id="s" name="s" type="text" value="" class="text_input" placeholder="Search">
+                    <input type="hidden" name="search-type" value="default">
+                    <input type="submit" value="">
+                </form>
+            </div>
+        </div>
+    </section>
+    <div class="container">
+        <section id="primary" class="content-full-width">
 
-                <div id="post-6536" class="post-6536 page type-page status-publish hentry">
-                    <div class="social-bookmark"></div>
-                    <div class="social-share"></div>
+            <div id="post-6536" class="post-6536 page type-page status-publish hentry">
+                <div class="social-bookmark"></div>
+                <div class="social-share"></div>
+            </div>
+            @if (ViewBag.UserMemberShip != null)
+            {
+                <div class="fullwidth-section  ">
+                    <div class="container">
+                        <div class="column dt-sc-one-half  space  first">
+                            <div id="rev_slider_1_1_wrapper" class="rev_slider_wrapper fullwidthbanner-container tp-shadow1" data-source="gallery" style="margin: 0px auto; padding: 0px; height: 300px; overflow: visible;">
+                                <div id="rev_slider_1_1" class="rev_slider fullwidthabanner revslider-initialised tp-simpleresponsive rev_redraw_on_blurfocus" style="margin-top: 0px; margin-bottom: 0px; height: 300px;" data-version="5.4.7.1" data-slideactive="rs-3">
+                                    <ul class="tp-revslider-mainul" style="visibility: visible; display: block; overflow: hidden; width: 574px; height: 100%; max-height: none; left: 0px;">
+                                        <li class="tp-revslider-slidesli active-revslide" style="width: 100%; height: 100%; overflow: hidden; z-index: 20; visibility: inherit; opacity: 1; background-color: rgba(255, 255, 255, 0);">
+                                            <div class="slotholder" style="position: absolute; top: 0px; left: 0px; z-index: 0; width: 100%; height: 100%; visibility: inherit; opacity: 1; transform: matrix(1, 0, 0, 1, 0, 0);">
+                                                <div class="tp-bgimg defaultimg " data-bgcolor="undefined" style="background-repeat: no-repeat; background-image: url(&quot;https://lmstheme.wpengine.com/wp-content/uploads/revslider/about/about-slider3.jpg&quot;); background-size: cover; background-position: center center; width: 100%; height: 100%; opacity: 1; visibility: inherit; z-index: 20;" src="https://lmstheme.wpengine.com/wp-content/uploads/revslider/about/about-slider3.jpg"></div>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="tp-shadowcover" style="background-color: rgba(0, 0, 0, 0); background-image: none;"></div>
+                            </div>
+                        </div>
+                        <div class="column dt-sc-one-half  space  ">
+                            <h3 class="border-title  ">Chào mừng quay trở lại<span></span></h3>
+                            <p style="margin-bottom: 25px;">Hiện tại bạn đang là thành viên @(ViewBag.UserMemberShip.Member.MemberType). Bạn có quyền truy cập vào tất cả các khóa học của chúng tôi.</p>
+                            <ul class="dt-sc-fancy-list">
+                                <li><i class="fa fa-calendar"></i>&nbsp;&nbsp;Ngày hết hạn:&nbsp;@(ViewBag.UserMemberShip.CreatedAt.ToString("dd-MM-yyyy")).</li>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
-
-                @foreach (var item in ViewBag.ListMemberType)
+            }
+            else
+            {
+                foreach (var item in ViewBag.ListMemberType)
                 {
                     <div class="dt-sc-callout-box membership-box type5">
                         <div class="column dt-sc-one-column">
@@ -54,7 +84,7 @@
                             </button>
                             <form action="@Url.Action("VnPayMembership","ShoppingCart")" method="post">
                                 @*<input type="hidden" id="amountSilver" name="amount" value=""/>
-                                <input type="hidden" id="desSilver" name="description" value=""/>*@
+                                    <input type="hidden" id="desSilver" name="description" value=""/>*@
                                 <input type="hidden" name="amount" value="@(item.Price)" />
                                 <input type="hidden" name="description" value="@(item.MemberType)" />
                                 <button type="submit" style="margin-left: 10px;" class="dt-sc-button small">
@@ -65,14 +95,15 @@
                         </div>
                     </div>
                 }
-                <div class="dt-sc-hr-invisible"></div>
-            </section>
-        </div>
+            }
+            <div class="dt-sc-hr-invisible"></div>
+        </section>
     </div>
+</div>
 @section Scripts
 {
     <script>
-        jQuery(document).ready(function($) {
+        jQuery(document).ready(function ($) {
             if (!sessionStorage.getItem('shoppingCart')) {
 
             }

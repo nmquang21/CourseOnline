@@ -15,8 +15,8 @@
 <section class="main-title-section-wrapper">
     <div class="container">
         <div class="main-title-section">
-            <h1>Processing Digital Signal</h1><div class="breadcrumb">
-                <a href="https://lmstheme.wpengine.com">Home</a><span class='fa default'>  </span><span class='current'>Processing Digital Signal</span>
+            <h1>Khóa học</h1><div class="breadcrumb">
+                <a href="https://lmstheme.wpengine.com">Home</a><span class='fa default'>  </span><span class='current'>Khóa học</span>
             </div>
         </div>		
         <div class="header-search">
@@ -34,7 +34,7 @@
 <article id="post-4716" class="dt-sc-course-single post-4716 dt_courses type-dt_courses status-publish has-post-thumbnail hentry course_category-education">
     <div class="dt-sc-course-details">
         <div class="dt-sc-course-image">
-            <img src="https://lmstheme.wpengine.com/wp-content/uploads/2014/05/course9.jpg" alt="Processing Digital Signal" />
+            <img src="@(course.Image)" alt="Processing Digital Signal" style="height: 155px;"/>
         </div>
         <div class="dt-sc-course-details-inner">
 
@@ -46,20 +46,28 @@
                         <span class="badge" title="Khóa học bạn đã sở hữu"></span>
                     </span>
                 }
+                @if (Request.IsAuthenticated && User.IsInRole("teacher") && (User.Identity.GetUserId() == course.ApplicationUser.Id))
+                {
+                    <span class="dt-sc-certificate-badge" style="left: -15px; top: 0px;">
+                        <span class="certificate" title="Khóa học của bạn"></span>
+                    </span>
+                }
             </h3>
 
             <div class="entry-metadata">
                 <div class="dt-sc-meta-container">
-                    <p>Đã sở hữu</p>
                     <p>
                         <i class="fa fa-location-arrow"> </i>
-                        <a href="#" rel="tag">Education</a>
+                        <a href="#" rel="tag">@(course.CategoryCourses.ElementAt(0).Category.CategoryName)</a>
                     </p>
                     <p>
                         <i class="fa fa-book"> </i>
-                        4 Lessons
+                        @(course.ResourceCourses.Count) bài học
                     </p>
-                    <p><i class="fa fa-clock-o"> </i> 3 hours 30 mins</p>
+                    <p>
+                        <i class="fa fa-users"> </i> 
+                        @(course.StudentCourses.Count) học viên
+                    </p>
                 </div>
                 @if (User.IsInRole("Gold"))
                 {
@@ -68,17 +76,17 @@
                 @if (Request.IsAuthenticated && User.IsInRole("teacher") && (User.Identity.GetUserId() == course.ApplicationUser.Id))
                 {
                     <div class="dt-sc-status-container">
-                        <button target="_self" class="dt-sc-button small filled" disabled="disabled">
+                        @*<button target="_self" class="dt-sc-button small filled" disabled="disabled">
                             <i class="fa fa-user"></i>
                             Khóa học của bạn
-                        </button>
-                        <button target="_self" class="dt-sc-button small filled">
+                        </button>*@
+                        <a href="/Teacher/UpdateCourse/@(course.CourseId)" target="_self" class="dt-sc-button small filled">
                             <i class="fa fa-edit"></i>
                             Chỉnh sửa
-                        </button>
+                        </a>
                     </div>
                 }
-                else if (Request.IsAuthenticated && (listMyPaidCourseId.Contains(course.CourseId) || ViewBag.StillMember == true))
+                else if (Request.IsAuthenticated && (listMyPaidCourseId.Contains(course.CourseId) || ViewBag.StillMember == true || course.Price == 0))
                 {
                     <div class="dt-sc-status-container">
                         <a href="/Home/LearnCourse/@(course.CourseId)" target="_self" class="dt-sc-button small filled">
@@ -139,7 +147,7 @@
     <div class="dt-sc-hr-invisible"></div>
     <h4 class="border-title">Course Intro Video<span></span></h4>
     <div class="course-video">
-        <iframe title="Descendants" width="1170" height="658" src="https://www.youtube.com/embed/NhutLj3SVzQ?feature=oembed&wmode=opaque" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        <iframe title="Descendants" width="1170" height="658" src="@(course.IntroduceVideo)" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
     </div>
     <div class="dt-sc-clear"></div>
     <div class="dt-sc-hr-invisible-medium"></div>
@@ -147,7 +155,7 @@
         <div class="dt-lesson-inner-wrapper">
             <h4 class="dt-lesson-title">Giáo trình<span></span></h4>
             <div>
-                <p style="width: 55%; display: inline-block; padding-left: 20px;">Thể loại: <span>Công nghệ thông tin</span></p>
+                <p style="width: 55%; display: inline-block; padding-left: 20px;">Thể loại: <span>@(course.CategoryCourses.ElementAt(0).Category.CategoryName)</span></p>
                 <p class="course-total">
                     <img src="http://dvkhfbm6djrbs.cloudfront.net/5be57a4be2e9ab000ba3a5b6/5d43f62ce1af2a00128ed897/ezgif.com-gif-maker.png" width="24" height="24" style="position: absolute; left: 0px;">
                     Số bài:
@@ -272,7 +280,7 @@
                 <li class="column dt-sc-one-fourth">
                     <div class='dt-sc-team'>
                         <div class='image'>
-                            <img src="https://znews-photo.zadn.vn/w660/Uploaded/mdf_drkydd/2019_10_09/03.jpg" class="attachment-full size-full wp-post-image" style="width: 550px;" />
+                            <img src="@(course.ApplicationUser.avatar)" class="attachment-full size-full wp-post-image" style="width: 550px;" />
                         </div>
                         <div class="team-details">
                             <h5 class="teacher-na">

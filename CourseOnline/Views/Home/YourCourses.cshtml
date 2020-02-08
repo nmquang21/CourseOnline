@@ -1,370 +1,164 @@
-﻿
+﻿@model PagedList.IPagedList<CourseOnline.Models.Course>
+@using System.Globalization
+@using Microsoft.AspNet.Identity
+@using PagedList.Mvc;
 @{
     ViewBag.Title = "YourCourses";
     Layout = "~/Views/Shared/_LayoutHome.cshtml";
 }
-    <div id="main">
+<style>
+    .selection-box:after {
+        height: 43px !important;
+    }
 
-        <!-- Slider Section -->
-        <!-- Sub Title Section -->
-        <section class="main-title-section-wrapper">
-            <div class="container">
-                <div class="main-title-section">
-                    <h1>Upcoming Events</h1><div class="breadcrumb">
-                        <a href="https://lmstheme.wpengine.com">Home</a><span class="fa default">  </span><a href="https://lmstheme.wpengine.com/events/">Events</a><span class="fa default">  </span><span class="current">Upcoming Events</span>
-                    </div>
-                </div>		<div class="header-search">
-                    <form method="get" id="searchform" class="searchform" action="https://lmstheme.wpengine.com/">
-                        <input id="s" name="s" type="text" value="" class="text_input" placeholder="Search">
-                        <input type="hidden" name="search-type" value="default">
-                        <input type="submit" value="">
-                    </form>
+    select {
+        height: 45px !important;
+        padding-bottom: 9px !important;
+    }
+
+    .courses-sorting {
+        padding: 20px 20px 0px 20px !important;
+    }
+
+        .courses-sorting .courses-popular-type {
+            margin: 0px 0px 0px 10px !important;
+        }
+</style>
+<div id="main">
+
+    <section class="main-title-section-wrapper">
+        <div class="container">
+            <div class="main-title-section">
+                <h1>Khóa học của bạn</h1>
+                <div class="breadcrumb">
+                    <a href="https://lmstheme.wpengine.com">Trang chủ</a><span class="fa default"> </span><span class="current">Khóa học của bạn</span>
                 </div>
             </div>
-        </section>        <!-- Sub Title Section -->
-        <!-- ** Container ** -->
-        <div class="container">
+            <div class="header-search">
+                <form method="get" id="searchform" class="searchform" action="@Url.Action("Shop","Home")">
+                    <input id="search-input" name="search" type="text" class="text_input" placeholder="Tìm kiếm khóa học"  />
+                    <input type="submit" value="" />
+                </form>
+            </div>
+        </div>
+    </section>
+    <div class="container">
+        <section id="primary" class="content-full-width">
+            <div class="courses-sorting">
+
+                <div class="courses-categorywise">
+                    <label> Chọn danh mục: </label>
+                    <select name="courses-category" id="courses-category" data-postid="4714" onchange="javascript:handleSelectCategory(this)">
+                        <option value="" selected="selected">Tất cả</option>
+                        @foreach (var item in ViewBag.ListCategories)
+                        {
+                            <option value="@(item.CategoryId)">@(item.CategoryName)</option>
+                        }
+                    </select>
+                </div>
+
+                <div class="courses-popular-type" role="search" style="width: 50%">
+                    <form action="@Url.Action("YourCourses","Home")" method="get" id="search-members-form">
+                        <input type="text" name="search" id="members_search" placeholder="Tìm kiếm khóa học của bạn..." value="@ViewBag.Key"/>
+                        <input type="submit" value="Tìm kiếm" style="position: absolute; top: -7px; right: 3px;">
+                    </form>
+                </div>
 
 
-            <!-- ** Primary Section ** -->
-            <section id="primary" class="content-full-width">
-                <!-- #post-0 -->
-                <div id="post-0" class="post-0 page type-page status-draft hentry">
-                    <div id="tribe-events" class="" data-live_ajax="1" data-datepicker_format="" data-category="" data-featured="">
-                        <div class="tribe-events-before-html"></div><span class="tribe-events-ajax-loading"><img class="tribe-events-spinner-medium" src="https://lmstheme.wpengine.com/wp-content/plugins/the-events-calendar/src/resources/images/tribe-loading.gif" alt="Loading Events"></span><div id="tribe-events-content-wrapper" class="tribe-clearfix">
-                            <input type="hidden" id="tribe-events-list-hash" value="">
-                            <!-- Tribe Bar -->
+            </div>
 
+            <div id="dt-sc-ajax-load-image" style="display: none;"><img src="https://lmstheme.wpengine.com/wp-content/themes/lms/images/loading.gif" alt=""></div>
+            <div class="ajax_tpl_course_content">
+                @for (var i = 0; i < Model.Count; i++)
+                {
+                    var first = i % 3 == 0 ? "first" : "";
+                    <div class="column dt-sc-one-third @first">
+                        <article id="post-4708" class="dt-sc-custom-course-type  post-4708 dt_courses type-dt_courses status-publish has-post-thumbnail hentry course_category-education">
+                            <div class="dt-sc-course-thumb">
+                                <a href="#">
+                                    <img src="@(Model[i].Image)" style="width: 420px; height: 245px;">
+                                </a>
+                                <div class="dt-sc-course-overlay">
+                                    <a title="Advanced Programming" href="@Url.Action("ProductDetail","Home",new { id = Model[i].CourseId})" class="dt-sc-button small white"> Xem chi tiết </a>
+                                </div>
+                            </div>
+                            <div class="dt-sc-course-details">
+                                @if (Model[i].Price > 0)
+                                {
+                                    <span class="dt-sc-course-price"><span class="amount">@(Math.Round(Model[i].Price).ToString("#,###", CultureInfo.GetCultureInfo("vi-VN").NumberFormat))<span>&#8363;</span></span></span>
+                                }
+                                else if (Model[i].Price == 0)
+                                {
+                                    <span class="dt-sc-course-price"><span class="amount">Free</span></span>
+                                }
 
-                            <div id="tribe-events-bar">
-
-                                <form id="tribe-bar-form" class="tribe-clearfix tribe-bar-full" name="tribe-bar-form" method="post" action="https://lmstheme.wpengine.com/events/list?post_type=tribe_events&amp;eventDisplay=list">
-
-                                    <!-- Mobile Filters Toggle -->
-
-                                    <div id="tribe-bar-collapse-toggle">
-                                        Find Events<span class="tribe-bar-toggle-arrow"></span>
-                                    </div>
-
-                                    <!-- Views -->
-                                    <div id="tribe-bar-views">
-                                        <div class="tribe-bar-views-inner tribe-clearfix">
-                                            <h3 class="tribe-events-visuallyhidden">Event Views Navigation</h3>
-                                            <label>View As</label>
-                                            <select class="tribe-bar-views-select tribe-no-param" name="tribe-bar-view">
-                                                <option selected="" value="https://lmstheme.wpengine.com/events/list/" data-view="list">
-                                                    List
-                                                </option>
-                                                <option tribe-inactive="" value="https://lmstheme.wpengine.com/events/month/" data-view="month">
-                                                    Month
-                                                </option>
-                                                <option tribe-inactive="" value="https://lmstheme.wpengine.com/events/week/" data-view="week">
-                                                    Week
-                                                </option>
-                                                <option tribe-inactive="" value="https://lmstheme.wpengine.com/events/today/" data-view="day">
-                                                    Day
-                                                </option>
-                                                <option tribe-inactive="" value="https://lmstheme.wpengine.com/events/map/" data-view="map">
-                                                    Map
-                                                </option>
-                                                <option tribe-inactive="" value="https://lmstheme.wpengine.com/events/photo/" data-view="photo">
-                                                    Photo
-                                                </option>
-                                            </select><ul class="tribe-bar-views-list">
-                                                <li class="tribe-bar-views-option tribe-bar-views-option-list tribe-bar-active" data-tribe-bar-order="0" data-view="list">
-                                                    <a href="#">
-                                                        <span class="tribe-icon-list">
-                                                            List
-                                                        </span>
-                                                    </a>
-                                                </li>
-                                                <li class="tribe-bar-views-option tribe-bar-views-option-month" data-tribe-bar-order="1" data-view="month">
-                                                    <a href="#">
-                                                        <span class="tribe-icon-month">
-                                                            Month
-                                                        </span>
-                                                    </a>
-                                                </li>
-                                                <li class="tribe-bar-views-option tribe-bar-views-option-week" data-tribe-bar-order="2" data-view="week">
-                                                    <a href="#">
-                                                        <span class="tribe-icon-week">
-                                                            Week
-                                                        </span>
-                                                    </a>
-                                                </li>
-                                                <li class="tribe-bar-views-option tribe-bar-views-option-day" data-tribe-bar-order="3" data-view="day">
-                                                    <a href="#">
-                                                        <span class="tribe-icon-day">
-                                                            Day
-                                                        </span>
-                                                    </a>
-                                                </li>
-                                                <li class="tribe-bar-views-option tribe-bar-views-option-map" data-tribe-bar-order="4" data-view="map">
-                                                    <a href="#">
-                                                        <span class="tribe-icon-map">
-                                                            Map
-                                                        </span>
-                                                    </a>
-                                                </li>
-                                                <li class="tribe-bar-views-option tribe-bar-views-option-photo" data-tribe-bar-order="5" data-view="photo">
-                                                    <a href="#">
-                                                        <span class="tribe-icon-photo">
-                                                            Photo
-                                                        </span>
-                                                    </a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                        <!-- .tribe-bar-views-inner -->
-                                    </div><!-- .tribe-bar-views -->
-
-                                    <div class="tribe-bar-filters">
-                                        <div class="tribe-bar-filters-inner tribe-clearfix">
-                                            <div class="tribe-bar-date-filter">
-                                                <div id="tribe-bar-dates"><label class="label-tribe-bar-date" for="tribe-bar-date">Events From</label><input type="text" name="tribe-bar-date" style="position: relative;" id="tribe-bar-date" value="" placeholder="Date"></div>
-                                                <input type="hidden" name="tribe-bar-date-day" id="tribe-bar-date-day" class="tribe-no-param" value="">
-                                            </div>
-                                            <div class="tribe-bar-search-filter">
-                                                <label class="label-tribe-bar-search" for="tribe-bar-search">Search</label>
-                                                <input type="text" name="tribe-bar-search" id="tribe-bar-search" value="" placeholder="Keyword">
-                                            </div>
-                                            <div class="tribe-bar-geoloc-filter">
-                                                <label class="label-tribe-bar-geoloc" for="tribe-bar-geoloc">Near</label>
-                                                <input type="hidden" name="tribe-bar-geoloc-lat" id="tribe-bar-geoloc-lat" value=""><input type="hidden" name="tribe-bar-geoloc-lng" id="tribe-bar-geoloc-lng" value=""><input type="text" name="tribe-bar-geoloc" id="tribe-bar-geoloc" value="" placeholder="Location">						<div id="tribe-geo-options" style="display: none;"><div id="tribe-geo-links"></div></div>
-                                            </div>
-                                            <div class="tribe-bar-submit">
-                                                <input class="tribe-events-button tribe-no-param" type="submit" name="submit-bar" value="Find Events">
-                                            </div>
-                                            <!-- .tribe-bar-submit -->
-                                        </div>
-                                        <!-- .tribe-bar-filters-inner -->
-                                    </div><!-- .tribe-bar-filters -->
-
-                                </form>
-                                <!-- #tribe-bar-form -->
-
-                            </div><!-- #tribe-events-bar -->
-                            <!-- Main Events Content -->
-
-                            <div id="tribe-events-content" class="tribe-events-list">
-
-
-
-                                <!-- List Title -->
-                                <h2 class="tribe-events-page-title">Upcoming Events</h2>
-                                <span class="tribe-events-user-recurrence-toggle"><label for="tribeHideRecurrence"><input type="checkbox" name="tribeHideRecurrence" value="1" id="tribeHideRecurrence">Show only the first upcoming instance of recurring events</label></span>
-                                <!-- Notices -->
-                                <!-- List Header -->
-                                <div id="tribe-events-header" data-title="Upcoming Events – LMS" data-startofweek="1" data-view="list" data-baseurl="https://lmstheme.wpengine.com/events/list/" data-default-mobile-view="month" data-default-view="month">
-
-                                    <!-- Header Navigation -->
-
-                                    <h3 class="screen-reader-text" tabindex="0">Events List Navigation</h3>
-                                    <ul class="tribe-events-sub-nav">
-                                        <!-- Left Navigation -->
-                                        <!-- Right Navigation -->
-                                    </ul>
+                                <h5><a href="https://lmstheme.wpengine.com/courses/advanced-programming/" title="Advanced Programming">@(Model[i].CourseName)</a></h5>
+                                <div class="dt-sc-certificate-badge">
+                                    @if (Request.IsAuthenticated && User.IsInRole("teacher") && (Model[i].ApplicationUser.Id == User.Identity.GetUserId()))
+                                    {
+                                        <span class="certificate" title="Khóa học của bạn"></span>
+                                    }
+                                    <span class="badge" title="Khóa học bạn đã sở hữu"></span>
 
                                 </div>
-                                <!-- #tribe-events-header -->
-                                <!-- Events Loop -->
-
-
-                                <div class="tribe-events-loop">
-
-
-                                    <!-- Month / Year Headers -->
-                                    <span class="tribe-events-list-separator-month"><span>July 2015</span></span>
-                                    <!-- Event  -->
-                                    <div id="post-3636" class="type-tribe_events post-3636 tribe-clearfix tribe-events-category-celebrate tribe-events-venue-4416 tribe-events-organizer-4417 tribe-events-first">
-
-                                        <!-- Event Title -->
-                                        <h2 class="tribe-events-list-event-title">
-                                            <a class="tribe-event-url" href="https://lmstheme.wpengine.com/event/welcoming-25th-batch/" title="Welcoming 25th Batch" rel="bookmark">
-                                                Welcoming 25th Batch
-                                            </a>
-                                        </h2>
-
-                                        <!-- Event Meta -->
-                                        <div class="tribe-events-event-meta">
-                                            <div class="author  location">
-
-                                                <!-- Schedule & Recurrence Details -->
-                                                <div class="tribe-event-schedule-details">
-                                                    <span class="tribe-event-date-start">July 25, 2015 - 8:00 am</span> - <span class="tribe-event-date-end">March 13, 2025 - 10:00 pm</span>
-                                                </div>
-
-                                                <!-- Venue Display Info -->
-                                                <div class="tribe-events-venue-details">
-                                                    <a href="https://lmstheme.wpengine.com/venue/peppard-hill/" title="Peppard Hill">Peppard Hill</a> <span class="tribe-address">
-
-
-
-                                                        <abbr class="tribe-region tribe-events-abbr" title="Alabama">AL</abbr>
-
-
-                                                        <span class="tribe-country-name">United States</span>
-
-                                                    </span>
-                                                    <a class="tribe-events-gmap" href="https://maps.google.com/maps?f=q&amp;source=s_q&amp;hl=en&amp;geocode=&amp;q=AL+United+States" title="Click to view a Google Map" target="_blank">+ Google Map</a>
-                                                </div> <!-- .tribe-events-venue-details -->
-
-                                            </div>
-                                        </div><!-- .tribe-events-event-meta -->
-                                        <!-- Event Cost -->
-                                        <div class="tribe-events-event-cost">
-                                            <span class="ticket-cost">$60</span>
-                                        </div>
-
-
-                                        <!-- Event Image -->
-                                        <div class="tribe-events-event-image"><a href="https://lmstheme.wpengine.com/event/welcoming-25th-batch/"><img width="300" height="211" src="https://lmstheme.wpengine.com/wp-content/uploads/2014/05/course11-300x211.jpg" class="attachment-medium size-medium wp-post-image" alt="" srcset="https://lmstheme.wpengine.com/wp-content/uploads/2014/05/course11-300x211.jpg 300w, https://lmstheme.wpengine.com/wp-content/uploads/2014/05/course11-1024x719.jpg 1024w, https://lmstheme.wpengine.com/wp-content/uploads/2014/05/course11-100x70.jpg 100w, https://lmstheme.wpengine.com/wp-content/uploads/2014/05/course11.jpg 1170w, https://lmstheme.wpengine.com/wp-content/uploads/2014/05/course11-880x618.jpg 880w, https://lmstheme.wpengine.com/wp-content/uploads/2014/05/course11-590x415.jpg 590w, https://lmstheme.wpengine.com/wp-content/uploads/2014/05/course11-573x403.jpg 573w, https://lmstheme.wpengine.com/wp-content/uploads/2014/05/course11-429x302.jpg 429w, https://lmstheme.wpengine.com/wp-content/uploads/2014/05/course11-431x303.jpg 431w, https://lmstheme.wpengine.com/wp-content/uploads/2014/05/course11-420x295.jpg 420w" sizes="(max-width: 300px) 100vw, 300px"></a></div>
-                                        <!-- Event Content -->
-                                        <div class="tribe-events-list-event-description tribe-events-content description entry-summary">
-                                            <p>Morbi quis tellus erat, ac accumsan sapien. Nam sed nulla sed sapien porttitor vehicula. Etiam suscipit vehicula congue. Integer sodales diam vitae lacus posuere sollicitudin. Proin rhoncus, sapien sed tincidunt ornare, massa quam dapibus ipsum, et pellentesque dolor sem nec neque. In dapibus fermentum turpis, vitae lobortis diam tempor eget. Aenean vulputate, quam eget elementum condimentum, sapien nisl pellentesque dolor, quis ullamcorper mi orci eu quam. Nulla est ligula, ullamcorper quis posuere et, vestibulum eget tortor. Fusce sagittis posuere mollis.…</p>
-                                            <a href="https://lmstheme.wpengine.com/event/welcoming-25th-batch/" class="tribe-events-read-more" rel="bookmark">Find out more »</a>
-                                        </div><!-- .tribe-events-list-event-description -->
+                                <div class="dt-sc-course-meta" style="position: relative; padding-left: 40px;">
+                                    <div style="display: inline-block; position: absolute; left: 0px;">
+                                        <img src="https://znews-photo.zadn.vn/w660/Uploaded/mdf_drkydd/2019_10_09/03.jpg" alt="Alternate Text" style="border-radius: 100%; width: 30px; height: 30px;" />
                                     </div>
-
-
-
-                                    <!-- Month / Year Headers -->
-                                    <span class="tribe-events-list-separator-month"><span>August 2015</span></span>
-                                    <!-- Event  -->
-                                    <div id="post-3639" class="type-tribe_events post-3639 tribe-clearfix tribe-events-category-celebrate tribe-events-category-seminar tribe-events-venue-4419 tribe-events-organizer-4418">
-
-                                        <!-- Event Title -->
-                                        <h2 class="tribe-events-list-event-title">
-                                            <a class="tribe-event-url" href="https://lmstheme.wpengine.com/event/fast-track-course-opening/" title="Fast Track Course Opening" rel="bookmark">
-                                                Fast Track Course Opening
-                                            </a>
-                                        </h2>
-
-                                        <!-- Event Meta -->
-                                        <div class="tribe-events-event-meta">
-                                            <div class="author  location">
-
-                                                <!-- Schedule & Recurrence Details -->
-                                                <div class="tribe-event-schedule-details">
-                                                    <span class="tribe-event-date-start">August 6, 2015 - 9:00 am</span> - <span class="tribe-event-date-end">August 15, 2024 - 6:00 pm</span>
-                                                </div>
-
-                                                <!-- Venue Display Info -->
-                                                <div class="tribe-events-venue-details">
-                                                    <a href="https://lmstheme.wpengine.com/venue/rippon-building/" title="Rippon Building">Rippon Building</a>, <span class="tribe-address">
-
-                                                        <span class="tribe-street-address">Ostrey Lne</span>
-
-                                                        <br>
-                                                        <span class="tribe-locality">London</span><span class="tribe-delimiter">,</span>
-
-
-
-                                                        <span class="tribe-country-name">United Kingdom</span>
-
-                                                    </span>
-                                                    <a class="tribe-events-gmap" href="https://maps.google.com/maps?f=q&amp;source=s_q&amp;hl=en&amp;geocode=&amp;q=Ostrey+Lne+London+United+Kingdom" title="Click to view a Google Map" target="_blank">+ Google Map</a>
-                                                </div> <!-- .tribe-events-venue-details -->
-
-                                            </div>
-                                        </div><!-- .tribe-events-event-meta -->
-                                        <!-- Event Cost -->
-                                        <div class="tribe-events-event-cost">
-                                            <span class="ticket-cost">$20</span>
-                                        </div>
-
-
-                                        <!-- Event Image -->
-                                        <div class="tribe-events-event-image"><a href="https://lmstheme.wpengine.com/event/fast-track-course-opening/"><img width="300" height="211" src="https://lmstheme.wpengine.com/wp-content/uploads/2014/05/course9-300x211.jpg" class="attachment-medium size-medium wp-post-image" alt="" srcset="https://lmstheme.wpengine.com/wp-content/uploads/2014/05/course9-300x211.jpg 300w, https://lmstheme.wpengine.com/wp-content/uploads/2014/05/course9-1024x719.jpg 1024w, https://lmstheme.wpengine.com/wp-content/uploads/2014/05/course9-100x70.jpg 100w, https://lmstheme.wpengine.com/wp-content/uploads/2014/05/course9.jpg 1170w, https://lmstheme.wpengine.com/wp-content/uploads/2014/05/course9-880x618.jpg 880w, https://lmstheme.wpengine.com/wp-content/uploads/2014/05/course9-590x415.jpg 590w, https://lmstheme.wpengine.com/wp-content/uploads/2014/05/course9-573x403.jpg 573w, https://lmstheme.wpengine.com/wp-content/uploads/2014/05/course9-429x302.jpg 429w, https://lmstheme.wpengine.com/wp-content/uploads/2014/05/course9-431x303.jpg 431w, https://lmstheme.wpengine.com/wp-content/uploads/2014/05/course9-420x295.jpg 420w" sizes="(max-width: 300px) 100vw, 300px"></a></div>
-                                        <!-- Event Content -->
-                                        <div class="tribe-events-list-event-description tribe-events-content description entry-summary">
-                                            <p>Pellentesque ut porta libero. Curabitur non auctor nisi. Maecenas turpis diam, egestas eget dictum id, condimentum nunc. Fusce tempor in purus sed mattis. Nulla cursus eleifend eros sit amet tempor. Donec nisl lacus, ornare sed velit id, accumsan feugiat est. Mauris bibendum libero ac luctus tincidunt. Education provides children with opportunities to escape poverty, gain a voice in their community and experience a better quality of life. But worldwide, more than 120 million children are unable to attend school. Suspendisse…</p>
-                                            <a href="https://lmstheme.wpengine.com/event/fast-track-course-opening/" class="tribe-events-read-more" rel="bookmark">Find out more »</a>
-                                        </div><!-- .tribe-events-list-event-description -->
-                                    </div>
-
-
-
-                                    <!-- Month / Year Headers -->
-                                    <span class="tribe-events-list-separator-month"><span>September 2019</span></span>
-                                    <!-- Event  -->
-                                    <div id="post-3633" class="type-tribe_events post-3633 tribe-clearfix tribe-events-category-seminar tribe-events-venue-4421 tribe-events-organizer-4420 tribe-events-last">
-
-                                        <!-- Event Title -->
-                                        <h2 class="tribe-events-list-event-title">
-                                            <a class="tribe-event-url" href="https://lmstheme.wpengine.com/event/free-seminar-at-london/2019-09-13/" title="Free Yoga Class at London" rel="bookmark">
-                                                Free Yoga Class at London
-                                            </a>
-                                        </h2>
-
-                                        <!-- Event Meta -->
-                                        <div class="tribe-events-event-meta">
-                                            <div class="author  location">
-
-                                                <!-- Schedule & Recurrence Details -->
-                                                <div class="tribe-event-schedule-details">
-                                                    <span class="tribe-event-date-start">September 13, 2019 - 10:00 am</span> - <span class="tribe-event-date-end">October 27, 2024 - 6:00 pm</span><div class="recurringinfo"><div class="event-is-recurring"><span class="tribe-events-divider">|</span>Recurring Event <a href="https://lmstheme.wpengine.com/event/free-seminar-at-london/all/">(See all)</a><div id="tribe-events-tooltip-3633" class="tribe-events-tooltip recurring-info-tooltip"><div class="tribe-events-event-body"><p>An event every day that begins at 10:00am, repeating indefinitely</p></div><span class="tribe-events-arrow"></span></div></div></div>
-                                                </div>
-
-                                                <!-- Venue Display Info -->
-                                                <div class="tribe-events-venue-details">
-                                                    <a href="https://lmstheme.wpengine.com/venue/pound-lane/" title="Pound Lane">Pound Lane</a>, <span class="tribe-address">
-
-                                                        <span class="tribe-street-address">Thov Bridge</span>
-
-                                                        <br>
-                                                        <span class="tribe-locality">Las Angels</span><span class="tribe-delimiter">,</span>
-
-
-
-                                                        <span class="tribe-country-name">United States</span>
-
-                                                    </span>
-                                                    <a class="tribe-events-gmap" href="https://maps.google.com/maps?f=q&amp;source=s_q&amp;hl=en&amp;geocode=&amp;q=Thov+Bridge+Las+Angels+United+States" title="Click to view a Google Map" target="_blank">+ Google Map</a>
-                                                </div> <!-- .tribe-events-venue-details -->
-
-                                            </div>
-                                        </div><!-- .tribe-events-event-meta -->
-                                        <!-- Event Cost -->
-                                        <!-- Event Image -->
-                                        <div class="tribe-events-event-image"><a href="https://lmstheme.wpengine.com/event/free-seminar-at-london/2019-09-13/"><img width="300" height="211" src="https://lmstheme.wpengine.com/wp-content/uploads/2014/05/course5-300x211.jpg" class="attachment-medium size-medium wp-post-image" alt="" srcset="https://lmstheme.wpengine.com/wp-content/uploads/2014/05/course5-300x211.jpg 300w, https://lmstheme.wpengine.com/wp-content/uploads/2014/05/course5-1024x719.jpg 1024w, https://lmstheme.wpengine.com/wp-content/uploads/2014/05/course5-100x70.jpg 100w, https://lmstheme.wpengine.com/wp-content/uploads/2014/05/course5.jpg 1170w, https://lmstheme.wpengine.com/wp-content/uploads/2014/05/course5-880x618.jpg 880w, https://lmstheme.wpengine.com/wp-content/uploads/2014/05/course5-590x415.jpg 590w, https://lmstheme.wpengine.com/wp-content/uploads/2014/05/course5-573x403.jpg 573w, https://lmstheme.wpengine.com/wp-content/uploads/2014/05/course5-429x302.jpg 429w, https://lmstheme.wpengine.com/wp-content/uploads/2014/05/course5-431x303.jpg 431w, https://lmstheme.wpengine.com/wp-content/uploads/2014/05/course5-420x295.jpg 420w" sizes="(max-width: 300px) 100vw, 300px"></a></div>
-                                        <!-- Event Content -->
-                                        <div class="tribe-events-list-event-description tribe-events-content description entry-summary">
-                                            <p>Quisque tortor nisi, tristique sit amet commodo vel, commodo at mauris. Vestibulum vel justo neque, non pharetra orci. Integer nec est mauris, in vestibulum elit. Nulla facilisi. Praesent eu dolor lacus. Vestibulum laoreet sodales arcu fermentum rutrum. Donec dignissim pharetra enim. Donec et orci et risus adipiscing congue. Nulla facilisi. Nullam eu ipsum a nisl mattis semper a vel nisi. Duis tincidunt, ante eget elementum euismod, augue risus hendrerit ante, ut tincidunt dui est vitae tortor. Aliquam sem ligula, facilisis…</p>
-                                            <a href="https://lmstheme.wpengine.com/event/free-seminar-at-london/2019-09-13/" class="tribe-events-read-more" rel="bookmark">Find out more »</a>
-                                        </div><!-- .tribe-events-list-event-description -->
-                                    </div>
-
-
-
-                                </div><!-- .tribe-events-loop -->
-                                <!-- List Footer -->
-                                <div id="tribe-events-footer">
-
-                                    <!-- Footer Navigation -->
-
-                                    <h3 class="screen-reader-text" tabindex="0">Events List Navigation</h3>
-                                    <ul class="tribe-events-sub-nav">
-                                        <!-- Left Navigation -->
-                                        <!-- Right Navigation -->
-                                    </ul>
-
+                                    <p class="teacher-name">@(Model[i].ApplicationUser.firstName)</p>
+                                    <p> @(Model[i].ResourceCourses.Count)&nbsp;Bài học </p>
+                                    <p> @(Model[i].StudentCourses.Count)&nbsp;học viên </p>
                                 </div>
-                                <!-- #tribe-events-footer -->
-                                <a class="tribe-events-ical tribe-events-button" title="Use this to share calendar data with Google Calendar, Apple iCal and other compatible apps" href="https://lmstheme.wpengine.com/events/list/?ical=1&amp;tribe_display=list">+ Export Events</a>
-                            </div><!-- #tribe-events-content -->
+                                <div class="dt-sc-course-data">
+                                    <div class="dt-sc-course-duration">
+                                        <i class="fa fa-clock-o"> </i>
+                                        <span> 03 : 15 </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </article>
+                    </div>
+                }
 
-                            <div class="tribe-clear"></div>
+                <div class="pagination">
+                    @Html.PagedListPager(Model, page => Url.Action("YourCourses", new { page, search = ViewBag.Search, category = ViewBag.CurrentCatalog}))
+                </div>
+                @if (Model.Count == 0)
+                {
+                    <div style="text-align: center">
+                        <h4>Không tìm thấy khóa học!</h4>
+                    </div>
+                }
+            </div>
+        </section>
+    </div>>
+</div>
+@section Scripts
+{
+    <script>
+        jQuery(document).ready(function ($) {
 
-                        </div> <!-- #tribe-events-content-wrapper --><div class="tribe-events-after-html"></div>
-                    </div><!-- #tribe-events -->
-                    <!--
-                This calendar is powered by The Events Calendar.
-                http://m.tri.be/18wn
-                -->
-                    <div class="social-bookmark"></div><div class="social-share"></div>
-                </div><!-- #post-3633 -->
+            $('#courses-category').val(getParameterFromUrl("category"));
 
-            </section><!-- ** Primary Section End ** -->
-        </div><!-- **Container - End** -->
-    </div>
+        });
+        function handleSelectCategory(select) {
+            var url_string = window.location.href;
+            var url = new URL(url_string);
+            if (window.location.search) {
+                if (url.searchParams.get("category") != null) {
+                    url.searchParams.set("category", select.value);
+                } else {
+                    url.searchParams.append('category', select.value);
+                }
+            } else {
+                url.searchParams.append('category', select.value);
+            }
+            window.location.search = url.searchParams;
+        }
+        function getParameterFromUrl(parameter) {
+            var url_string = window.location.href;
+            var url = new URL(url_string);
+            return url.searchParams.get(parameter);
+        }
+    </script>
+}

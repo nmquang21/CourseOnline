@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity.Migrations;
 using System.Diagnostics;
 using System.Linq;
 using System.Web;
@@ -26,7 +27,7 @@ namespace CourseOnline.Controllers
         [Authorize(Roles = "teacher,admin")]
         public ActionResult AddCourse()
         {
-            ViewBag.ListCategories = db.Categories.ToList();
+            ViewBag.ListCategories = db.Categories.Where(c => c.DeletedAt == null).ToList();
             return View();
         }
         [Authorize(Roles = "teacher,admin")]
@@ -45,6 +46,7 @@ namespace CourseOnline.Controllers
             newCourse.TeacherId = id;
             newCourse.ApplicationUser = appUser;
             newCourse.Status = (int)Course.CourseStatus.Non_Active;
+            newCourse.CreatedAt = DateTime.Now;
 
             List<CategoryCourse> listCategoryCourse = new List<CategoryCourse>();
             foreach (var item in listCategory)
@@ -94,12 +96,102 @@ namespace CourseOnline.Controllers
             try
             {
                 db.SaveChanges();
+                TempData["AddSuccess"] = "Success";
             }
             catch (Exception e)
             {
                 Console.WriteLine(e);
                 throw;
             }
+            return RedirectToAction("AddCourse");
+        }
+        [Authorize(Roles = "teacher,admin")]
+        public ActionResult UpdateCourse(int? id)
+        {
+            ViewBag.ListCategories = db.Categories.Where(c => c.DeletedAt == null).ToList();
+            var course = db.Courses.Find(id);
+            if (course == null || course.DeletedAt != null || course.Status == (int)Course.CourseStatus.Deleted)
+            {
+                return RedirectToAction("NotFound", "Home");
+            }
+            return View(course);
+        }
+        [Authorize(Roles = "teacher,admin")]
+        public ActionResult StoreUpdateCourse(int courseId, string courseName, List<int> listCategory, string introduceVideo, string price, string image, string description, List<string> listBenefit, List<LessonInfomation> listLesson)
+        {
+            var currentCourse = db.Courses.Find(courseId);
+            if (currentCourse == null || currentCourse.DeletedAt != null || currentCourse.Status == (int)Course.CourseStatus.Deleted)
+            {
+                return RedirectToAction("NotFound", "Home");
+            }
+            currentCourse.CourseName = courseName;
+            currentCourse.Price = Convert.ToDouble(price);
+            currentCourse.Description = description;
+            currentCourse.IntroduceVideo = introduceVideo;
+            currentCourse.Image = image;
+            currentCourse.Status = (int)Course.CourseStatus.Non_Active;
+            currentCourse.UpdatedAt = DateTime.Now;
+
+            db.CategoryCourses.RemoveRange(currentCourse.CategoryCourses);
+            List<CategoryCourse> listCategoryCourse = new List<CategoryCourse>();
+            foreach (var item in listCategory)
+            {
+                var categoryCourse = new CategoryCourse();
+                categoryCourse.CategoryId = item;
+                categoryCourse.CourseId = currentCourse.CourseId;
+                listCategoryCourse.Add(categoryCourse);
+            }
+
+            db.Benefits.RemoveRange(currentCourse.Benefits);
+            List<Benefit> listBenefits = new List<Benefit>();
+            foreach (var item in listBenefit)
+            {
+
+                if (!String.IsNullOrEmpty(item))
+                {
+                    var benefit = new Benefit();
+                    benefit.name = item;
+                    listBenefits.Add(benefit);
+                }
+
+            }
+            if (listBenefits.Count > 0)
+            {
+                currentCourse.Benefits = listBenefits;
+            }
+
+            db.ResourceCourses.RemoveRange(currentCourse.ResourceCourses);
+            List<ResourceCourse> listResourceCourses = new List<ResourceCourse>();
+            foreach (var item in listLesson)
+            {
+                if (item.Title != null && item.LinkVideo != null)
+                {
+                    var resourceCourse = new ResourceCourse();
+                    resourceCourse.Index = item.Index;
+                    resourceCourse.Title = item.Title;
+                    resourceCourse.LinkVideo = item.LinkVideo;
+                    listResourceCourses.Add(resourceCourse);
+                }
+            }
+
+            if (listResourceCourses.Count > 0)
+            {
+                currentCourse.ResourceCourses = listResourceCourses;
+            }
+            currentCourse.CategoryCourses = listCategoryCourse;
+
+            db.Courses.AddOrUpdate(currentCourse);
+            try
+            {
+                db.SaveChanges();
+                TempData["AddSuccess"] = "Success";
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+
             return RedirectToAction("AddCourse");
         }
     }

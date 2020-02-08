@@ -1,11 +1,10 @@
-﻿
+﻿@model CourseOnline.Models.Course
 @{
-    ViewBag.Title = "AddCourse";
+    ViewBag.Title = "UpdateCourse";
     Layout = "~/Views/Shared/_LayoutHome.cshtml";
 }
 
 <link rel="stylesheet" href="~/Content/assets/css/bootstrap-4.css">
-<link rel="stylesheet" href="~/Content/css/jquery.toast.min.css">
 <link href="~/Content/assets/css/addcourse.css" rel="stylesheet" />
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.bundle.min.js"></script>
 <script src="~/Content/assets/js/bootstrap-select.js"></script>
@@ -14,15 +13,14 @@
 <div id="main">
     <section class="main-title-section-wrapper">
         <div class="container">
-            
             <div class="main-title-section">
-                <h1>Tạo khóa học mới:</h1>
+                <h1>Sửa thông tin khóa học:</h1>
                 <div class="breadcrumb">
-                    <a href="/Home">Trang chủ</a><span class="fa default"> </span><span class="current">Thêm khóa học</span>
+                    <a href="/Home">Trang chủ</a><span class="fa default">  </span><span class="current">Khóa học</span>
                 </div>
             </div>
             <div class="header-search">
-                <form method="get" id="searchform" class="searchform" action="@Url.Action("Shop", "Home")">
+                <form method="get" id="searchform" class="searchform" action="@Url.Action("Shop","Home")">
                     <input id="search-input" name="search" type="text" class="text_input" placeholder="Tìm kiếm khóa học" value="@ViewBag.Search" />
                     <input type="submit" value="" />
                 </form>
@@ -32,17 +30,17 @@
     <section id="primary" class="content-full-width">
         <div class="container add-course" style="width: 1000px;">
             <div style="text-align: center;">
-                <p style="color: red; margin-bottom: 0px;">Lưu ý, sau khi thêm mới khóa học của bạn sẽ trong trạng thái chờ duyệt.</p>
+                <p style="color: red; margin-bottom: 0px;">Lưu ý, sau khi sửa thông tin khóa học của bạn sẽ tạm dừng để chờ duyệt.</p>
             </div>
             <h3 class="border-title" style="text-transform: none">Thông tin chung:</h3>
             <div role="form" class="wpcf7" id="wpcf7-f4245-p4243-o1" lang="en-US" dir="ltr">
-                <form action="@Url.Action("StoreAddCourse", "Teacher")" method="post" class="wpcf7-form" id="add-course-form">
+                <form action="@Url.Action("StoreUpdateCourse", "Teacher")" method="post" class="wpcf7-form" id="add-course-form">
                     <div id="contact-form">
                         <div style="width: 100%; height: 135px; position: relative;">
                             <p style="width: 65%; margin-right: 20px;">
                                 <span class="fa fa-book"></span>
                                 <span class="wpcf7-form-control-wrap">
-                                    <input type="text" name="courseName" value="" size="40" class="wpcf7-form-control" placeholder="Tên khóa học">
+                                    <input type="text" name="courseName" value="@(Model.CourseName)" size="40" class="wpcf7-form-control" placeholder="Tên khóa học">
                                 </span>
                             </p>
 
@@ -52,7 +50,14 @@
                                     <select class="selectpicker wpcf7-form-control" multiple data-live-search="true" id="category" name="listCategory[]" style="" required>
                                         @foreach (var item in ViewBag.ListCategories)
                                         {
-                                            <option value="@item.CategoryId">@item.CategoryName</option>
+                                            if (Model.CategoryCourses.Where(c => c.CategoryId == item.CategoryId).ToList().Count() == 1)
+                                            {
+                                                <option value="@item.CategoryId" selected="selected">@item.CategoryName</option>
+                                            }
+                                            else
+                                            {
+                                                <option value="@item.CategoryId">@item.CategoryName</option>
+                                            }
                                         }
                                     </select>
                                 </span>
@@ -62,25 +67,25 @@
                         <p style="width: 65%; margin-right: 20px;">
                             <span class="fa fa-link"> </span>
                             <span class="wpcf7-form-control-wrap">
-                                <input type="text" name="introduceVideo" value="" size="40" class="wpcf7-form-control" placeholder="Link video giới thiệu">
+                                <input type="text" name="introduceVideo" value="@(Model.IntroduceVideo)" size="40" class="wpcf7-form-control" placeholder="Link video giới thiệu">
                             </span>
                         </p>
                         <p class="min-p">
                             <i class="fa fa-money"></i>
                             <span class="wpcf7-form-control-wrap">
-                                <input type="text" name="price" id="price" value="" size="40" class="wpcf7-form-control" placeholder="Giá">
+                                <input type="text" name="price" id="price" value="@(Model.Price)" size="40" class="wpcf7-form-control" placeholder="Giá">
                             </span>
                         </p>
                         <p class="full-p">
                             <span class="fa fa-image"> </span>
                             <span class="wpcf7-form-control-wrap">
-                                <input type="text" name="image" value="" size="40" class="wpcf7-form-control" placeholder="Ảnh khóa học">
+                                <input type="text" name="image" value="@(Model.Image)" size="40" class="wpcf7-form-control" placeholder="Ảnh khóa học">
                             </span>
                         </p>
                         <p class="textarea-field full-p">
                             <span class="fa fa-file-text-o"> </span>
                             <span class="wpcf7-form-control-wrap">
-                                <textarea name="description" cols="40" rows="10" class="wpcf7-form-control" placeholder="Mô tả khóa học"></textarea>
+                                <textarea name="description" cols="40" rows="10" class="wpcf7-form-control" placeholder="Mô tả khóa học">@(Model.Description)</textarea>
                             </span>
                         </p>
 
@@ -88,45 +93,56 @@
                         <h3 class="border-title" style="margin-bottom: 5px !important; margin-top: 0px !important;">
                             <button type="button" class="dt-sc-button small filled add-benefit-btn"><i class="fa fa-plus"></i>Thêm lợi ích</button>
                         </h3>
-                        <div class="list-benefit">
-                            <div class="benefit">
-                                <p style="width: 6%;">
-                                    <span class="wpcf7-form-control-wrap">
-                                        <input type="number" name="" value="1" class="wpcf7-form-control" style="text-align: center">
-                                    </span>
-                                </p>
-                                <p style="width: 85%;">
-                                    <span class="wpcf7-form-control-wrap">
-                                        <input type="text" name="listBenefit[]" value="" class="wpcf7-form-control" placeholder="Lợi ích">
-                                    </span>
-                                </p>
-                                <button type="button" class="dt-sc-button small filled delete-benefit-btn"><i class="fa fa-trash"></i></button>
-                            </div>
+                        <div class="list-benefit" data-benefit="@(Model.Benefits.Count)">
+
+                            @for (var i = Model.Benefits.Count - 1; i >= 0; i--)
+                            {
+                                <div class="benefit">
+                                    <p style="width: 6%;">
+                                        <span class="wpcf7-form-control-wrap">
+                                            <input type="number" name="" value="@(i + 1)" class="wpcf7-form-control" style="text-align: center">
+                                        </span>
+                                    </p>
+                                    <p style="width: 85%;">
+                                        <span class="wpcf7-form-control-wrap">
+                                            <input type="text" name="listBenefit[]" value="@(Model.Benefits.ElementAt(i).name)" class="wpcf7-form-control" placeholder="Lợi ích">
+                                        </span>
+                                    </p>
+                                    <button type="button" class="dt-sc-button small filled delete-benefit-btn"><i class="fa fa-trash"></i></button>
+                                </div>
+                            }
+
                         </div>
 
                         <h3 class="border-title" style="text-transform: none">Giáo trình:</h3>
                         <h3 class="border-title" style="margin-bottom: 5px !important; margin-top: 0px !important;">
                             <button type="button" class="dt-sc-button small filled add-lesson-btn"><i class="fa fa-plus"></i>Thêm bài học</button>
                         </h3>
-                        <div class="list-lesson">
-                            <div class="lesson">
-                                <p style="width: 6%;">
-                                    <span class="wpcf7-form-control-wrap">
-                                        <input type="number" name="listLesson[0].Index" value="1" class="wpcf7-form-control" style="text-align: center">
-                                    </span>
-                                </p>
-                                <p style="width: 46%;">
-                                    <span class="wpcf7-form-control-wrap">
-                                        <input type="text" name="listLesson[0].Title" value="" class="wpcf7-form-control" placeholder="Tên bài">
-                                    </span>
-                                </p>
-                                <p style="width: 46%;">
-                                    <span class="wpcf7-form-control-wrap">
-                                        <input type="text" name="listLesson[0].LinkVideo" value="" class="wpcf7-form-control" placeholder="Link video">
-                                    </span>
-                                </p>
-                            </div>
+                        <div class="list-lesson" data-lesson="@(Model.ResourceCourses.Count)">
+
+                            @for (var i = Model.ResourceCourses.Count - 1; i >= 0; i--)
+                            {
+                                <div class="lesson">
+                                    <p style="width: 6%;">
+                                        <span class="wpcf7-form-control-wrap">
+                                            <input type="number" name="listLesson[0].Index" value="@(i + 1)" class="wpcf7-form-control" style="text-align: center">
+                                        </span>
+                                    </p>
+                                    <p style="width: 46%;">
+                                        <span class="wpcf7-form-control-wrap">
+                                            <input type="text" name="listLesson[0].Title" value="@(Model.ResourceCourses.ElementAt(i).Title)" class="wpcf7-form-control" placeholder="Tên bài">
+                                        </span>
+                                    </p>
+                                    <p style="width: 46%;">
+                                        <span class="wpcf7-form-control-wrap">
+                                            <input type="text" name="listLesson[0].LinkVideo" value="@(Model.ResourceCourses.ElementAt(i).LinkVideo)" class="wpcf7-form-control" placeholder="Link video">
+                                        </span>
+                                    </p>
+                                </div>
+                            }
+
                         </div>
+                        <input type="hidden" name="courseId" value="@(Model.CourseId)">
                         <p class="submit">
                             <input type="submit" value="Lưu khóa học" class="wpcf7-form-control wpcf7-submit">
                         </p>
@@ -136,10 +152,10 @@
         </div>
     </section>
 </div>
-<div id="show-message" data-success="@(TempData["AddSuccess"])"></div>
-<!-- Notification -->
-<script src="~/Content/js/alert/jquery.toast.min.js"></script>
-<script src="~/Content/js/alert/toastDemo.js"></script>
+
+
+
+
 @section Scripts{
     <script>
         jQuery(document).ready(function ($) {
@@ -149,32 +165,32 @@
                 showSuccessToast();
             };
 
-            var index = 1;
+            var index = $('.list-lesson').data("lesson");
             $('.add-lesson-btn').click(function () {
                 index++;
                 var contentLesson = `<div class="lesson">
-                                                <p style="width: 6%;">
-                                                    <span class="wpcf7-form-control-wrap">
-                                                        <input type="number" name="listLesson[${index - 1}].Index" value="${index
+                                                    <p style="width: 6%;">
+                                                        <span class="wpcf7-form-control-wrap">
+                                                            <input type="number" name="listLesson[${index - 1}].Index" value="${index
                     }" class="wpcf7-form-control" style="text-align: center">
-                                                    </span>
-                                                </p>
-                                                <p style="width: 46%;">
-                                                    <span class="wpcf7-form-control-wrap">
-                                                        <input type="text" name="listLesson[${index - 1
+                                                        </span>
+                                                    </p>
+                                                    <p style="width: 46%;">
+                                                        <span class="wpcf7-form-control-wrap">
+                                                            <input type="text" name="listLesson[${index - 1
                     }].Title" value="" class="wpcf7-form-control" placeholder="Tên bài">
-                                                    </span>
-                                                </p>
-                                                <p style="width: 46%;">
-                                                    <span class="wpcf7-form-control-wrap">
-                                                        <input type="text" name="listLesson[${index - 1
+                                                        </span>
+                                                    </p>
+                                                    <p style="width: 46%;">
+                                                        <span class="wpcf7-form-control-wrap">
+                                                            <input type="text" name="listLesson[${index - 1
                     }].LinkVideo" value="" class="wpcf7-form-control" placeholder="Link video">
-                                                    </span>
-                                                </p>
-                                            </div>`;
+                                                        </span>
+                                                    </p>
+                                                </div>`;
                 $('.list-lesson').prepend(contentLesson);
             });
-            var stt = 1;
+            var stt = $('.list-benefit').data("benefit");
             $('.add-benefit-btn').click(function () {
                 if ($('.benefit').length == 0) {
                     stt = 0;
@@ -182,18 +198,18 @@
                 console.log($('.benefit').length);
                 stt++;
                 var contentBenefit = `<div class="benefit">
-                                                    <p style="width: 6%;">
-                                                        <span class="wpcf7-form-control-wrap">
-                                                            <input type="number" name="" value="${stt}" class="wpcf7-form-control" style="text-align: center">
-                                                        </span>
-                                                    </p>
-                                                    <p style="width: 85%;">
-                                                        <span class="wpcf7-form-control-wrap">
-                                                            <input type="text" name="listBenefit[]" value="" class="wpcf7-form-control" placeholder="Lợi ích">
-                                                        </span>
-                                                    </p>
-                                                    <button type="button" class="dt-sc-button small filled delete-benefit-btn"><i class="fa fa-trash"></i></button>
-                                                </div>`;
+                                                        <p style="width: 6%;">
+                                                            <span class="wpcf7-form-control-wrap">
+                                                                <input type="number" name="" value="${stt}" class="wpcf7-form-control" style="text-align: center">
+                                                            </span>
+                                                        </p>
+                                                        <p style="width: 85%;">
+                                                            <span class="wpcf7-form-control-wrap">
+                                                                <input type="text" name="listBenefit[]" value="" class="wpcf7-form-control" placeholder="Lợi ích">
+                                                            </span>
+                                                        </p>
+                                                        <button type="button" class="dt-sc-button small filled delete-benefit-btn"><i class="fa fa-trash"></i></button>
+                                                    </div>`;
                 $('.list-benefit').prepend(contentBenefit);
             });
             $(document).on('click', '.delete-benefit-btn', function () {
@@ -257,5 +273,5 @@
 
             $('.selectpicker').selectpicker();
         })
-</script>
+    </script>
 }

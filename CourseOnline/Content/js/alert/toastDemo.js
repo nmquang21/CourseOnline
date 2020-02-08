@@ -3,14 +3,17 @@
     'use strict';
     resetToastPosition();
     $.toast({
-      heading: 'Success',
-      text: 'You did it!',
-      showHideTransition: 'slide',
-      icon: 'success',
-      loaderBg: '#f96868',
-      position: 'top-right'
+        heading: 'Success!',
+        text: '',
+        showHideTransition: 'slide',
+        icon: 'success',
+        loaderBg: '#f96868',
+        position: {
+            right: 20,
+            top: 20
+        },
     })
-  };
+    };
   showInfoToast = function() {
     'use strict';
     resetToastPosition();

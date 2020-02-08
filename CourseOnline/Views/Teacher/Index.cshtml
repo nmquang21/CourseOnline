@@ -5,25 +5,23 @@
 }
 
     <div id="main">
-
-        <!-- Slider Section -->
-        <!-- Sub Title Section -->
-        <section class="main-title-section-wrapper">
+    <section class="main-title-section-wrapper">
             <div class="container">
                 <div class="main-title-section">
-                    <h1>Teacher Archives</h1><div class="breadcrumb">
-                        <a href="https://lmstheme.wpengine.com">Home</a><span class="fa default">  </span><span class="current">Teachers</span>
-                    </div><!-- ** breadcrumb - End -->
-                </div>		<div class="header-search">
-                    <form method="get" id="searchform" class="searchform" action="https://lmstheme.wpengine.com/">
-                        <input id="s" name="s" type="text" value="" class="text_input" placeholder="Search">
-                        <input type="hidden" name="search-type" value="default">
-                        <input type="submit" value="">
+                    <h1>Giáo viên</h1><div class="breadcrumb">
+                        <a href="/Home">Trang chủ</a><span class="fa default">  </span><span class="current">Giáo viên</span>
+                    </div>
+                </div>
+
+                <div class="header-search">
+                    <form method="get" id="searchform" class="searchform" action="@Url.Action("Shop","Home")">
+                        <input id="search-input" name="search" type="text" class="text_input" placeholder="Tìm kiếm khóa học" value="@ViewBag.Search"/>
+                        <input type="submit" value="" />
                     </form>
                 </div>
+
             </div>
-        </section>        <!-- Sub Title Section -->
-        <!-- ** Container ** -->
+        </section>        
         <div class="container">
             <!-- Secondary Left -->
             <section id="secondary-left" class="secondary-sidebar secondary-has-both-sidebar">

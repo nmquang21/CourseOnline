@@ -15,6 +15,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
 using WebGrease;
+using WebGrease.Css.Extensions;
 
 
 namespace CourseOnline.Controllers
@@ -28,6 +29,13 @@ namespace CourseOnline.Controllers
         [AllowAnonymous]
         public ActionResult Index()
         {
+            ViewBag.ListCategories = db.Categories.Where(c => c.DeletedAt == null).ToList();
+            ViewBag.HomeCourse = db.Courses.Where(c => c.DeletedAt == null && c.Status == (int)Course.CourseStatus.Actived).Take(2).ToList();
+            ViewBag.TotalCourse = db.Courses.Where(c=>c.DeletedAt == null && c.Status == (int)Course.CourseStatus.Actived).ToList().Count();
+            ViewBag.TotalMember = db.Users.Count();
+            ViewBag.TotalAuthor = db.Users.Where(u => u.Roles.Select(r => r.RoleId).ToList().Contains("31278a9d-e45f-4026-8d6d-8a8c8f787992")).ToList().Count();
+            ViewBag.TotalSubject = db.Categories.Count();
+            ViewBag.ThanhToan = "";
             var UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(db));
             //Check expired member ship:
             if (User.Identity.IsAuthenticated)
@@ -47,7 +55,7 @@ namespace CourseOnline.Controllers
             Debug.WriteLine("OrderId = " + TempData["OrderId"]);
             if (code == "00")
             {
-                ViewBag.ThanhToan = "Success!";
+                ViewBag.ThanhToan = "Success";
                 string orderID = (string)TempData["OrderId"];
                 var order = db.OrderInfos.Find(orderID);
                 if (order == null)
@@ -84,14 +92,18 @@ namespace CourseOnline.Controllers
             return View();
         }
         [AllowAnonymous]
-        public ActionResult Shop(string search, int? page)
+        public ActionResult Shop(string search, int? page, int? category, string fee, string sortOrder)
         {
+            ViewBag.ListCategories = db.Categories.Where(c => c.DeletedAt == null).ToList();
+            ViewBag.CurrentCatalog = category;
+            ViewBag.Free = fee;
+            ViewBag.Search = search;
+            ViewBag.CurrentSort = sortOrder;
             var predicate = PredicateBuilder.New<Course>(true);
             if (search != null)
             {
                 page = 1;
             }
-            ViewBag.Search = search;
             var listCourse = from c in db.Courses select c;
 
             if (!String.IsNullOrEmpty(search))
@@ -100,12 +112,45 @@ namespace CourseOnline.Controllers
                 predicate = predicate.Or(c => c.ApplicationUser.firstName.Contains(search));
                 predicate = predicate.Or(c => c.ApplicationUser.lastName.Contains(search));
             }
+            if (category > 0)
+            {
+                predicate = predicate.Or(c => c.CategoryCourses.Select(cc => cc.CategoryId).ToList().Contains((int)category));
+            }
+            if (fee == "paid")
+            {
+                predicate = predicate.And(c => c.Price > 0);
+            }
+            if (fee == "free")
+            {
+                predicate = predicate.And(c => c.Price == 0);
+            }
+
+
             predicate = predicate.And(c => c.Status == (int)Course.CourseStatus.Actived);
             predicate = predicate.And(c => c.DeletedAt == null);
-            listCourse = listCourse.Where(predicate).OrderBy(c => c.CourseName);
-            int pageSize = 10;
-            int pageNumber = (page ?? 1);
+            listCourse = listCourse.Where(predicate);
 
+            switch (sortOrder)
+            {
+                case "buy":
+                    listCourse = listCourse.OrderByDescending(s => s.StudentCourses.Count);
+                    break;
+                case "date":
+                    listCourse = listCourse.OrderByDescending(s => s.CreatedAt);
+                    break;
+                case "price":
+                    listCourse = listCourse.OrderBy(s => s.Price);
+                    break;
+                case "price_desc":
+                    listCourse = listCourse.OrderByDescending(s => s.Price);
+                    break;
+                default:  // Name ascending 
+                    listCourse = listCourse.OrderBy(s => s.CourseName);
+                    break;
+            }
+
+            int pageSize = 9;
+            int pageNumber = (page ?? 1);
             //Danh sach id khoa hoc member da mua:
             ViewBag.MyPaidCourse = myPaidCourses();
             var UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(db));
@@ -143,15 +188,13 @@ namespace CourseOnline.Controllers
                 {
                     ViewBag.StillMember = true;
                 }
-
             }
-
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Course course = db.Courses.Find(id);
-            if (course == null)
+            if (course == null || course.DeletedAt != null || course.Status != (int)Course.CourseStatus.Actived)
             {
                 return RedirectToAction("NotFound");
             }
@@ -162,13 +205,53 @@ namespace CourseOnline.Controllers
             return View(course);
         }
         [Authorize]
-        public ActionResult YourCourses()
+        public ActionResult YourCourses(string search, int? page, int? category)
         {
-            return View();
+            ViewBag.ListCategories = db.Categories.Where(c => c.DeletedAt == null).ToList();
+            ViewBag.CurrentCatalog = category;
+            ViewBag.Key = search;
+
+            var predicate = PredicateBuilder.New<Course>(true);
+            if (search != null)
+            {
+                page = 1;
+            }
+
+            if (!String.IsNullOrEmpty(search))
+            {
+                predicate = predicate.Or(c => c.CourseName.Contains(search));
+                predicate = predicate.Or(c => c.ApplicationUser.firstName.Contains(search));
+                predicate = predicate.Or(c => c.ApplicationUser.lastName.Contains(search));
+            }
+            if (category > 0)
+            {
+                predicate = predicate.Or(c => c.CategoryCourses.Select(cc => cc.CategoryId).ToList().Contains((int)category));
+            }
+
+            predicate = predicate.And(c => c.Status == (int)Course.CourseStatus.Actived);
+            predicate = predicate.And(c => c.DeletedAt == null);
+            //Khoa hoc da mua:
+            var id = User.Identity.GetUserId();
+            predicate = predicate.And(c => c.StudentCourses.Select(sc => sc.MemberId).Contains(id));
+
+            var listCourse = from c in db.Courses select c;
+            listCourse = listCourse.Where(predicate).OrderBy(c => c.CourseName);
+            int pageSize = 9;
+            int pageNumber = (page ?? 1);
+            return View(listCourse.ToPagedList(pageNumber, pageSize));
         }
         [Authorize(Roles = "member,teacher,admin")]
         public ActionResult MemberShip()
         {
+            var UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(db));
+            //Check expired member ship:
+            var id = User.Identity.GetUserId();
+            var user = UserManager.FindById(id);
+            if (memberService.CheckExpiredMember(user) == false)
+            {
+                ViewBag.UserMemberShip = db.Memberships.Where(m => m.ApplicationUser.Id == id).ToList()[0];
+            }
+
             ViewBag.ListMemberType = db.Members.ToList();
             return View();
         }
@@ -187,11 +270,11 @@ namespace CourseOnline.Controllers
             //Kiem tra khoa hoc da duoc mua boi user da dang nhap hoac user da mua member:
             StudentCourse studentCourse = db.StudentCourses.Find(id, currentUserId);
             
-            if (studentCourse == null && memberService.CheckExpiredMember(user) == true)
+            if (studentCourse == null && memberService.CheckExpiredMember(user) == true && course.Price > 0)
             {
                 return RedirectToAction("NotFound");
             }
-            if (course == null)
+            if (course == null || course.DeletedAt != null || course.Status != (int)Course.CourseStatus.Actived)
             {
                 return RedirectToAction("NotFound");
             }
@@ -272,7 +355,7 @@ namespace CourseOnline.Controllers
             var memberId = User.Identity.GetUserId();
             if (Request.IsAuthenticated)
             {
-                myCourse = db.StudentCourses.Where(sc => sc.MemberId == memberId).Select(sc=>sc.CourseId).ToList();
+                myCourse = db.StudentCourses.Where(sc => sc.MemberId == memberId && sc.Course.DeletedAt != null && sc.Course.Status == (int)Course.CourseStatus.Actived).Select(sc=>sc.CourseId).ToList();
             }
             return myCourse;
         }

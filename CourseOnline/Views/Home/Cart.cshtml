@@ -8,16 +8,15 @@
     <section class="main-title-section-wrapper">
         <div class="container">
             <div class="main-title-section">
-                <h1>Cart</h1>
+                <h1>Giỏ hàng</h1>
                 <div class="breadcrumb">
-                    <a href="#">Home</a><span class="fa default">  </span><span class="current">Cart</span>
+                    <a href="/Home">Trang chủ</a><span class="fa default"></span><span class="current">Giỏ hàng</span>
                 </div>
             </div>
             <div class="header-search">
-                <form method="get" id="searchform" class="searchform" action="">
-                    <input id="s" name="s" type="text" value="" class="text_input" placeholder="Search">
-                    <input type="hidden" name="search-type" value="default">
-                    <input type="submit" value="">
+                <form method="get" id="searchform" class="searchform" action="@Url.Action("Shop","Home")">
+                    <input id="search-input" name="search" type="text" class="text_input" placeholder="Tìm kiếm khóa học" value="@ViewBag.Search" />
+                    <input type="submit" value="" />
                 </form>
             </div>
         </div>
@@ -40,10 +39,10 @@
             }
             <div id="post-1061" class="post-1061 page type-page status-publish hentry no-item-cart">
                 <div class="woocommerce">
-                    <p class="cart-empty">Your cart is currently empty.</p>
+                    <p class="cart-empty">Giỏ hàng trống.</p>
                     <p class="return-to-shop">
                         <a class="button wc-backward" href="/Home/Shop">
-                            Return to courses
+                            Quay trở lại trang khóa học
                         </a>
                     </p>
                 </div>
@@ -52,7 +51,7 @@
 
             <div id="post-1061" class="post-1061 page type-page status-publish hentry items-cart">
                 <div class="woocommerce">
-                    <p class="return-to-shop"><a class="button wc-backward" href="/Home/Shop">Return To Shop</a></p>
+                    <p class="return-to-shop"><a class="button wc-backward" href="/Home/Shop">Quay trở lại trang khóa học</a></p>
                     <div class="dt-sc-hr-invisible-small"></div>
 
                     <form class="woocommerce-cart-form" action="" method="post">
