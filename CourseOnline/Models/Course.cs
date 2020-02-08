@@ -24,7 +24,6 @@ namespace CourseOnline.Models
         [Required(AllowEmptyStrings = false, ErrorMessage = "Please enter phone description")]
         public string Description { get; set; }
         public string IntroduceVideo { get; set; }
-
         public string Image { get; set; }
         public string TeacherId { get; set; }
         public int Status { get; set; }
@@ -33,6 +32,7 @@ namespace CourseOnline.Models
         public virtual ICollection<ResourceCourse> ResourceCourses  { get; set; }
         public virtual ICollection<Benefit> Benefits { get; set; }
         public virtual ICollection<CategoryCourse> CategoryCourses { get; set; }
+        public virtual ICollection<StudentCourse> StudentCourses { get; set; }
         public DateTime? CreatedAt { get; set; }
         public DateTime? UpdatedAt { get; set; }
         public DateTime? DeletedAt { get; set; }

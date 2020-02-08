@@ -19,7 +19,12 @@ namespace CourseOnline.Controllers
         {
             return View(db.Categories.ToList());
         }
-
+        public ActionResult GetCategoryAjax()
+        {
+            db.Configuration.ProxyCreationEnabled = false;
+            List<Category> listCategory = db.Categories.Where(c =>c.DeletedAt == null).ToList();
+            return Json(new { data = listCategory }, JsonRequestBehavior.AllowGet);
+        }
         // GET: Categories/Details/5
         public ActionResult Details(int? id)
         {

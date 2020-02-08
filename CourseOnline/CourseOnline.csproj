@@ -266,6 +266,14 @@
     <Compile Include="Migrations\202002051718386_memFix1.Designer.cs">
       <DependentUpon>202002051718386_memFix1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202002081422349_avatar.cs" />
+    <Compile Include="Migrations\202002081422349_avatar.Designer.cs">
+      <DependentUpon>202002081422349_avatar.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202002081618089_fixed4.cs" />
+    <Compile Include="Migrations\202002081618089_fixed4.Designer.cs">
+      <DependentUpon>202002081618089_fixed4.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountRole.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -695,6 +703,8 @@
     <Content Include="Content\js\dataTables.bootstrap4.js" />
     <Content Include="Content\js\front.js" />
     <Content Include="Content\js\jquery.dataTables.js" />
+    <Content Include="Content\js\jquery.toast.min.js" />
+    <Content Include="Content\js\toastDemo.js" />
     <Content Include="Content\js\utils.js" />
     <Content Include="Content\PagedList.css" />
     <Content Include="Content\vendor\bootstrap\css\bootstrap-grid.css" />
@@ -958,6 +968,7 @@
     <Content Include="Views\Home\LearnCourse.cshtml" />
     <Content Include="Views\Home\NotFound.cshtml" />
     <Content Include="Views\Teacher\AddCourse.cshtml" />
+    <Content Include="Views\Teacher\UpdateCourse.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -1027,6 +1038,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202002051718386_memFix1.resx">
       <DependentUpon>202002051718386_memFix1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202002081422349_avatar.resx">
+      <DependentUpon>202002081422349_avatar.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202002081618089_fixed4.resx">
+      <DependentUpon>202002081618089_fixed4.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

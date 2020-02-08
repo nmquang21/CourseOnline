@@ -7,87 +7,92 @@
     var listMyPaidCourseId = ViewBag.MyPaidCourse as List<int>;
     Layout = "~/Views/Shared/_LayoutHome.cshtml";
 }
-
-<!-- **Main** -->
+<style>
+    .actived-page a{
+        border-color: #81c77f !important;
+        background-color: #81c77f;
+        color: #ffffff !important;
+    }
+    .actived-page {
+        border-color: #81c77f;
+    }
+    .course-fee {
+        border-color: black !important;
+        background-color: #fff !important;
+        color: black !important;
+    }
+    .course-fee:hover {
+        border-color: #81c77f !important;
+        background-color: #81c77f !important;
+        color: #ffffff !important;
+    }
+    .course-fee.active {
+        border-color: #81c77f !important;
+        background-color: #81c77f !important;
+        color: #ffffff !important;
+    }
+</style>
 <div id="main">
-
-    <!-- Slider Section -->
-    <!-- Sub Title Section -->
-    <!-- ** Breadcrumb Section ** -->
     <section class="main-title-section-wrapper">
         <div class="container">
             <div class="main-title-section">
-                <h1>Courses</h1>
+                <h1>Khóa học</h1>
                 <div class="breadcrumb">
-                    <a href="https://lmstheme.wpengine.com">Home</a><span class='fa default'>  </span><span class='current'>Courses</span>
+                    <a href="/Home">Home</a><span class='fa default'>  </span><span class='current'>Khóa học</span>
                 </div>
-                <!-- ** breadcrumb - End -->
             </div>
             <div class="header-search">
                 <form method="get" id="searchform" class="searchform" action="@Url.Action("Shop","Home")">
-                    <input id="search-input" name="search" type="text" class="text_input" placeholder="Search" value="@ViewBag.Search"/>
-                    <input type="hidden" name="search-type" value="default" />
+                    <input id="search-input" name="search" type="text" class="text_input" placeholder="Tìm kiếm khóa học" value="@ViewBag.Search"/>
                     <input type="submit" value="" />
                 </form>
             </div>
         </div>
     </section>
-    <!-- ** Breadcrumb Section End ** -->
-    <!-- Sub Title Section -->
-    <!-- ** Container ** -->
     <div class="container">
-
         <!-- ** Primary Section ** -->
         <section id="primary" class="content-full-width">
-
-
             <div class="courses-sorting">
-
-                <div class="courses-popular-type">
-                    <label> Filter by : </label>
-                    <select name="courses-type" id="courses-type" data-postid="4714">
-                        <option value="all">All</option>
-                        <option value="featured">Featured Courses</option>
-                        <option value="popular">Popular Courses</option>
-                    </select>
-                </div>
-
                 <div class="courses-categorywise">
-                    <label> Choose Category : </label>
-                    <select name="courses-category" id="courses-category" data-postid="4714">
-                        <option value="all">All</option>
-                        <option value="68">Education</option>
-                        <option value="71">Engineering</option>
-                        <option value="70">Health</option>
-                        <option value="72">Law</option>
-                        <option value="64">Mathematics</option>
+                    <label> Chọn danh mục: </label>
+                    <select name="courses-category" id="courses-category" data-postid="4714" onchange="javascript:handleSelectCategory(this)">
+                        <option value="" selected="selected">Tất cả</option>
+                        @foreach (var item in ViewBag.ListCategories)
+                        {
+                            <option value="@(item.CategoryId)">@(item.CategoryName)</option>
+                        }
                     </select>
                 </div>
-
+                <div class="courses-popular-type">
+                    <label> Sắp xếp: </label>
+                    <select name="courses-type" id="order-by" onchange="javascript:handleSelectOrder(this)">
+                        <option value="">Tên khóa học</option>
+                        <option value="buy">Mua nhiều nhất</option>
+                        <option value="date">Mới nhất</option>
+                        <option value="price">Giá thấp đến cao</option>
+                        <option value="price_desc">Giá cao đến thấp</option>
+                    </select>
+                </div>
                 <div class="courses-classwise">
-                    <label> Choose Class : </label>
-                    <select name="filter-classes" id="filter-classes" data-postid="4714">
-                        <option value="all">All</option>
+                    <label> Đánh giá: </label>
+                    <select name="filter-classes" id="order-rate">
+                        <option value="">Tất cả</option>
+                        <option value="5">5.0 sao</option>
+                        <option value="4">4.0 trở lên</option>
+                        <option value="3">3.0 trở lên</option>
+                        <option value="0">Dưới 3.0</option>
                     </select>
                 </div>
 
                 <div class="courses-price-type">
-                    <a class="course-price course-all-price active" data-postid="4714" data-price_type="all"> <span> </span>All</a>
-                    <a class="course-price course-paid-price" data-postid="4714" data-price_type="paid"> <span> </span>Paid</a>
-                    <a class="course-price course-free-price" data-postid="4714" data-price_type="free"> <span> </span>Free</a>
+                    @Html.ActionLink("All", "Shop", new { fee = "all", category = ViewBag.CurrentCatalog, sortOrder = ViewBag.CurrentSort }, new { @class = (ViewBag.Free == null || ViewBag.Free == "all") ? "dt-sc-button filled course-fee active" : "dt-sc-button filled course-fee" })
+                    @Html.ActionLink("Paid", "Shop", new { fee = "paid", category = ViewBag.CurrentCatalog, sortOrder = ViewBag.CurrentSort }, new { @class = ViewBag.Free == "paid" ? "dt-sc-button filled course-fee active" : "dt-sc-button filled course-fee" })
+                    @Html.ActionLink("Free", "Shop", new { fee = "free", category = ViewBag.CurrentCatalog, sortOrder = ViewBag.CurrentSort }, new { @class = ViewBag.Free == "free" ? "dt-sc-button filled course-fee active" : "dt-sc-button filled course-fee" })
+
                 </div>
-
             </div>
-
-            <div class="courses-view-type">
-                <a class="course-layout course-grid-type active" data-postid="4714" data-view_type="grid"> <span> </span>Grid</a>
-                <a class="course-layout course-list-type" data-postid="4714" data-view_type="list"> <span> </span>List</a>
-            </div>
-
             <div id="dt-sc-ajax-load-image" style="display:none;"><img src="https://lmstheme.wpengine.com/wp-content/themes/lms/images/loading.gif" alt="" /></div>
             <div class="ajax_tpl_course_content">
-                <div class="dt-sc-results-found">Records Found : <span>12</span></div>
-
                 @for (var i = 0; i < Model.Count; i++)
                 {
                     var first = i % 3 == 0 ? "first" : "";
@@ -102,7 +107,15 @@
                                 </div>
                             </div>
                             <div class="dt-sc-course-details">
-                                <span class="dt-sc-course-price"><span class="amount">@(Math.Round(Model[i].Price).ToString("#,###", CultureInfo.GetCultureInfo("vi-VN").NumberFormat))<span>&#8363;</span></span></span>
+                                @if (Model[i].Price > 0)
+                                {
+                                    <span class="dt-sc-course-price"><span class="amount">@(Math.Round(Model[i].Price).ToString("#,###", CultureInfo.GetCultureInfo("vi-VN").NumberFormat))<span>&#8363;</span></span></span>
+                                }
+                                else if (Model[i].Price == 0)
+                                {
+                                    <span class="dt-sc-course-price"><span class="amount">Free</span></span>
+                                }
+
                                 <h5><a href="https://lmstheme.wpengine.com/courses/advanced-programming/" title="Advanced Programming">@(Model[i].CourseName)</a></h5>
                                 <div class="dt-sc-certificate-badge">
                                     @if (Request.IsAuthenticated && User.IsInRole("teacher") && (Model[i].ApplicationUser.Id == User.Identity.GetUserId()))
@@ -117,10 +130,11 @@
                                 </div>
                                 <div class="dt-sc-course-meta" style="position: relative; padding-left: 40px;">
                                     <div style="display: inline-block; position: absolute; left: 0px;">
-                                        <img src="https://znews-photo.zadn.vn/w660/Uploaded/mdf_drkydd/2019_10_09/03.jpg" alt="Alternate Text" style="border-radius: 100%; width: 30px; height: 30px;"/>
+                                        <img src="https://znews-photo.zadn.vn/w660/Uploaded/mdf_drkydd/2019_10_09/03.jpg" alt="Alternate Text" style="border-radius: 100%; width: 30px; height: 30px;" />
                                     </div>
                                     <p class="teacher-name">@(Model[i].ApplicationUser.firstName)</p>
                                     <p> @(Model[i].ResourceCourses.Count)&nbsp;Bài học </p>
+                                    <p> @(Model[i].StudentCourses.Count)&nbsp;học viên </p>
                                 </div>
                                 <div class="dt-sc-course-data">
                                     <div class="dt-sc-course-duration">
@@ -133,19 +147,15 @@
                     </div>
                 }
 
-
-                <div class="pagination" data-postid="6907">
-                    <ul>
-                        <li class="active-page">1</li>
-                        <li><a href="#">2</a></li>
-                    </ul>
-                    <div class="next-post">
-                        <a href="#" cpage="1" class="dt-next">
-                            Next <span class="fa fa-angle-double-right"></span>
-                        </a>
-                    </div>
+                <div class="pagination">
+                    @Html.PagedListPager(Model, page => Url.Action("Shop",new { page, search = ViewBag.Search, category = ViewBag.CurrentCatalog, sortOrder = ViewBag.CurrentSort, fee = ViewBag.Free }))
                 </div>
-
+                @if (Model.Count == 0)
+                {
+                    <div style="text-align: center">
+                        <h4>Không tìm thấy khóa học!</h4>
+                    </div>
+                }
             </div>
         </section>
     </div>
@@ -154,6 +164,45 @@
 {
     <script>
         jQuery(document).ready(function($) {
-        })
+            $('ul li[class="active"]').addClass('actived-page');
+            console.log($('#courses-category').val());
+            
+            $('#courses-category').val(getParameterFromUrl("category"));
+            $('#order-by').val(getParameterFromUrl("sortOrder"));
+            
+        });
+        function handleSelectCategory(select) {
+            var url_string = window.location.href;
+            var url = new URL(url_string);
+            if (window.location.search) {
+                if (url.searchParams.get("category") != null) {
+                    url.searchParams.set("category", select.value);
+                } else {
+                    url.searchParams.append('category', select.value);
+                }
+            } else {
+                url.searchParams.append('category', select.value);
+            }
+            window.location.search = url.searchParams;
+        }
+        function handleSelectOrder(select) {
+            var url_string = window.location.href;
+            var url = new URL(url_string);
+            if (window.location.search) {
+                if (url.searchParams.get("sortOrder") != null) {
+                    url.searchParams.set("sortOrder", select.value);
+                } else {
+                    url.searchParams.append('sortOrder', select.value);
+                }
+            } else {
+                url.searchParams.append('sortOrder', select.value);
+            }
+            window.location.search = url.searchParams;
+        }
+        function getParameterFromUrl(parameter) {
+            var url_string = window.location.href;
+            var url = new URL(url_string);
+            return url.searchParams.get(parameter);
+        }
     </script>
 }

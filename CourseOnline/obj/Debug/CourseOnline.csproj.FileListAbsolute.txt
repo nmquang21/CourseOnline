@@ -343,3 +343,5 @@ C:\Users\tvngi\OneDrive\Desktop\CourseOnline\CourseOnline\obj\Debug\CourseOnline
 C:\Users\tvngi\OneDrive\Desktop\CourseOnline\CourseOnline\obj\Debug\CourseOnline.Migrations.mem.resources
 C:\Users\tvngi\OneDrive\Desktop\CourseOnline\CourseOnline\obj\Debug\CourseOnline.Migrations.memFix.resources
 C:\Users\tvngi\OneDrive\Desktop\CourseOnline\CourseOnline\obj\Debug\CourseOnline.Migrations.memFix1.resources
+C:\Users\tvngi\OneDrive\Desktop\CourseOnline\CourseOnline\obj\Debug\CourseOnline.Migrations.avatar.resources
+C:\Users\tvngi\OneDrive\Desktop\CourseOnline\CourseOnline\obj\Debug\CourseOnline.Migrations.fixed4.resources
