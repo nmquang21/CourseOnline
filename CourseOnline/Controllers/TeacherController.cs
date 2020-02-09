@@ -7,6 +7,7 @@ using System.Web;
 using System.Web.Mvc;
 using CourseOnline.Models;
 using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace CourseOnline.Controllers
 {
@@ -47,6 +48,7 @@ namespace CourseOnline.Controllers
             newCourse.ApplicationUser = appUser;
             newCourse.Status = (int)Course.CourseStatus.Non_Active;
             newCourse.CreatedAt = DateTime.Now;
+            newCourse.ActiveCode = "AC" + DateTime.Now.Ticks.ToString();
 
             List<CategoryCourse> listCategoryCourse = new List<CategoryCourse>();
             foreach (var item in listCategory)
@@ -109,18 +111,22 @@ namespace CourseOnline.Controllers
         public ActionResult UpdateCourse(int? id)
         {
             ViewBag.ListCategories = db.Categories.Where(c => c.DeletedAt == null).ToList();
+            string currentUserId = User.Identity.GetUserId();
+
             var course = db.Courses.Find(id);
-            if (course == null || course.DeletedAt != null || course.Status == (int)Course.CourseStatus.Deleted)
+            if (course == null || course.DeletedAt != null || course.Status == (int)Course.CourseStatus.Deleted || course.ApplicationUser.Id != currentUserId)
             {
                 return RedirectToAction("NotFound", "Home");
             }
+
             return View(course);
         }
         [Authorize(Roles = "teacher,admin")]
         public ActionResult StoreUpdateCourse(int courseId, string courseName, List<int> listCategory, string introduceVideo, string price, string image, string description, List<string> listBenefit, List<LessonInfomation> listLesson)
         {
+            string currentUserId = User.Identity.GetUserId();
             var currentCourse = db.Courses.Find(courseId);
-            if (currentCourse == null || currentCourse.DeletedAt != null || currentCourse.Status == (int)Course.CourseStatus.Deleted)
+            if (currentCourse == null || currentCourse.DeletedAt != null || currentCourse.Status == (int)Course.CourseStatus.Deleted || currentCourse.ApplicationUser.Id != currentUserId)
             {
                 return RedirectToAction("NotFound", "Home");
             }

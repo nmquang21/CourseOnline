@@ -274,6 +274,10 @@
     <Compile Include="Migrations\202002081618089_fixed4.Designer.cs">
       <DependentUpon>202002081618089_fixed4.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202002081749202_activeCode.cs" />
+    <Compile Include="Migrations\202002081749202_activeCode.Designer.cs">
+      <DependentUpon>202002081749202_activeCode.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountRole.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -969,6 +973,8 @@
     <Content Include="Views\Home\NotFound.cshtml" />
     <Content Include="Views\Teacher\AddCourse.cshtml" />
     <Content Include="Views\Teacher\UpdateCourse.cshtml" />
+    <Content Include="Views\Home\LearnCourseByActiveCode.cshtml" />
+    <Content Include="Views\Home\ActiveCode.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -1044,6 +1050,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202002081618089_fixed4.resx">
       <DependentUpon>202002081618089_fixed4.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202002081749202_activeCode.resx">
+      <DependentUpon>202002081749202_activeCode.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

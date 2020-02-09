@@ -1,0 +1,47 @@
+﻿
+@{
+    ViewBag.Title = "Learn";
+    Layout = "~/Views/Shared/_LayoutHome.cshtml";
+}
+
+<div id="main">
+    <section class="main-title-section-wrapper">
+        <div class="container">
+            <div class="main-title-section">
+                <h1>Kích hoạt khóa học</h1>
+                <div class="breadcrumb">
+                    <a href="/Home">Trang chủ</a><span class="fa default">  </span><span class="current">Kích hoạt khóa học</span>
+                </div>
+            </div>
+            <div class="header-search">
+                <form method="get" id="searchform" class="searchform" action="@Url.Action("Shop","Home")">
+                    <input id="search-input" name="search" type="text" class="text_input" placeholder="Tìm kiếm khóa học" value="@ViewBag.Search" />
+                    <input type="submit" value="" />
+                </form>
+            </div>
+        </div>
+    </section>
+    <div class="container">
+        <section id="primary" class="content-full-width">
+            <div id="post-0" class="bp_activate type-bp_activate post-0 page type-page status-publish hentry">
+                <div id="buddypress">
+                    <div class="page" id="activate-page">
+                        <div id="template-notices" role="alert" aria-atomic="true">
+                        </div>
+                        <form action="@Url.Action("ActiveCodeSubmit","Home")" method="post" class="standard-form" id="activation-form">
+                            <label for="key">Nhập code:</label>
+                            <input type="text" name="code" id="key" value="">
+
+                            <p class="submit">
+                                <input type="submit" value="Kích hoạt">
+                            </p>
+                        </form>
+                    </div>
+                </div>
+                <div class="social-bookmark"></div><div class="social-share"></div>
+            </div>
+        </section>
+    </div>
+</div>
+
+
