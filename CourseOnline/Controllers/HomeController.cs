@@ -29,6 +29,7 @@ namespace CourseOnline.Controllers
         [AllowAnonymous]
         public ActionResult Index()
         {
+            Debug.WriteLine(DateTime.Now.Ticks);
             ViewBag.ListCategories = db.Categories.Where(c => c.DeletedAt == null).ToList();
             ViewBag.HomeCourse = db.Courses.Where(c => c.DeletedAt == null && c.Status == (int)Course.CourseStatus.Actived).Take(2).ToList();
             ViewBag.TotalCourse = db.Courses.Where(c=>c.DeletedAt == null && c.Status == (int)Course.CourseStatus.Actived).ToList().Count();
@@ -281,6 +282,34 @@ namespace CourseOnline.Controllers
             //Danh sach id khoa hoc member da mua:
             ViewBag.MyPaidCourse = myPaidCourses();
             return View(course);
+        }
+        [AllowAnonymous]
+        public ActionResult ActiveCode()
+        {
+            return View();
+        }
+        public ActionResult ActiveCodeSubmit(string code)
+        {
+            return RedirectToAction("LearnCourseByActiveCode", new { code=code });
+        }
+        [AllowAnonymous]
+        public ActionResult LearnCourseByActiveCode(string code)
+        {
+            if (code == null)
+            {
+                return RedirectToAction("NotFound");
+            }
+            var listCourse = db.Courses.Where(c => c.ActiveCode == code && c.DeletedAt == null && c.Status == (int)Course.CourseStatus.Actived).ToList();
+            if (listCourse.Count() == 0)
+            {
+                return RedirectToAction("NotFound");
+            }
+            else if(listCourse[0].DeletedAt != null || listCourse[0].Status == (int)Course.CourseStatus.Deleted)
+            {
+                return RedirectToAction("NotFound");
+            }
+
+            return View(listCourse[0]);
         }
         [AllowAnonymous]
         public ActionResult Cart()

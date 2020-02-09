@@ -291,12 +291,10 @@
                                 <li id="menu-item-4749" class="menu-item menu-item-type-post_type menu-item-object-page">
                                     <a href="/Home/Shop"><i class='fa fa-book'></i>Khóa học</a>
                                 </li>
-                                @if (!Request.IsAuthenticated)
-                                {
-                                    <li id="menu-item-teacher" class="menu-item menu-item-type-post_type menu-item-object-page">
-                                        <a href="/Teacher"><i class='fa fa-book'></i>Kích hoạt khóa học</a>
-                                    </li>
-                                }
+                                <li id="menu-item-teacher" class="menu-item menu-item-type-post_type menu-item-object-page">
+                                    <a href="/Home/ActiveCode"><i class='fa fa-book'></i>Kích hoạt khóa học</a>
+                                </li>
+
                                 @if (Request.IsAuthenticated)
                                 {
                                     <li id="menu-item-yourcourses" class="menu-item menu-item-type-post_type menu-item-object-page">

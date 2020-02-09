@@ -27,6 +27,7 @@ namespace CourseOnline.Models
         public string Image { get; set; }
         public string TeacherId { get; set; }
         public int Status { get; set; }
+        public string ActiveCode { get; set; }
         public virtual ApplicationUser ApplicationUser { get; set; }
         public virtual ICollection<SubjectCourse> SubjectCourses { get; set; }
         public virtual ICollection<ResourceCourse> ResourceCourses  { get; set; }
